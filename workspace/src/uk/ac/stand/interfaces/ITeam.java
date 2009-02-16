@@ -10,11 +10,14 @@ public interface ITeam {
 
 	public void setSpeakers(Collection<ISpeaker> speakers); //Also add to Speaker flag
 
-	public Map<Integer, IResult> getTeamResults();
+	public Map<Integer, Integer> getTeamResults();
 
-	public void setTeamResults(Map<Integer, IResult> teamResults);
+	//TODO remove this?
+	public void setTeamResults(Map<Integer, Integer> teamResults);
 	
-	public void addResult(int round, IResult result);
+	public void addResult(int round, Integer result);
+	
+	public Integer getTeamResult(int round);
 	
 	public void addSpeaker(ISpeaker speaker);
 	

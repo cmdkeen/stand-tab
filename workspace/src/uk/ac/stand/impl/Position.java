@@ -36,6 +36,12 @@ public class Position implements Comparable<Position> {
 		return this.side.compareTo(o.getSide());
 		
 	}
+	
+	public int absNumber() {
+		int ret = (order-1)*2;
+		if(side==Side.Opposition) ret++;
+		return ret;
+	}
 
 	public static Position[] getPositionArray() {
 		if(posArray==null) {

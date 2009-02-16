@@ -1,6 +1,9 @@
 package uk.ac.stand.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import uk.ac.stand.interfaces.ITeam;
 
@@ -8,10 +11,14 @@ public class Draw {
 
 	private int round;
 	private ArrayList<Room> rooms;
+	private Map<ITeam, Position> positions;
+	
+	private int curRoom = 0;
 	
 	public Draw(int round) {
 		this.round = round;
 		rooms = new ArrayList<Room>();
+		positions = new HashMap<ITeam, Position>();
 	}
 	
 	/**
@@ -25,15 +32,35 @@ public class Draw {
 		
 		for(int i = 0; i < (teams.length / positions.length); i++) {
 			//For each room
-			Room r = new Room();
+			Room r = new Room("Room: " + curRoom++);
 			
 			for(int j = 0; j < positions.length; j++) {
 				r.addTeam(positions[j], teams[(i * positions.length) + j]);
+				this.positions.put(teams[(i * positions.length) + j],positions[j]);
 			}
 			
 			rooms.add(r);
 		}
 		
+	}
+	
+	public void addTeams(Map<Position,LinkedList<ITeam>> map, int numAdded) {
+		System.out.println("Added: " + numAdded);
+		for(int i = 0; i < numAdded/map.keySet().size(); i++) {
+			
+			Room r = new Room("Room: " + curRoom++);
+			for(Position p : map.keySet()) {
+				ITeam t = map.get(p).removeFirst();
+				r.addTeam(p, t);
+				this.positions.put(t, p);
+			}
+			rooms.add(r);
+		}
+		
+	}
+	
+	public Position getPosition(ITeam t) {
+		return this.positions.get(t);
 	}
 
 	public int getRound() {

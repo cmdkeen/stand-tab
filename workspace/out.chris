@@ -6,25 +6,82 @@ MINION 3
 # amount of common subexpressions used:0
 # amount of inferred common subexpressions used:0
 # amount of original variables saved (over direct equality):0
-# amount of constraints:1
-# amount of auxiliary variables: 0
+# amount of constraints:34
+# amount of auxiliary variables: 17
 
 **VARIABLES**
-DISCRETE b[8,4,3] {1..100}
+BOOL a[4,4] 
+
+# auxiliary variables
+DISCRETE aux0 {0..2}
+DISCRETE aux1 {0..2}
+DISCRETE aux2 {0..2}
+DISCRETE aux3 {0..2}
+DISCRETE aux4 {0..2}
+DISCRETE aux5 {0..2}
+DISCRETE aux6 {0..2}
+DISCRETE aux7 {0..2}
+DISCRETE aux8 {0..2}
+DISCRETE aux9 {0..2}
+DISCRETE aux10 {0..2}
+DISCRETE aux11 {0..2}
+DISCRETE aux12 {0..2}
+DISCRETE aux13 {0..2}
+DISCRETE aux14 {0..2}
+DISCRETE aux15 {0..2}
+DISCRETE aux16 {0..32}
 
 # aliases
 
 **SEARCH**
 
+MINIMISING aux16
+
 PRINT [
-b]
+a]
 
 VARORDER [
-b]
+a,
+aux0,aux1,aux2,aux3,aux4,aux5,aux6,aux7,
+aux8,aux9,aux10,aux11,aux12,aux13,aux14,aux15,
+aux16]
 
 
 **CONSTRAINTS**
 
-gacalldiff([ b[_,0,0]])
+watchsumleq([a[0, 3],a[1, 3],a[2, 3],a[3, 3]], 1)
+watchsumgeq([a[0, 3],a[1, 3],a[2, 3],a[3, 3]], 1)
+watchsumleq([a[0, 2],a[1, 2],a[2, 2],a[3, 2]], 1)
+watchsumgeq([a[0, 2],a[1, 2],a[2, 2],a[3, 2]], 1)
+watchsumleq([a[0, 1],a[1, 1],a[2, 1],a[3, 1]], 1)
+watchsumgeq([a[0, 1],a[1, 1],a[2, 1],a[3, 1]], 1)
+watchsumleq([a[0, 0],a[1, 0],a[2, 0],a[3, 0]], 1)
+watchsumgeq([a[0, 0],a[1, 0],a[2, 0],a[3, 0]], 1)
+watchsumleq([a[3, 0],a[3, 1],a[3, 2],a[3, 3]], 1)
+watchsumgeq([a[3, 0],a[3, 1],a[3, 2],a[3, 3]], 1)
+watchsumleq([a[2, 0],a[2, 1],a[2, 2],a[2, 3]], 1)
+watchsumgeq([a[2, 0],a[2, 1],a[2, 2],a[2, 3]], 1)
+watchsumleq([a[1, 0],a[1, 1],a[1, 2],a[1, 3]], 1)
+watchsumgeq([a[1, 0],a[1, 1],a[1, 2],a[1, 3]], 1)
+watchsumleq([a[0, 0],a[0, 1],a[0, 2],a[0, 3]], 1)
+watchsumgeq([a[0, 0],a[0, 1],a[0, 2],a[0, 3]], 1)
+sumgeq([aux15,aux14,0,aux12,0,aux10,aux9,aux8,aux7,0,aux5,aux4,0,aux2,aux1,aux0], aux16)
+sumleq([aux15,aux14,0,aux12,0,aux10,aux9,aux8,aux7,0,aux5,aux4,0,aux2,aux1,aux0], aux16)
+product(2,a[3, 3], aux15)
+product(2,a[3, 2], aux14)
+product(2,a[3, 1], aux13)
+product(2,a[3, 0], aux12)
+product(2,a[2, 3], aux11)
+product(2,a[2, 2], aux10)
+product(2,a[2, 1], aux9)
+product(2,a[2, 0], aux8)
+product(2,a[1, 3], aux7)
+product(2,a[1, 2], aux6)
+product(2,a[1, 1], aux5)
+product(2,a[1, 0], aux4)
+product(2,a[0, 3], aux3)
+product(2,a[0, 2], aux2)
+product(2,a[0, 1], aux1)
+product(2,a[0, 0], aux0)
 
 **EOF**

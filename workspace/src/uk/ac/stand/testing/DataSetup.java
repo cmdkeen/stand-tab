@@ -1,11 +1,7 @@
 package uk.ac.stand.testing;
 
-import java.util.Collections;
-import java.util.LinkedList;
-
 import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.Competition;
-import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Settings;
 import uk.ac.stand.impl.Speaker;
 import uk.ac.stand.impl.Team;
@@ -44,9 +40,9 @@ public class DataSetup {
 			}
 		}
 		
-		Competition.getInstance().addDraw(1, genDraw(1));
+		//Competition.getInstance().addDraw(1, genDraw(1));
 	}
-	
+	/*
 	public static Draw genDraw(int round) {
 		Draw d = new Draw(round);
 		
@@ -60,5 +56,6 @@ public class DataSetup {
 		
 		return d;
 	}
+	*/
 	
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.stand.enums.Required;
-import uk.ac.stand.interfaces.IResult;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
@@ -14,14 +13,14 @@ public class Team implements ITeam {
 	
 	private Map<String, Object> store;
 	private ArrayList<ISpeaker> speakers;
-	private Map<Integer, IResult> results;
+	private Map<Integer, Integer> results;
 	
 	public Team() {
 		speakers = new ArrayList<ISpeaker>((Integer) Required.SPEAKERS_PER_TEAM.getValue());	
 		store = new HashMap<String, Object>(Competition.getInstance().getTeamData().length);
 		
 		store.put("Speaker", speakers);
-		results = new HashMap<Integer, IResult>((Integer) Required.ROUNDS.getValue());
+		results = new HashMap<Integer, Integer>((Integer) Required.ROUNDS.getValue());
 	}
 
 	public Object getFlag(String flagID) {
@@ -36,7 +35,7 @@ public class Team implements ITeam {
 		return speakers;
 	}
 
-	public Map<Integer, IResult> getTeamResults() {
+	public Map<Integer, Integer> getTeamResults() {
 		return results;
 	}
 
@@ -58,11 +57,26 @@ public class Team implements ITeam {
 		setFlag("Speaker",this.speakers);
 	}
 
-	public void setTeamResults(Map<Integer, IResult> teamResults) {
+	public void setTeamResults(Map<Integer, Integer> teamResults) {
+		Integer i = 0;
+		for(Integer j : teamResults.values()) i+=j;
+		setFlag("TotalScore", i);
 		this.results = teamResults;
 	}
+	
+	public Integer getTeamResult(int round) {
+		return results.get(round);
+	}
 
-	public void addResult(int round, IResult result) {
+	public void addResult(int round, Integer result) {
+		if(getFlag("TotalScore")==null) {
+			setFlag("TotalScore",result);
+		} else if(results.containsKey(round)) {
+			//Update the total score
+			setFlag("TotalScore",(Integer)getFlag("TotalScore")-results.get(round)+result);
+		} else {
+			setFlag("TotalScore",(Integer)getFlag("TotalScore")+result);
+		}
 		results.put(round, result);
 	}
 	

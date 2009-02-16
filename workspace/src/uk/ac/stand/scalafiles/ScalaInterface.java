@@ -1,7 +1,9 @@
 package uk.ac.stand.scalafiles;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import uk.ac.stand.minion.EssenceToMinion;
 import uk.ac.stand.minion.RunnerTest;
@@ -16,7 +18,7 @@ public class ScalaInterface {
         simpleInterpreter.main(aas);
         */
 		
-		test2();
+		test1();
         
     } 
 	
@@ -35,10 +37,7 @@ public class ScalaInterface {
 		
 		vars[0] = l.createArray(t, l.new EInt());
 		vars[1] = l.createArray(t, l.new EInt());
-		
-		//vars[0] = l.EInt("1:1",1);
-		//vars[1] = new EInt("1:1",1);
-		
+				
 		extractData(sols, vars);
 		
 		for(Var v : vars) v.toString();
@@ -51,8 +50,6 @@ public class ScalaInterface {
 		
 		LinkedList<String> sols = etm.runMinionFind();
 		
-		System.out.println("Value: " + etm.getObjectiveValue());
-		
 		Var[] vars = new Var[1];
 		
 		int[] t = {8,4,3};
@@ -62,8 +59,6 @@ public class ScalaInterface {
 		//vars[0] = l.EInt("1:1",1);
 		//vars[1] = new EInt("1:1",1);
 		
-		System.out.println(etm.minionOut);
-		
 		extractData(sols, vars);
 		
 		for(Var v : vars) v.toString();
@@ -71,8 +66,33 @@ public class ScalaInterface {
 	
 	public static void extractData(List<String> sols, Var[] vars) {
 		
-		vars[0].set(sols.toArray(new String[sols.size()]));
+		List<String> data = new LinkedList<String>();
+		StringTokenizer st = null;
 		
+		for(String s : sols) {
+			st = new StringTokenizer(s);
+			
+			while(st.hasMoreTokens()) data.add(st.nextToken());
+		}
+		
+		Iterator<String> i = data.iterator();
+		
+		for(Var v : vars) v.set(i);
+		
+		//for(Var v : vars) System.out.println(v.toString());
+		
+	}
+	
+	//TODO other extracts...
+	
+	public static int[] extractIntArray(EArray ea) {
+		Var[] ia = ea.getValue();
+		
+		int[] ret = new int[ia.length];
+		
+		for(int i = 0; i < ia.length; i++) ret[i] = (Integer)ia[i].getValue();
+		
+		return ret;
 	}
 	
 	

@@ -1,7 +1,6 @@
 package uk.ac.stand.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,11 +71,11 @@ public class Competition {
 		return speakerDataMul;
 	}
 
-	public Collection<ITeam> getTeams() {
+	public ArrayList<ITeam> getTeams() {
 		return teams;
 	}
 	
-	public Collection<ISpeaker> getSpeakers() {
+	public ArrayList<ISpeaker> getSpeakers() {
 		return speakers;
 	}
 	
@@ -117,5 +116,9 @@ public class Competition {
 		
 		setupComplete = true;
 		return true;
+	}
+
+	public Map<Integer,Draw> getDraws() {
+		return rounds;
 	}
 }

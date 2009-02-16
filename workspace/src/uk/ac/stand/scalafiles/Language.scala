@@ -10,40 +10,34 @@ class Language {
   
   trait Var {   
     
-    def size() = 0
-    def set(s : Array[String]): Var = {
-      for(a <- s) print(a)
-      println()
-      //if(size() != s.length) throw new IllegalArgumentException("Parameter string is the wrong size: " + size() + " versus " + s.length)
-      
-      val n = seth(s)
-     
-      n //Pass back the variable
-    }
-    def seth(s : Array[String]): Var = seth(s,0)
-    def seth(s: Array[String], i: Int): Var
+    def size() = 1
+    def set(s : java.util.Iterator[String]): Var
+    def getValue(): Any
   }
   case class EArray(v: Array[Var]) extends Var {
     override def size() = v.foldLeft(0){(a,b) => a+b.size+1}
     
+    def getValue = v
     
-    override def seth(s : Array[String], i: Int): Var =  {
-      print("seth: ")
-      for(a <- s) print(a)
-      println()
+    override def set(s : java.util.Iterator[String]): Var =  {
       
       if(v.first.isInstanceOf[EArray] /*|| v.first.isInstanceOf[ETuple]*/){
 	      
 	      for(x <- 0 to v.length-1) {
-	        println("x: " + x + " subarray " + v(x).size + " string: " + s.length + "  ***  v(x) = v(x).set(Array[String](s(x))) ")
-	        v(x) = v(x).set(s.slice(x,v(x).size).force)
+	        v(x) = v(x).set(s)
 	      }	
       } else {
+        
         for(x <- 0 to v.length-1) {
-          v(x) = v(x).seth(s,x) //We're down to the variables themselves now rather than an array
+          v(x) = v(x).set(s) //We're down to the variables themselves now rather than an array
         }
       }
       this
+    }
+    
+    override def toString(): String = {
+      v.foldLeft(""){(a,b) => a+b.toString + " "} + "\n"
+      
     }
   }
   /*
@@ -61,17 +55,18 @@ class Language {
   }*/
   case class EInt(v: java.lang.Integer) extends Var {
     def this() = this(0)
+    def getValue = v
     
-    override def seth(s : Array[String], i : Int): Var =  {
-      println("EInt: " + this + " s: " + s.first + "i: " + i)
-      EInt(EssenceToMinion.getIntValues(s.first).apply(i))
+    override def set(s : java.util.Iterator[String]): Var =  {
+       EInt(Integer.parseInt(s.next))
     }
   }
   case class EBool(v: java.lang.Boolean) extends Var {
     def this() = this(false)
+    def getValue = v
     
-    override def seth(s : Array[String], i : Int): Var =  {
-      if (EssenceToMinion.getIntValues(s.first).apply(i).compareTo(0) > 1)
+    override def set(s : java.util.Iterator[String]): Var =  {
+      if (Integer.parseInt(s.next) > 1)
         EBool(true)
       else
         EBool(false)
@@ -79,9 +74,10 @@ class Language {
     }
   case class EDouble(v: java.lang.Double) extends Var {
     def this() = this(0.0)
+    def getValue = v
     
-    override def seth(s : Array[String], i: Int): Var =  {
-      EDouble(EssenceToMinion.getDoubleValues(s.first).apply(i))
+    override def set(s : java.util.Iterator[String]): Var =  {
+      EDouble(java.lang.Double.parseDouble(s.next))
     }
   }
   

@@ -21,6 +21,14 @@ public class Speaker implements ISpeaker {
 	}
 
 	public void addScore(int round, int score) {
+		if(getFlag("TotalScore")==null) {
+			setFlag("TotalScore", score);
+		} else if(scores.containsKey(round)) {
+			//Update the total score
+			setFlag("TotalScore",(Integer)getFlag("TotalScore")-scores.get(round)+score);
+		} else {
+			setFlag("TotalScore",(Integer)getFlag("TotalScore")+score);
+		}
 		scores.put(round, score);
 	}
 
@@ -46,7 +54,6 @@ public class Speaker implements ISpeaker {
 	
 	public void setFlag(String id, Object data) {
 		store.put(id, data);
-		
 	}
 
 	public void setFlags(Map<String, Object> flags) {
