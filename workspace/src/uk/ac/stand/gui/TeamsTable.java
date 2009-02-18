@@ -25,6 +25,7 @@ public class TeamsTable extends JPanel implements ListSelectionListener {
         tm = new TeamTableModel();
         
 		teamtable = new JTable(tm);
+		teamtable.setAutoCreateRowSorter(true);
         teamtable.setPreferredScrollableViewportSize(new Dimension(500, 400));
         teamtable.setFillsViewportHeight(true);
 

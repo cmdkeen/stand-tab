@@ -1,6 +1,6 @@
 language ESSENCE' 1.b.a
 
-$given weight, tpr, size, rounds : int
+$given weight, tpr, rounds : int
 
 given weight, tpr, ppsize, cppsize, desiredsize, rounds : int
 

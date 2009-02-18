@@ -16,13 +16,17 @@ public class SettingsTab extends JPanel implements ActionListener, TableModelLis
 	
 	private JButton createCompetition = null;
 	private SettingsTable table;
+	private MainGUI parent;
 	
-	public SettingsTab() {
-		this(false);
+	public SettingsTab(MainGUI parent) {
+		this(false, parent);
 	}
 	
-	public SettingsTab(boolean editable) {
+	public SettingsTab(boolean editable, MainGUI parent) {	
 		super(new GridLayout(2,0));
+		
+		this.parent = parent;
+		
 		table = new SettingsTable(editable);
 		add(table);
 		
@@ -45,6 +49,7 @@ public class SettingsTab extends JPanel implements ActionListener, TableModelLis
 		if(e.getActionCommand().equals("create")) {
 			System.out.println("Competition set");
 			createCompetition.setEnabled(false);
+			parent.competitionSetup();
 		}
 	}
 	

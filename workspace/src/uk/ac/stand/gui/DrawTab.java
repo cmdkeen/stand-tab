@@ -14,7 +14,7 @@ import uk.ac.stand.enums.Required;
 public class DrawTab extends JPanel implements ListSelectionListener {
 
 	private DrawTable table = null;
-	private JList rounds = null;
+	protected JList rounds = null;
 	
 	public DrawTab() {
 		super(new GridLayout(1,2));

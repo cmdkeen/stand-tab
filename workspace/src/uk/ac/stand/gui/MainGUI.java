@@ -8,25 +8,33 @@ import javax.swing.JTabbedPane;
 
 @SuppressWarnings("serial")
 public class MainGUI extends JPanel{
+	
+	JTabbedPane tabbedPane = new JTabbedPane();
+    JComponent teams = new TeamsTab();
+    JComponent settings = new SettingsTab(true, this);
+    JComponent speakers = new SpeakersTab();
+    JComponent rounds = new DrawTabGen();
 
 	public MainGUI() {
 		super(new GridLayout(1, 1));
         
-        JTabbedPane tabbedPane = new JTabbedPane();
-        JComponent teams = new TeamsTab();
-        JComponent settings = new SettingsTab(true);
-        JComponent speakers = new SpeakersTab();
-        JComponent rounds = new DrawTabGen();
-        
         tabbedPane.addTab("Settings", settings);
-        tabbedPane.addTab("Teams", teams);
-        tabbedPane.addTab("Speakers", speakers);
-        tabbedPane.addTab("Rounds", rounds);
+        
         
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         
         add(tabbedPane);
 
+	}
+	
+	protected void competitionSetup() {
+		tabbedPane.addTab("Teams", teams);
+        tabbedPane.addTab("Speakers", speakers);
+        tabbedPane.addTab("Rounds", rounds);
+        
+        tabbedPane.setSelectedComponent(teams);
+        
+        tabbedPane.remove(settings);
 	}
 	
 	

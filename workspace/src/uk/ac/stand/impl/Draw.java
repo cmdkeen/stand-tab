@@ -50,6 +50,10 @@ public class Draw {
 			
 			Room r = new Room("Room: " + curRoom++);
 			for(Position p : map.keySet()) {
+				if(map.get(p).size()==0) {
+					System.out.println("Draw Error - Expecting a team for " + p + " but was not assigned - exiting - see addTeams(map," + numAdded + ")");
+					System.exit(-1);
+				}
 				ITeam t = map.get(p).removeFirst();
 				r.addTeam(p, t);
 				this.positions.put(t, p);

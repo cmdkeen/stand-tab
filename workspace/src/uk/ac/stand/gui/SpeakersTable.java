@@ -24,6 +24,7 @@ public class SpeakersTable extends JPanel implements ListSelectionListener {
 		sm = new SpeakerTableModel();
 		
 		speakertable = new JTable(sm);
+		speakertable.setAutoCreateRowSorter(true);
 		speakertable.setPreferredScrollableViewportSize(new Dimension(500, 400));
 		speakertable.setFillsViewportHeight(true);
 

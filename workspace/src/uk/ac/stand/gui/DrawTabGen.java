@@ -7,15 +7,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import uk.ac.stand.antlr.FakeDraw;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.testing.Simulation;
 
 @SuppressWarnings("serial")
-public class DrawTabGen extends JPanel implements ActionListener {
+public class DrawTabGen extends JPanel implements ActionListener, ListSelectionListener {
 
-	DrawTab dt;
+	private DrawTab dt;
 	private JList methods;
 	private JButton generateRound;
 	private JButton generateResults;
@@ -32,18 +34,23 @@ public class DrawTabGen extends JPanel implements ActionListener {
 		generateRound = new JButton("Draw Round");
 		generateRound.setActionCommand("genRound");
 		generateRound.addActionListener(this);
+		generateRound.setEnabled(false);
 		
 		methods = new JList(FakeDraw.draws);
+		methods.addListSelectionListener(this);
 		
 		generateResults = new JButton("Generate Results");
 		generateResults.setActionCommand("genResults");
 		generateResults.addActionListener(this);
+		generateResults.setEnabled(false);
 		
 		lower.add(methods);
 		lower.add(generateRound);
 		lower.add(generateResults);
 		
 		add(lower);
+		
+		dt.rounds.addListSelectionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -66,6 +73,9 @@ public class DrawTabGen extends JPanel implements ActionListener {
 			
 			dt.getTable().getTableModel().setRound(row);
 			
+			generateRound.setEnabled(false);
+			generateResults.setEnabled(true);
+			
 		} else if(e.getActionCommand().equals("genResults")) {
 			int row = dt.getList().getSelectedIndex();
 			
@@ -74,7 +84,58 @@ public class DrawTabGen extends JPanel implements ActionListener {
 			
 			Simulation sim = new Simulation(123456);
 			sim.makeResults(row);
+			
+			generateResults.setEnabled(false);
 		}
+		
+	}
+	
+	protected void testButtons() {
+		if(dt.rounds.getSelectedIndex()==-1) { //A round is selected
+			generateRound.setEnabled(false);
+			generateResults.setEnabled(false);
+		} else if(Competition.getInstance().getDraws().containsKey(dt.rounds.getSelectedIndex()+1)) { //A draw for this round has happened
+			generateRound.setEnabled(false);
+			if(Competition.getInstance().getTeams().get(0).getTeamResult(dt.rounds.getSelectedIndex()+1)==null) {//No results have been entered for this round
+				generateResults.setEnabled(true);
+			} else {
+				generateResults.setEnabled(false);
+			}
+		} else {
+			if(methods.getSelectedIndex()!=-1 && (Competition.getInstance().getTeams().get(0).getTeamResult(dt.rounds.getSelectedIndex())!=null||methods.getSelectedIndex()==0)) {
+				//A draw method is selected & the previous round has results entered or the round is the first round
+				generateRound.setEnabled(true);
+				generateResults.setEnabled(false);
+			} else {
+				generateRound.setEnabled(false);
+				generateResults.setEnabled(false);
+			}
+		}
+	}
+
+	public void valueChanged(ListSelectionEvent e) {
+		/*if(e.getSource()==dt.rounds && dt.rounds.getSelectedIndex()!=-1) {
+			if(Competition.getInstance().getDraws().containsKey(dt.rounds.getSelectedIndex()+1)) {
+				generateRound.setEnabled(false);
+				if(Competition.getInstance().getTeams().get(0).getTeamResult(dt.rounds.getSelectedIndex()+1)==null) {
+					generateResults.setEnabled(true);
+				} else {
+					generateResults.setEnabled(false);
+				}
+			} else if(methods.getSelectedIndex()!=-1){ //And there is a draw method selected
+				 generateRound.setEnabled(true);
+			}
+		}
+		
+		if(e.getSource()==methods) {
+			if(methods.getSelectedIndex()==-1) {
+				generateRound.setEnabled(false);
+			} else if(!Competition.getInstance().getDraws().containsKey(dt.rounds.getSelectedIndex()+1)) {
+				generateRound.setEnabled(true);
+			}
+		}*/
+		
+		testButtons();
 		
 	}
 	
