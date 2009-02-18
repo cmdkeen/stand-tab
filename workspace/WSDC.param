@@ -1,0 +1,46 @@
+language ESSENCE' 1.b.a
+
+parameter setsize is 4
+parameter rounds is 8
+parameter numTeams is 38
+
+parameter set is [
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+3,
+3,
+3,
+3,
+3,
+3,
+3,
+3,
+3,
+3,
+4,
+4,
+4,
+4,
+4,
+4,
+4,
+4,
+4
+]
