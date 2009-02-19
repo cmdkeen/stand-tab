@@ -12,4 +12,4 @@ Of course the demon bugs of project demos came to play, Dilbert was correct as a
 There was some good news at least, some really helpful suggestions came out of the meeting about how to improve what I was doing:
 
 * Use 'soft constraints' and an objective function so that slower models will let the user decide whether to wait for a potentially better solution, or end the run and use the current best solution.
-* GCC - or the global consistency constraint has apparently just been added to [minion](http://minion.sourceforge.net/) and [tailor](http://www.cs.st-and.ac.uk/~andrea/tailor/) - basically it looks a bit like atmost but allows for global propagation. Which should be much faster.
+* GCC - or the Generalized Cardinality Constraint has apparently just been added to [minion](http://minion.sourceforge.net/) and [tailor](http://www.cs.st-and.ac.uk/~andrea/tailor/) - basically it looks a bit like atmost but allows for global propagation. Which should be much faster.
