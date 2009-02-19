@@ -28,6 +28,9 @@ public class FakeDraw {
 	}
 	
 	public Draw doDraw(int round, String drawType) {
+		
+		System.out.println("***\n\nRound: " + round + "\n\n***");
+		
 		Draw d = null;
 		
 		ArrayList<String> dr = new ArrayList<String>(Arrays.asList(draws)); //Really kludgy
@@ -76,6 +79,9 @@ public class FakeDraw {
 		Collections.sort(order);
 		Collections.reverse(order);
 		
+		System.out.println("Pools: ");
+		for(int i:order) System.out.println(mpools.get(i));
+		
 		List<List<ITeam>> pools = new LinkedList<List<ITeam>>();
 		
 		int tpr = (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2; //4
@@ -91,9 +97,18 @@ public class FakeDraw {
 			}
 			if(j.size()%tpr==0) {
 				pools.add(j);
+				System.out.println("Adding: "  + j);
 				j = new LinkedList<ITeam>();
 			}
-			if(tlist.size()>0) {j.addAll(tlist); tlist.clear();}
+			if(tlist.size()>0) {
+				j.addAll(tlist); 
+				tlist.clear();
+				if(j.size()%tpr==0) {
+					pools.add(j);
+					System.out.println("Adding: "  + j);
+					j = new LinkedList<ITeam>();
+				}
+			}
 		}
 		 
 		System.out.println(pools.size() + " pools");
@@ -195,21 +210,28 @@ public class FakeDraw {
 		
 		for(Integer i : order) {
 			LinkedList<ITeam> tlist = mpools.get(i);
+			System.out.println("T size: " + tlist.size() + " J size: " + j.size());
 			if(j.size()==0) { //List is empty, new pool
 				j.addAll(tlist); tlist.clear();
+				System.out.println("Added " + j.size());
 			}
 			if(j.size()>0 && j.size()%tpr!=0) { //Some teams in the list - so pullup
 				//while(j.size()%tpr!=0 && tlist.size()>0) j.add(tlist.remove());
-				if(tlist.size()<j.size()%tpr) {
+				if(tlist.size()<(j.size()%tpr)) {
+					System.out.println("Adding from t, j: " + j.size());
 					while(tlist.size()>0) j.add(tlist.remove()); //Need to pull up all the teams
-				} else if((j.size()+tlist.size()) % tpr == 0 && j.size()>0){
+					System.out.println("J size: " + j.size());
+				} else if(tlist.size() + j.size() > tpr){ //At least enough for one round
 					//call minion
-					 temp = callMinionWUDCPullup(j,tlist, j.size()%tpr,round);
+					System.out.println("Calling minion: " + j.size() + " Pullup: " + tlist.size());
+					temp = callMinionWUDCPullup(j,tlist, tpr - j.size()%tpr,round);
 					
 					ret.addTeams(temp, j.size() + j.size()%tpr);
+					j = new LinkedList<ITeam>();
 				}
 			}
 			if(j.size()%tpr==0 && j.size()>0) {
+				System.out.println("Calling minion: " + j.size());
 				temp = callMinionWUDCPullup(j,round);
 				ret.addTeams(temp,j.size());
 				j = new LinkedList<ITeam>();
