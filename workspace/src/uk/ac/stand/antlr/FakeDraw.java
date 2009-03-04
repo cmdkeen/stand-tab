@@ -13,6 +13,7 @@ import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Position;
 import uk.ac.stand.impl.Settings;
+import uk.ac.stand.impl.Team;
 import uk.ac.stand.interfaces.ITeam;
 import uk.ac.stand.minion.EssenceToMinion;
 import uk.ac.stand.scalafiles.*;
@@ -81,7 +82,7 @@ public class FakeDraw {
 		
 		System.out.println("Pools: ");
 		for(int i:order) System.out.println(mpools.get(i));
-		
+		//TODO TreeMap change from HashMap for built in ordering?
 		List<List<ITeam>> pools = new LinkedList<List<ITeam>>();
 		
 		int tpr = (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2; //4
@@ -382,7 +383,7 @@ public class FakeDraw {
 			for(Integer i : draws.keySet()) {
 				Draw r = draws.get(i);
 				if(r.getPosition(t[j])==null) {
-					System.out.println("ERROR: " + t[j].getFlag("TeamName"));
+					System.out.println("ERROR: " + t[j].toString());
 					System.exit(-1);
 				}
 				//System.out.println(r.getPosition(t[j]).absNumber());
@@ -409,7 +410,7 @@ public class FakeDraw {
 			for(Integer i : draws.keySet()) {
 				Draw r = draws.get(i);
 				if(r.getPosition(t[j])==null) {
-					System.out.println("ERROR: " + t[j].getFlag("TeamName"));
+					System.out.println("ERROR: " + t[j].toString());
 					System.exit(-1);
 				}
 				//System.out.println(r.getPosition(t[j]).absNumber());
@@ -456,7 +457,7 @@ public class FakeDraw {
 				for(Integer i : draws.keySet()) {
 					Draw r = draws.get(i);
 					if(r.getPosition(t[j])==null) {
-						System.out.println("ERROR: " + t[j].getFlag("TeamName"));
+						System.out.println("ERROR: " + t[j].toString());
 						System.exit(-1);
 					}
 					//System.out.println(r.getPosition(t[j]).absNumber());

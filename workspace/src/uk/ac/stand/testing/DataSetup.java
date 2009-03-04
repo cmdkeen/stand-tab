@@ -26,8 +26,8 @@ public class DataSetup {
 	public static void addTeamsSpeakers() {
 		for(int i = 0; i < (Integer) Required.NUMBER_OF_TEAMS.getValue(); i++) {
 			ITeam t = new Team();
-			t.setFlag("TeamName","Team_" + i);
-			t.setFlag("Institution", "Inst_" + ((i % 4) + 1));
+			t.setFlagValue(Team.getFlagsStatic().getFlagFromString("TeamName"),"Team_" + i);
+			t.setFlagValue(Team.getFlagsStatic().getFlagFromString("Institution"), "Inst_" + ((i % 4) + 1));
 			
 			Competition.getInstance().addTeam(t);
 			
@@ -36,7 +36,7 @@ public class DataSetup {
 				
 				Competition.getInstance().addSpeaker(s);
 				
-				s.setFlag("SpeakerName", "Speaker_" + j);
+				s.setFlagValue(Speaker.getFlagsStatic().getFlagFromString("SpeakerName"), "Speaker_" + j);
 			}
 		}
 		

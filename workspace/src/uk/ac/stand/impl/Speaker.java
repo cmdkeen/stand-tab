@@ -7,29 +7,39 @@ import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
-public class Speaker implements ISpeaker {
+public class Speaker extends FlagUser implements ISpeaker {
 
 	private ITeam team;
 	
+	private static Flag[] functions = {new Flag("TotalScore")}; //The built in functions - i.e. hard coded in this class
+	private static Flags flags = null;
+	
+	public static void setFlags(Flags flags) {
+		Speaker.flags = flags;
+	}
+	
+	public Flags getFlags() {
+		return flags;
+	}
+	
+	public static Flags getFlagsStatic() {
+		return flags;
+	}
+	
 	private Map<Integer, Integer> scores;
-	private Map<String, Object> store;
 	
 	public Speaker(ITeam team) {
 		this.team = team;
 		scores = new HashMap<Integer, Integer>((Integer) Settings.getInstance().getValue(Required.ROUNDS));
-		store = new HashMap<String, Object>(Competition.getInstance().getSpeakerData().length);
+		
+		setFlagValue(flags.getFlagFromString("Result"), scores);
 	}
 
 	public void addScore(int round, int score) {
-		if(getFlag("TotalScore")==null) {
-			setFlag("TotalScore", score);
-		} else if(scores.containsKey(round)) {
-			//Update the total score
-			setFlag("TotalScore",(Integer)getFlag("TotalScore")-scores.get(round)+score);
-		} else {
-			setFlag("TotalScore",(Integer)getFlag("TotalScore")+score);
+		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round));
+		if(f!=null) {
+			scores.put(round, score);
 		}
-		scores.put(round, score);
 	}
 
 	public int getScore(int round) {
@@ -44,25 +54,47 @@ public class Speaker implements ISpeaker {
 		return team;
 	}
 
-	public Object getFlag(String flagID) {
-		return store.get(flagID);
+	public String toString() {
+		String s;
+		try {
+			s = (String) getFlagValue(flags.getFlagFromString("SpeakerName"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+		if(s instanceof String) return s;
+		return "fail";
 	}
 
-	public Map<String, Object> getFlags() {
-		return store;
+	public Flag[] getBuiltInFunctions() {
+		return functions;
 	}
 	
-	public void setFlag(String id, Object data) {
-		store.put(id, data);
+	public static Flag[] getBuiltInStatic() {
+		return functions;
 	}
 
-	public void setFlags(Map<String, Object> flags) {
-		store = flags;
+	public Object runBuiltInFunction(Flag name, Object... args) {
+		for(int i = 0; i<functions.length; i++) {
+			if(functions[i].equals(name)) {
+				switch (i) {
+				case 0:
+					return totalScore();
+				}
+			}
+		}
+		return null; //No function by that name found
 	}
 
-	public String toString() {
-		return (String) store.get("SpeakerName");
+	private Integer totalScore() {
+		int r = 0;
+		for(Integer i : scores.values()) r += i;
+		return r;
 	}
 
+	public Object runInterpretedFunction(Flag flag, Object... args)	throws Exception {
+		return flags.getFunction(flag).run(this, args);
+	}
+	
 
 }

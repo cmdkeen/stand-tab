@@ -9,6 +9,8 @@ import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
 public class Competition {
+	
+	//TODO settings as flags?
 
 	//Singleton Factory
 	
@@ -25,13 +27,7 @@ public class Competition {
 	
 	//Competition global setup data
 	private boolean setupComplete = false;
-	
-	private String[] teamData = null;
-	private int[] teamDataMul = null;
-	
-	private String[] speakerData = null;
-	private int[] speakerDataMul = null;
-	
+		
 	//Competition global data
 	private ArrayList<ITeam> teams = null;
 	private ArrayList<ISpeaker> speakers = null;
@@ -43,32 +39,16 @@ public class Competition {
 		//Clever thing to do with speakers and other multiple value things, create as Speaker, Speaker - then in SpeakerNumber have the associated value
 		//For now:
 		
-		String ttemp[] = {"TeamName","Institution","Speaker","Speaker","TotalScore"};
-		int nttemp[] = {0,0,1,2,0}; //0 indicates that it is not a multi attribute piece of data
-		teamData = ttemp;
-		teamDataMul = nttemp;
+		Flag ttemp[] = {new Flag("TeamName"),new Flag("Institution"),new MultFlag("Speaker",0),new MultFlag("Speaker",1), new MultFlag("Result",1)};
+		Flags f = new Flags(ttemp, Team.getBuiltInStatic(), null);
 		
-		String stemp[] = {"SpeakerName", "TotalScore"};
-		int sttemp[] = {0,0};
-		speakerData = stemp;
-		speakerDataMul = sttemp;
+		Team.setFlags(f);
 		
-	}
-
-	public String[] getTeamData() {
-		return teamData;
-	}
-
-	public String[] getSpeakerData() {
-		return speakerData;
-	}
-
-	public int[] getTeamDataMul() {
-		return teamDataMul;
-	}
-
-	public int[] getSpeakerDataMul() {
-		return speakerDataMul;
+		Flag stemp[] = {new Flag("SpeakerName"), new MultFlag("Result",1)};
+		f = new Flags(stemp, Speaker.getBuiltInStatic(), null);
+		
+		Speaker.setFlags(f);
+		
 	}
 
 	public ArrayList<ITeam> getTeams() {
