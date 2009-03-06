@@ -1,0 +1,6 @@
+---
+layout: post
+title: First release
+---
+
+Huzzah! The first release of the application is available. It is still very far from being the end product. Our own debating competition is coming up and this provides the perfect opportunity for some real world usage, finger crossed...
