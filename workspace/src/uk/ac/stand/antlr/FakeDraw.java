@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import uk.ac.stand.enums.Required;
+import uk.ac.stand.export.Export;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Position;
 import uk.ac.stand.impl.Settings;
-import uk.ac.stand.impl.Team;
 import uk.ac.stand.interfaces.ITeam;
 import uk.ac.stand.minion.EssenceToMinion;
 import uk.ac.stand.scalafiles.*;
@@ -29,6 +29,14 @@ public class FakeDraw {
 	}
 	
 	public Draw doDraw(int round, String drawType) {
+		
+		try{
+			String location = "saves/before" + round + ".comp";
+			Export.exportCompetition(location);
+			System.out.println("Competition saved to: " + location);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		System.out.println("***\n\nRound: " + round + "\n\n***");
 		

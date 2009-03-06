@@ -1,5 +1,6 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,7 +8,9 @@ import java.util.Map;
 
 import uk.ac.stand.interfaces.ITeam;
 
-public class Draw {
+public class Draw implements Serializable {
+	
+	private static final long serialVersionUID = 50320091L;
 
 	private int round;
 	private ArrayList<Room> rooms;
@@ -74,5 +77,5 @@ public class Draw {
 	public ArrayList<Room> getRooms() {
 		return rooms;
 	}
-	
+		
 }

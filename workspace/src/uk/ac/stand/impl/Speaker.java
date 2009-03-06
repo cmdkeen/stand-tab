@@ -1,5 +1,6 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,9 @@ import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
-public class Speaker extends FlagUser implements ISpeaker {
+public class Speaker extends FlagUser implements ISpeaker, Serializable {
+
+	private static final long serialVersionUID = 50320091L;
 
 	private ITeam team;
 	
@@ -23,6 +26,7 @@ public class Speaker extends FlagUser implements ISpeaker {
 	}
 	
 	public static Flags getFlagsStatic() {
+		if(flags==null) flags = Competition.getInstance().getSpeakerFlags(); //Get around serialisation
 		return flags;
 	}
 	

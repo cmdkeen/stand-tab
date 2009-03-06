@@ -54,12 +54,7 @@ public class DrawTabGen extends JPanel implements ActionListener, ListSelectionL
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("genRound")) {
-			
-			
-			
-			//int row = dt.getTable().drawTable.getSelectedRow();
-			
+		if(e.getActionCommand().equals("genRound")) {			
 			int row = dt.getList().getSelectedIndex();
 			int mrow = methods.getSelectedIndex();
 			
@@ -67,7 +62,6 @@ public class DrawTabGen extends JPanel implements ActionListener, ListSelectionL
 			
 			row++; //Row 0 is for round 1
 			
-			//Competition.getInstance().addDraw(row, DataSetup.genDraw(row));
 			FakeDraw fd = new FakeDraw();
 			Competition.getInstance().addDraw(row, fd.doDraw(row, FakeDraw.draws[mrow]));
 			
@@ -102,7 +96,7 @@ public class DrawTabGen extends JPanel implements ActionListener, ListSelectionL
 				generateResults.setEnabled(false);
 			}
 		} else {
-			if(methods.getSelectedIndex()!=-1 && (Competition.getInstance().getTeams().get(0).getTeamResult(dt.rounds.getSelectedIndex())!=null||methods.getSelectedIndex()==0)) {
+			if(methods.getSelectedIndex()!=-1 && Competition.getInstance().getTeams().size()>0 && (Competition.getInstance().getTeams().get(0).getTeamResult(dt.rounds.getSelectedIndex())!=null||methods.getSelectedIndex()==0)) {
 				//A draw method is selected & the previous round has results entered or the round is the first round
 				generateRound.setEnabled(true);
 				generateResults.setEnabled(false);
@@ -114,27 +108,7 @@ public class DrawTabGen extends JPanel implements ActionListener, ListSelectionL
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-		/*if(e.getSource()==dt.rounds && dt.rounds.getSelectedIndex()!=-1) {
-			if(Competition.getInstance().getDraws().containsKey(dt.rounds.getSelectedIndex()+1)) {
-				generateRound.setEnabled(false);
-				if(Competition.getInstance().getTeams().get(0).getTeamResult(dt.rounds.getSelectedIndex()+1)==null) {
-					generateResults.setEnabled(true);
-				} else {
-					generateResults.setEnabled(false);
-				}
-			} else if(methods.getSelectedIndex()!=-1){ //And there is a draw method selected
-				 generateRound.setEnabled(true);
-			}
-		}
-		
-		if(e.getSource()==methods) {
-			if(methods.getSelectedIndex()==-1) {
-				generateRound.setEnabled(false);
-			} else if(!Competition.getInstance().getDraws().containsKey(dt.rounds.getSelectedIndex()+1)) {
-				generateRound.setEnabled(true);
-			}
-		}*/
-		
+	
 		testButtons();
 		
 	}

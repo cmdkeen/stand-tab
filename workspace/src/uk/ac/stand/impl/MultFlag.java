@@ -1,6 +1,10 @@
 package uk.ac.stand.impl;
 
-public class MultFlag extends Flag {
+import java.io.Serializable;
+
+public class MultFlag extends Flag implements Serializable {
+	
+	private static final long serialVersionUID = 50320091L;
 	
 	private int index;
 

@@ -4,13 +4,13 @@ import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Settings;
 import uk.ac.stand.impl.Speaker;
-import uk.ac.stand.impl.Team;
-import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
+import uk.ac.stand.interfaces.ISpeaker;
+import uk.ac.stand.impl.Team;
 
 public class DataSetup {
 
-	public DataSetup(int numRounds, int numSpeakersPerTeam, int numTeams, int numTeamsPerSide) {
+	public DataSetup(int numRounds, int numSpeakersPerTeam, int numTeams, int numTeamsPerSide, boolean setup) {
 		
 		Settings settings = Settings.getInstance();
 		
@@ -19,8 +19,7 @@ public class DataSetup {
 		settings.setValue(Required.NUMBER_OF_TEAMS, numTeams);
 		settings.setValue(Required.TEAMS_PER_SIDE, numTeamsPerSide);
 		
-		Competition.getInstance().setup();
-		
+		if(setup) Competition.getInstance().setup();
 	}
 	
 	public static void addTeamsSpeakers() {

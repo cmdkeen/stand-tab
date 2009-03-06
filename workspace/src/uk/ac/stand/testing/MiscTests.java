@@ -1,7 +1,5 @@
 package uk.ac.stand.testing;
 
-import java.util.Arrays;
-
 import uk.ac.stand.impl.Flag;
 import uk.ac.stand.impl.MultFlag;
 
@@ -11,7 +9,7 @@ public class MiscTests {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+		/*
 		Flag[] array = new Flag[4];
 		
 		Flag a = new MultFlag("a",1);
@@ -28,7 +26,15 @@ public class MiscTests {
 		int i = Arrays.binarySearch(array, a);
 		
 		System.out.println(i);
-
+		*/
+		
+		Flag f = new Flag("a", Flag.class);
+		
+		MultFlag mf = new MultFlag("b",2);
+		
+		System.out.println(f.isAcceptable(mf));
+		
+		
 	}
 
 }

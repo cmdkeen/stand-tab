@@ -1,5 +1,6 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -11,8 +12,10 @@ import uk.ac.stand.enums.Required;
  * 
  */
 
-public class Settings {
+public class Settings implements Serializable {
 
+	private static final long serialVersionUID = 50320091L;
+	
 	//Singleton factory
 	private static Settings instance = null;
 	

@@ -1,19 +1,21 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import uk.ac.stand.antlr.Rules;
 import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
-public class Competition {
+public class Competition implements Serializable {
+	private static final long serialVersionUID = 50320091L;
 	
 	//TODO settings as flags?
 
 	//Singleton Factory
-	
 	private static Competition instance = null;
 	
 	private Competition() {
@@ -25,6 +27,15 @@ public class Competition {
 		return instance;
 	}
 	
+	/**
+	 * Sets a new Competition, used to load a previously exported Competition
+	 * 
+	 * @param c the new Competition
+	 */
+	public static void setInstance(Competition c) {
+		instance = c;
+	}
+	
 	//Competition global setup data
 	private boolean setupComplete = false;
 		
@@ -33,21 +44,26 @@ public class Competition {
 	private ArrayList<ISpeaker> speakers = null;
 	private Map<Integer,Draw> rounds = null;
 	
+	private Flags teamFlags, speakerFlags = null; 
+	
 			
+	public Flags getTeamFlags() {
+		return teamFlags;
+	}
+
+	public Flags getSpeakerFlags() {
+		return speakerFlags;
+	}
+
 	public void loadRules() {
 		//TODO implement
 		//Clever thing to do with speakers and other multiple value things, create as Speaker, Speaker - then in SpeakerNumber have the associated value
 		//For now:
 		
-		Flag ttemp[] = {new Flag("TeamName"),new Flag("Institution"),new MultFlag("Speaker",0),new MultFlag("Speaker",1), new MultFlag("Result",1)};
-		Flags f = new Flags(ttemp, Team.getBuiltInStatic(), null);
+		Rules r = new Rules();
 		
-		Team.setFlags(f);
-		
-		Flag stemp[] = {new Flag("SpeakerName"), new MultFlag("Result",1)};
-		f = new Flags(stemp, Speaker.getBuiltInStatic(), null);
-		
-		Speaker.setFlags(f);
+		teamFlags = r.createTeamFlags();
+		speakerFlags = r.createSpeakerFlags();
 		
 	}
 
@@ -60,6 +76,17 @@ public class Competition {
 	}
 	
 	public void addTeam(ITeam team) {
+		for(ITeam t : teams) {
+			try{ 
+			Flag fname = Team.getFlagsStatic().getFlagFromString("TeamName");
+			String name = (String)t.getFlagValue(fname);
+			//TODO Exception?
+			if(name.equals((String)team.getFlagValue(fname))) return; //Don't enter as name already exists
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+		}
 		teams.add(team);
 	}
 	
@@ -101,4 +128,5 @@ public class Competition {
 	public Map<Integer,Draw> getDraws() {
 		return rounds;
 	}
+	
 }

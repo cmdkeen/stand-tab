@@ -1,5 +1,6 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,7 +10,9 @@ import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
-public class Team extends FlagUser implements ITeam {
+public class Team extends FlagUser implements Serializable, ITeam {
+	
+	private static final long serialVersionUID = 50320091L;
 	
 	//Every function here must be referenced in runBuiltInFunction and return something
 	private static Flag[] functions = {new Flag("TotalScore"), new Flag("TotalSpeakerScore")};
@@ -24,6 +27,7 @@ public class Team extends FlagUser implements ITeam {
 	}
 	
 	public static Flags getFlagsStatic() {
+		if(flags==null) flags = Competition.getInstance().getTeamFlags(); //Get around serialisation
 		return flags;
 	}
 		
@@ -134,6 +138,5 @@ public class Team extends FlagUser implements ITeam {
 	public static Flag[] getBuiltInStatic() {
 		return functions;
 	}
-
 
 }

@@ -1,13 +1,17 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ITeam;
 
-public class Room {
 
+public class Room implements Serializable {
+
+	private static final long serialVersionUID = 50320091L;
+	
 	private Map<Position, ITeam> teams;
 	private String roomName;
 	
@@ -43,6 +47,12 @@ public class Room {
 	
 	public void setRoomName(String name) {
 		roomName = name;
+	}
+	
+	public boolean resultEntered(int round) {
+		//TODO get rid of round here, make a field
+		if(teams.values().iterator().next().getTeamResult(round)!=null) return true;
+		return false;
 	}
 	
 	

@@ -13,7 +13,7 @@ public class GUITest {
 
 		
 		@SuppressWarnings("unused")
-		DataSetup ds = new DataSetup(3, 2, 16, 2);
+		DataSetup ds = new DataSetup(3, 2, 16, 2, true);
 					
 		invoke();
 
@@ -25,15 +25,10 @@ public class GUITest {
      * event-dispatching thread.
      */
     private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("TableDemo");
+    	//Create and set up the window.
+        JFrame frame = new MainGUI("StAndTab Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Create and set up the content pane.
-        MainGUI newContentPane = new MainGUI();
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
-        
+       
         //Display the window.
         frame.pack();
         frame.setVisible(true);

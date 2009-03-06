@@ -1,12 +1,18 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.stand.interfaces.IFlagUser;
 
-public abstract class FlagUser implements IFlagUser {
+public abstract class FlagUser implements IFlagUser, Serializable {
+	
+	//TODO Look at using generics to tie flags to certain objects e.g. Flag<String> for TeamName
+	
+	private static final long serialVersionUID = 50320091L;
 	
 	public Map<String, Object> store;
 	
@@ -20,7 +26,7 @@ public abstract class FlagUser implements IFlagUser {
 		}
 		return store.get(flag.getName());
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public Object getSubObject(Flag flag) throws Exception {
 		if(!(flag instanceof MultFlag))	return null;
@@ -67,8 +73,30 @@ public abstract class FlagUser implements IFlagUser {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setFlagValue(Flag flag, Object data) {
-		if(getFlags().containsFlag(flag)) store.put(flag.getName(), data);
+		if(getFlags().containsFlag(flag)) {
+			if(flag.isMultiple()) {
+				Collection<Object> c = (Collection<Object>) store.get(flag.getClass());
+				if(c==null) {
+					store.put(flag.getName(), data);
+				} else if(c instanceof Map) {
+					((Map)c).put(flag.getIndex(), data);
+				} else if(c.size()<flag.getIndex()) {
+					//Place data into c at a given position
+					//TODO inefficient - is there a better way?
+					Object[] array = c.toArray();
+					array[flag.getIndex()] = data;
+					c.clear();
+					c.addAll(Arrays.asList(array));
+				} else {
+					//TODO deal with index not being c.size (ie. indexing error)
+					c.add(data);
+				}
+			} else {
+				store.put(flag.getName(), data);
+			}
+		}
 	}
 	
 }

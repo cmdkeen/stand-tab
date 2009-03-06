@@ -1,10 +1,13 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import uk.ac.stand.interfaces.IFunction;
 
-public class Flags {
+public class Flags implements Serializable {
+	
+	private static final long serialVersionUID = 50320091L;
 	
 	private Flag[] flags; //Stores all the flags in the order passed in (for tablemodel display purposes etc)
 	private Flag[] sortedflags; //The flags sorted for quick searching

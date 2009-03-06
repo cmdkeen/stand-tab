@@ -1,6 +1,7 @@
 package uk.ac.stand.export;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -13,7 +14,9 @@ public class CSVExport extends Export {
 	@Override
 	public void export(TableModel data, boolean header) throws IOException {
 		
-		FileOutputStream fos = new FileOutputStream(super.getFile());
+		File file = Export.getFile("Save location");
+		if(file==null) return;
+		FileOutputStream fos = new FileOutputStream(file);
 		DataOutputStream dos = new DataOutputStream(fos);
 		
 		//dos.writeChars(text);

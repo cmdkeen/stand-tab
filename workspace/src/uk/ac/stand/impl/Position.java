@@ -1,10 +1,14 @@
 package uk.ac.stand.impl;
 
+import java.io.Serializable;
+
 import uk.ac.stand.enums.Required;
 import uk.ac.stand.enums.Side;
 
-public class Position implements Comparable<Position> {
+public class Position implements Comparable<Position>, Serializable {
 
+	private static final long serialVersionUID = 50320091L;
+	
 	private Side side;
 	private int order;
 	
