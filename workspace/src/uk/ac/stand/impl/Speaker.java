@@ -5,45 +5,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.stand.enums.Required;
+import uk.ac.stand.impl.exceptions.StoreException;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
 public class Speaker extends FlagUser implements ISpeaker, Serializable {
 
-	private static final long serialVersionUID = 50320091L;
-
-	private ITeam team;
-	
-	private static Flag[] functions = {new Flag("TotalScore")}; //The built in functions - i.e. hard coded in this class
 	private static Flags flags = null;
 	
-	public static void setFlags(Flags flags) {
-		Speaker.flags = flags;
-	}
+	private static Flag[] functions = {new Flag("TotalScore", Integer.class)}; //The built in functions - i.e. hard coded in this class
+
+	private static final long serialVersionUID = 50320091L;
 	
-	public Flags getFlags() {
-		return flags;
+	public static Flag[] getBuiltInStatic() {
+		return functions;
 	}
-	
 	public static Flags getFlagsStatic() {
 		if(flags==null) flags = Competition.getInstance().getSpeakerFlags(); //Get around serialisation
 		return flags;
 	}
 	
+	public static void setFlags(Flags flags) {
+		Speaker.flags = flags;
+	}
+	
 	private Map<Integer, Integer> scores;
 	
-	public Speaker(ITeam team) {
+	private ITeam team;
+	
+	public Speaker(ITeam team) throws StoreException {
 		this.team = team;
 		scores = new HashMap<Integer, Integer>((Integer) Settings.getInstance().getValue(Required.ROUNDS));
 		
-		setFlagValue(flags.getFlagFromString("Result"), scores);
+		//setFlagValue(flags.getFlagFromString("Result"), scores);
 	}
 
 	public void addScore(int round, int score) {
-		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round));
+		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round, Integer.class));
 		if(f!=null) {
 			scores.put(round, score);
 		}
+	}
+
+	public Flag[] getBuiltInFunctions() {
+		return functions;
+	}
+
+	public Flags getFlags() {
+		return flags;
 	}
 
 	public int getScore(int round) {
@@ -56,6 +65,22 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 
 	public ITeam getTeam() {
 		return team;
+	}
+	
+	public Object runBuiltInFunction(Flag name, Object... args) {
+		for(int i = 0; i<functions.length; i++) {
+			if(functions[i].equals(name)) {
+				switch (i) {
+				case 0:
+					return totalScore();
+				}
+			}
+		}
+		return null; //No function by that name found
+	}
+
+	public Object runInterpretedFunction(Flag flag, Object... args)	throws Exception {
+		return flags.getFunction(flag).run(this, args);
 	}
 
 	public String toString() {
@@ -70,34 +95,10 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 		return "fail";
 	}
 
-	public Flag[] getBuiltInFunctions() {
-		return functions;
-	}
-	
-	public static Flag[] getBuiltInStatic() {
-		return functions;
-	}
-
-	public Object runBuiltInFunction(Flag name, Object... args) {
-		for(int i = 0; i<functions.length; i++) {
-			if(functions[i].equals(name)) {
-				switch (i) {
-				case 0:
-					return totalScore();
-				}
-			}
-		}
-		return null; //No function by that name found
-	}
-
 	private Integer totalScore() {
 		int r = 0;
 		for(Integer i : scores.values()) r += i;
 		return r;
-	}
-
-	public Object runInterpretedFunction(Flag flag, Object... args)	throws Exception {
-		return flags.getFunction(flag).run(this, args);
 	}
 	
 

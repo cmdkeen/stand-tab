@@ -7,53 +7,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.stand.enums.Required;
+import uk.ac.stand.impl.exceptions.StoreException;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
 public class Team extends FlagUser implements Serializable, ITeam {
 	
-	private static final long serialVersionUID = 50320091L;
-	
-	//Every function here must be referenced in runBuiltInFunction and return something
-	private static Flag[] functions = {new Flag("TotalScore"), new Flag("TotalSpeakerScore")};
 	private static Flags flags = null;
 	
-	public static void setFlags(Flags flags) {
-		Team.flags = flags;
-	}
+	//Every function here must be referenced in runBuiltInFunction and return something
+	private static Flag[] functions = {new Flag("TotalScore", Integer.class), new Flag("TotalSpeakerScore", Integer.class)};
+	private static final long serialVersionUID = 50320091L;
 	
-	public Flags getFlags() {
-		return flags;
+	public static Flag[] getBuiltInStatic() {
+		return functions;
 	}
 	
 	public static Flags getFlagsStatic() {
 		if(flags==null) flags = Competition.getInstance().getTeamFlags(); //Get around serialisation
 		return flags;
 	}
-		
-	private ArrayList<ISpeaker> speakers;
-	private Map<Integer, Integer> results;
 	
-	public Team() {
+	public static void setFlags(Flags flags) {
+		Team.flags = flags;
+	}
+		
+	private Map<Integer, Integer> results;
+	private ArrayList<ISpeaker> speakers;
+	
+	public Team() throws StoreException {
 		speakers = new ArrayList<ISpeaker>((Integer) Required.SPEAKERS_PER_TEAM.getValue());
-		setFlagValue(flags.getFlagFromString("Speaker"), speakers);
+		//setFlagValue(flags.getFlagFromString("Speaker"), speakers);
 				
 		results = new HashMap<Integer, Integer>((Integer) Required.ROUNDS.getValue());
-		setFlagValue(flags.getFlagFromString("Result"),results);
+		//setFlagValue(flags.getFlagFromString("Result"),results);
 	}
 
-	public Collection<ISpeaker> getSpeakers() {
-		return speakers;
-	}
-
-	public Map<Integer, Integer> getTeamResults() {
-		return results;
+	public void addResult(int round, Integer result) {
+		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round,Integer.class));
+		if(f!=null) {
+			results.put(round, result);
+		}
+		
 	}
 
 	public void addSpeaker(ISpeaker speaker) {
 		//TODO decide what to do about failure - throw or return false? - probably return
 		if(!speakers.contains(speaker) && speakers.size()<(Integer) Required.SPEAKERS_PER_TEAM.getValue()) {
-			Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",speakers.size()));
+			Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",speakers.size(), ISpeaker.class));
 			//If a flag to access this speaker exists
 			if(f!=null) {
 				speakers.add(speaker);
@@ -61,43 +62,25 @@ public class Team extends FlagUser implements Serializable, ITeam {
 			
 		}
 	}
+
+	public Flag[] getBuiltInFunctions() {
+		return functions;
+	}
 	
-	public void setSpeakers(Collection<ISpeaker> speakers) {
-		this.speakers = new ArrayList<ISpeaker>(speakers); 
-		for(int i = 0; i < speakers.size(); i++) {
-			//getFlagFromSimilar used to a) check such a flag expected b) enter the value with the same object as in Flags
-			Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",i));
-			if(f==null) {
-				System.err.println("Error on flag " + new MultFlag("Speaker",i));
-				System.exit(-1);
-			}
-			//Slightly dodge
-			setFlagValue(f,this.speakers.get(i));
-		}
+	public Flags getFlags() {
+		return flags;
+	}
+
+	public Collection<ISpeaker> getSpeakers() {
+		return speakers;
 	}
 
 	public Integer getTeamResult(int round) {
 		return results.get(round);
 	}
-
-	public void addResult(int round, Integer result) {
-		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round));
-		if(f!=null) {
-			results.put(round, result);
-		}
-		
-	}
 	
-	public String toString() {
-		String s;
-		try {
-			s = (String) getFlagValue(flags.getFlagFromString("TeamName"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "fail";
-		}
-		if(s instanceof String) return s;
-		return "fail";
+	public Map<Integer, Integer> getTeamResults() {
+		return results;
 	}
 
 	public Object runBuiltInFunction(Flag name, Object... args) {
@@ -115,6 +98,36 @@ public class Team extends FlagUser implements Serializable, ITeam {
 		return null; //No function by that name found
 	}
 
+	public Object runInterpretedFunction(Flag flag, Object... args) throws Exception {
+			return flags.getFunction(flag).run(this, args);
+	}
+	
+	public void setSpeakers(Collection<ISpeaker> speakers) throws StoreException {
+		this.speakers = new ArrayList<ISpeaker>(speakers); 
+		for(int i = 0; i < speakers.size(); i++) {
+			//getFlagFromSimilar used to a) check such a flag expected b) enter the value with the same object as in Flags
+			Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",i, ISpeaker.class));
+			if(f==null) {
+				System.err.println("Error on flag " + new MultFlag("Speaker",i, ISpeaker.class));
+				System.exit(-1);
+			}
+			//Slightly dodge
+			setFlagValue(f, this.speakers.get(i));
+		}
+	}
+
+	public String toString() {
+		String s;
+		try {
+			s = (String) getFlagValue(flags.getFlagFromString("TeamName"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
+		if(s instanceof String) return s;
+		return "fail";
+	}
+
 	private Integer totalScore() {
 		int r = 0;
 		for(Integer i : results.values()) r += i;
@@ -125,18 +138,6 @@ public class Team extends FlagUser implements Serializable, ITeam {
 		int r = 0;
 		for(ISpeaker s : speakers) for(Integer i : s.getScores().values()) r += i;
 		return r;
-	}
-
-	public Object runInterpretedFunction(Flag flag, Object... args) throws Exception {
-			return flags.getFunction(flag).run(this, args);
-	}
-
-	public Flag[] getBuiltInFunctions() {
-		return functions;
-	}
-	
-	public static Flag[] getBuiltInStatic() {
-		return functions;
 	}
 
 }

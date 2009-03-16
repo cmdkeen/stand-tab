@@ -30,9 +30,12 @@ public class Flags implements Serializable {
 		
 		if(interpretedFunctions!=null) for(int i = 0; i < interpretedFunctions.length; i++) this.interpreted[i] = interpretedFunctions[i].getFlag();
 		
-		flags = new Flag[fields.length+builtin.length+interpreted.length];
+		//Create the array to hold the flags - deal with null values
+		flags = new Flag[fields.length +
+		                 (builtin==null ? 0 : builtin.length) +
+		                 (interpreted== null ? 0 : interpreted.length)];
 		System.arraycopy(fields, 0, flags, 0, fields.length);
-		System.arraycopy(builtin, 0, flags, fields.length, builtin.length);
+		if(builtin!=null) System.arraycopy(builtin, 0, flags, fields.length, builtin.length);
 		if(interpreted.length>0) System.arraycopy(interpreted, 0, flags, fields.length+builtin.length, interpreted.length);
 		
 		sortedflags = new Flag[flags.length];
@@ -40,9 +43,9 @@ public class Flags implements Serializable {
 		Arrays.sort(sortedflags);
 		
 		Arrays.sort(this.fields);
-		Arrays.sort(this.builtin);
-		if(interpreted.length>0) Arrays.sort(this.interpreted);
-		Arrays.sort(this.interpretedFunctions);
+		if(builtin!=null && builtin.length>0) Arrays.sort(this.builtin);
+		if(interpreted!=null && interpreted.length>0) Arrays.sort(this.interpreted);
+		if(interpretedFunctions!=null && interpretedFunctions.length>0) Arrays.sort(this.interpretedFunctions);
 	}
 	
 	/**
@@ -55,7 +58,9 @@ public class Flags implements Serializable {
 	}
 	
 	public Flag getFlagFromString(String s) {
-		return getFlagFromSimilar(new Flag(s)); //Should be quicker than going through all due to binary search
+		//Should be quicker than going through all due to binary search
+		//Just pass in Object as not going to use this flag for anything else
+		return getFlagFromSimilar(new Flag(s, Object.class)); 
 	}
 	
 	/**
@@ -112,10 +117,12 @@ public class Flags implements Serializable {
 	}
 	
 	public boolean isBuiltinFunction(Flag s) {
+		if(builtin==null) return false;
 		return Arrays.binarySearch(builtin, s) < 0 ? false : true;
 	}
 	
 	public boolean isInterpretedFunction(Flag s) {
+		if(interpreted==null) return false;
 		return Arrays.binarySearch(interpreted, s) < 0 ? false : true;
 	}
 	

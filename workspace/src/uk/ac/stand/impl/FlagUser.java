@@ -1,65 +1,70 @@
 package uk.ac.stand.impl;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import uk.ac.stand.impl.exceptions.StoreException;
 import uk.ac.stand.interfaces.IFlagUser;
 
 public abstract class FlagUser implements IFlagUser, Serializable {
 	
-	//TODO Look at using generics to tie flags to certain objects e.g. Flag<String> for TeamName
-	
 	private static final long serialVersionUID = 50320091L;
 	
-	public Map<String, Object> store;
+	public Map<String, Object> indvStore;
+	public Map<String, Map<Integer, Object>> multStore;
 	
 	public FlagUser() {
-		store = new HashMap<String, Object>();
+		indvStore = new HashMap<String, Object>();
+		multStore = new HashMap<String, Map<Integer, Object>>();
 	}
 
 	public Object getFlagValue(Flag flag) throws Exception {
 		if(getFlags().isFunction(flag)) {
 			return runFunction(flag, (Object[]) null);
 		}
-		return store.get(flag.getName());
+		if(flag.isMultiple()) {
+			//return multStore.get(flag.getName());
+			return getSubObject(flag);
+		} else {
+			return indvStore.get(flag.getName());
+		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Object getSubObject(Flag flag) throws Exception {
 		if(!(flag instanceof MultFlag))	return null;
 		//Index check important as default index value is -1
 		//Previously checked size and index, but due to handling maps wasn't working so done later
 		if(flag.getIndex() < 0)	return null;
-		if(getFlagValue(flag) instanceof HashMap) {
-			Map<Integer, Object> c = (Map<Integer, Object>)getFlagValue(flag);
-			if(c==null) return null;
-			//No need to check if key exists as returning null
-			return c.get(flag.getIndex());
-		} else {
-			Collection<Object> c = (Collection<Object>)getFlagValue(flag);
+
+		//Map<Integer, Object> c = (Map<Integer, Object>)getFlagValue(flag);
+		Map<Integer, Object> m = multStore.get(flag.getName());
+		if(m==null) return null;
+		//No need to check if key exists as returning null
+		return m.get(flag.getIndex());
+
+			/*Collection<Object> c = (Collection<Object>)getFlagValue(flag);
 			if(c==null) return null;
 			if(c.size()<=flag.getIndex()) return null;
 			return c.toArray()[flag.getIndex()];
-		}
+			*/
+
 	}
 
 	public boolean isMultiObject(Flag flag) {
 		try {
-			return (getFlagValue(flag) instanceof Collection) ? true : false;
+			return (getFlagValue(flag) instanceof Map) ? true : false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 
-	@SuppressWarnings("unchecked") //Know it is a collection from isMultiObject
 	public int multiObjectSize(Flag flag) {
 		if(isMultiObject(flag))
 			try {
-				return ((Collection<Object>) getFlagValue(flag)).size();
+				//return ((Collection<Object>) getFlagValue(flag)).size();
+				return multStore.get(flag.getName()).size();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return -1;
@@ -73,28 +78,30 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public void setFlagValue(Flag flag, Object data) {
+	public void setFlagValue(Flag flag, Object data) throws StoreException {
 		if(getFlags().containsFlag(flag)) {
 			if(flag.isMultiple()) {
-				Collection<Object> c = (Collection<Object>) store.get(flag.getClass());
-				if(c==null) {
-					store.put(flag.getName(), data);
-				} else if(c instanceof Map) {
-					((Map)c).put(flag.getIndex(), data);
-				} else if(c.size()<flag.getIndex()) {
+				//Collection<Object> c = (Collection<Object>) store.get(flag.getName());
+				Map<Integer, Object> m = multStore.get(flag.getName());
+				if(m==null) { //Create the multiple mapping
+					Map<Integer, Object> n = new HashMap<Integer, Object>();
+					n.put(flag.getIndex(), data);
+					multStore.put(flag.getName(), n);
+				} else if(m instanceof Map) {
+					m.put(flag.getIndex(), data);
+				} /*else if(c.size()<flag.getIndex()) {
 					//Place data into c at a given position
 					//TODO inefficient - is there a better way?
 					Object[] array = c.toArray();
 					array[flag.getIndex()] = data;
 					c.clear();
 					c.addAll(Arrays.asList(array));
-				} else {
-					//TODO deal with index not being c.size (ie. indexing error)
-					c.add(data);
+				}*/ else {
+						throw new StoreException("Stored flag not null or a Map");
 				}
+			
 			} else {
-				store.put(flag.getName(), data);
+				indvStore.put(flag.getName(), data);
 			}
 		}
 	}

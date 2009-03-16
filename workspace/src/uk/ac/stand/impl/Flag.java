@@ -9,23 +9,29 @@ public class Flag implements Comparable<Flag>, Serializable {
 	protected String name;
 	private Class<?> type = Object.class;
 	
-	public Flag (String name) {
+	public Flag (String name, Class<?> type) {
 		this.name = name;
-	}
-	
-	public Flag (String name, Object type) {
-		this.name = name;
-		this.type = type.getClass();
+		this.type = type;
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * If isMultiple() is true then this will return the index location of this particular flag
+	 * 
+	 * @return the index into the collection or -1 if not a multiple
+	 */
 	public int getIndex() {
 		return -1;
 	}
 	
+	/**
+	 * Test as to whether this flag has multiple values attached. Ie. if it is a collection
+	 * 
+	 * @return if this flag is a multiple
+	 */
 	public boolean isMultiple() {
 		return false;
 	}
@@ -42,12 +48,28 @@ public class Flag implements Comparable<Flag>, Serializable {
 	public String toString() {
 		return name;	
 	}
-	
-	//TODO get this working?
+
+	/**
+	 * Checks whether a supplied instance could be assigned to a flag
+	 * 
+	 * @param o an instance of an object (or primitive)
+	 * @return whether this instance's class inherits from the defined class for this flag
+	 */
 	public boolean isAcceptable(Object o) {
-		if(type.isAssignableFrom(o.getClass())) return true;
-		return false;
+		return type.isAssignableFrom(o.getClass());
+	}
+	
+	/**
+	 * Checks whether a supplied class could be assigned to a flag
+	 * 
+	 * @param t the class type to check
+	 * @return whether this class inherits from the defined class for this flag
+	 */
+	public boolean isAcceptable(Class<?> t) {
+		return type.isAssignableFrom(t);
 	}
 
-
+	public Class<?> getType() {
+		return type;
+	}
 }

@@ -2,16 +2,17 @@ package uk.ac.stand.interfaces;
 
 import uk.ac.stand.impl.Flag;
 import uk.ac.stand.impl.Flags;
+import uk.ac.stand.impl.exceptions.StoreException;
 
 
 public interface IFlagUser {
 
-	public void setFlagValue(Flag flag, Object data);
+	public void setFlagValue(Flag flag, Object data) throws StoreException;
 
 	public Object getFlagValue(Flag flag) throws Exception;
 
 	/**
-	 * Theoretically only the final concrete implementation will implement this. Having a static Flags instance associated with it.
+	 * Only the final concrete implementation will implement this. The class should have a static field so that all instances of the class have the same flags at runtime.
 	 * 
 	 * @return the flags object for this class
 	 */

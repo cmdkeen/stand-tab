@@ -1,2 +1,5 @@
+*.class
 *.csv
-*.comp
+*.out
+.DS_Store
+workspace/.manager/

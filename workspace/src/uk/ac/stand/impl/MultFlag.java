@@ -8,8 +8,8 @@ public class MultFlag extends Flag implements Serializable {
 	
 	private int index;
 
-	public MultFlag(String name, int index) {
-		super(name);
+	public MultFlag(String name, int index, Class<?> type) {
+		super(name, type);
 		this.index = index;
 	}
 	

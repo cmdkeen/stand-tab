@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import uk.ac.stand.impl.exceptions.StoreException;
 import uk.ac.stand.testing.DataSetup;
 
 @SuppressWarnings("serial")
@@ -36,7 +37,11 @@ public class TeamsTab extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("testdata")) {
-			DataSetup.addTeamsSpeakers(); 
+			try {
+				DataSetup.addTeamsSpeakers();
+			} catch (StoreException e1) {
+				e1.printStackTrace();
+			} 
 			
 			table.getTableModel().fireTableDataChanged();
 			

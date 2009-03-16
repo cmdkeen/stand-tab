@@ -32,9 +32,11 @@ public abstract class Export {
 	 * @param fileName the name of the file to save to
 	 * @throws IOException
 	 */
-	public static void exportCompetition(String fileName) throws Exception {
+	public static void exportCompetition(String directories, String fileName) throws Exception {
 		if(fileName==null) return;
-		File f = new File(fileName);
+		File d = new File(directories);
+		d.mkdirs(); //Create any nescessary directories
+		File f = new File(directories + fileName);
 		if(f!=null) exportCompetition(f);
 	}
 	
@@ -45,6 +47,7 @@ public abstract class Export {
 	 * @throws IOException
 	 */
 	private static void exportCompetition(File file) throws Exception {
+		
 		FileOutputStream fos = new FileOutputStream(file);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		

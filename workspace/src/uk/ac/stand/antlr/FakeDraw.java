@@ -31,9 +31,10 @@ public class FakeDraw {
 	public Draw doDraw(int round, String drawType) {
 		
 		try{
-			String location = "saves/before" + round + ".comp";
-			Export.exportCompetition(location);
-			System.out.println("Competition saved to: " + location);
+			String dirs = "saves/"; 
+			String file = "before" + round + ".comp";
+			Export.exportCompetition(dirs, file);
+			System.out.println("Competition saved to: " + dirs + file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
