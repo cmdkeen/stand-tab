@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Room;
+import uk.ac.stand.impl.Settings;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
@@ -42,7 +42,13 @@ public class Simulation {
 			Collections.shuffle(scores, rng);	
 			
 			//Random list of speaks, in pairs sorted by position
-			List<Integer> s = generateSpeaks(tpr,(Integer)Required.SPEAKERS_PER_TEAM.getValue());
+			List<Integer> s;
+			try {
+				s = generateSpeaks(tpr,(Integer) Settings.getInstance().getFlagValue("speakersPerTeam"));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
 			
 			tr.clear();
 			sr.clear();

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ITeam;
 
 
@@ -22,11 +21,16 @@ public class Room implements Serializable {
 	public Room(String roomName) {
 		this.roomName = roomName;
 		
-		teams = new HashMap<Position,ITeam>(((Integer)Required.TEAMS_PER_SIDE.getValue()) * 2);
+		teams = new HashMap<Position,ITeam>();
 	}
 	
 	public boolean isComplete() {
-		return (teams.size()==(((Integer)Required.TEAMS_PER_SIDE.getValue()) * 2));
+		try {
+			return (teams.size()==(((Integer) Settings.getInstance().getFlagValue("teamsPerSide")) * 2));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public void addTeam(Position p, ITeam t) {

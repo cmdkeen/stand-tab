@@ -7,6 +7,8 @@ import uk.ac.stand.impl.exceptions.StoreException;
 
 
 public interface ITeam extends IFlagUser {
+	
+	//TODO javadoc
 
 	public Collection<ISpeaker> getSpeakers();
 
@@ -18,6 +20,13 @@ public interface ITeam extends IFlagUser {
 	
 	public Integer getTeamResult(int round);
 	
-	public void addSpeaker(ISpeaker speaker);
+	/**
+	 * Attempts to add a speaker to the team
+	 * Will fail if already enough speakers
+	 * 
+	 * @param speaker
+	 * @return whether the adding succeeded
+	 */
+	public boolean addSpeaker(ISpeaker speaker);
 
 }

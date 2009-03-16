@@ -8,7 +8,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import uk.ac.stand.enums.Required;
+import uk.ac.stand.impl.Settings;
 
 @SuppressWarnings("serial")
 public class DrawTab extends JPanel implements ListSelectionListener {
@@ -19,7 +19,12 @@ public class DrawTab extends JPanel implements ListSelectionListener {
 	public DrawTab() {
 		super(new GridLayout(1,2));
 		
-		rounds = new JList(genRoundsArray());
+		try {
+			rounds = new JList(genRoundsArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
 		rounds.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		add(rounds);
@@ -31,8 +36,8 @@ public class DrawTab extends JPanel implements ListSelectionListener {
 		add(table);
 	}
 	
-	private Integer[] genRoundsArray() {
-		Integer numRounds = (Integer) Required.ROUNDS.getValue();
+	private Integer[] genRoundsArray() throws Exception {
+		Integer numRounds = (Integer) Settings.getInstance().getFlagValue("numRounds");
 		
 		Integer[] ret = new Integer[numRounds];
 		

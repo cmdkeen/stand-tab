@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.export.Export;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
@@ -94,7 +93,13 @@ public class FakeDraw {
 		//TODO TreeMap change from HashMap for built in ordering?
 		List<List<ITeam>> pools = new LinkedList<List<ITeam>>();
 		
-		int tpr = (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2; //4
+		int tpr;
+		try {
+			tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		
 		LinkedList<ITeam> j = new LinkedList<ITeam>();
 		for(Integer i : order) {
@@ -145,8 +150,15 @@ public class FakeDraw {
 		Language l = new Language();
 		
 		Language.Var[] vars = new Language.Var[1];
+
+		int tpr;
+		try {
+			tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			return null;
+		}
 		
-		int[] t = {p.size(),(Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2};
+		int[] t = {p.size(),tpr};
 		
 		vars[0] = l.createArray(t, l.new EInt());
 		
@@ -184,8 +196,15 @@ public class FakeDraw {
 		
 		Language.Var[] vars = new Language.Var[1];
 		
-		int[] t = {Competition.getInstance().getTeams().size(),(Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2};
-		
+		int tpr;
+		try {
+			tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			return null;
+		}
+
+		int[] t = {Competition.getInstance().getTeams().size(), tpr};
+
 		vars[0] = l.createArray(t, l.new EInt());
 						
 		ScalaInterface.extractData(sols, vars);
@@ -213,7 +232,12 @@ public class FakeDraw {
 		Collections.sort(order);
 		Collections.reverse(order);
 				
-		int tpr = (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2; //4
+		int tpr;
+		try {
+			tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			return null;
+		}
 		
 		LinkedList<ITeam> j = new LinkedList<ITeam>();
 		Map<Position,LinkedList<ITeam>> temp = null;
@@ -267,10 +291,17 @@ public class FakeDraw {
 		
 		Language.Var[] vars = new Language.Var[2];
 		
-		int[] t = {main.size(),(Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2};
+		int tpr;
+		try {
+			tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			return null;
+		}
+		
+		int[] t = {main.size(), tpr};
 		
 		vars[0] = l.createArray(t, l.new EInt());
-		int[] tp = {pull.size(), (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2};
+		int[] tp = {pull.size(), tpr};
 		vars[1] = l.createArray(tp, l.new EInt());
 		
 		ScalaInterface.extractData(sols, vars);
@@ -374,7 +405,12 @@ public class FakeDraw {
 		String ret = "language ESSENCE' 1.b.a\n";
 		
 		ret += "parameter ppsize is " + teams.size();
-		int tpr = (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2;
+		int tpr;
+		try {
+			tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			return null;
+		}
 		
 		ret += "\nparameter cppsize is " + pull.size(); 
 		ret += "\nparameter desiredsize is " + desired; 
@@ -450,7 +486,12 @@ public class FakeDraw {
 			String ret = "language ESSENCE' 1.b.a";
 
 			ret += "parameter size is " + p.size();
-			int tpr = (Integer)Settings.getInstance().getValue(Required.TEAMS_PER_SIDE) * 2;
+			int tpr;
+			try {
+				tpr = (Integer)Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+			} catch (Exception e) {
+				return null;
+			}
 			ret += "\nparameter tpr is " + tpr;
 			ret += "\nparameter weight is 2";
 			ret += "\nparameter rounds is " + round;

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.exceptions.StoreException;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
@@ -35,7 +34,7 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 	
 	public Speaker(ITeam team) throws StoreException {
 		this.team = team;
-		scores = new HashMap<Integer, Integer>((Integer) Settings.getInstance().getValue(Required.ROUNDS));
+		scores = new HashMap<Integer, Integer>();
 		
 		//setFlagValue(flags.getFlagFromString("Result"), scores);
 	}
@@ -52,6 +51,7 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 	}
 
 	public Flags getFlags() {
+		if(flags==null) flags = Competition.getInstance().getTeamFlags(); //Get around serialisation
 		return flags;
 	}
 

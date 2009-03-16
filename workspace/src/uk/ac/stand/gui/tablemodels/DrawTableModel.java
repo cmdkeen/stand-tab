@@ -2,11 +2,11 @@ package uk.ac.stand.gui.tablemodels;
 
 import javax.swing.table.AbstractTableModel;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Position;
 import uk.ac.stand.impl.Room;
+import uk.ac.stand.impl.Settings;
 
 @SuppressWarnings("serial")
 public class DrawTableModel extends AbstractTableModel {
@@ -39,13 +39,24 @@ public class DrawTableModel extends AbstractTableModel {
 
 	public int getRowCount() {
 		if(draw==null) return 0;
-		return draw.getRooms().size() * (Integer)Required.TEAMS_PER_SIDE.getValue() * 2;
+		try {
+			return draw.getRooms().size() * (Integer) Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if(draw == null || draw.getRooms().size()==0) return null;
 		
-		int roomSize = (Integer)Required.TEAMS_PER_SIDE.getValue() * 2;
+		int roomSize;
+		try {
+			roomSize = (Integer) Settings.getInstance().getFlagValue("teamsPerSide") * 2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		
 		Room r = draw.getRooms().get(rowIndex/roomSize);
 		

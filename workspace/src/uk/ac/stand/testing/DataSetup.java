@@ -1,6 +1,5 @@
 package uk.ac.stand.testing;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Settings;
 import uk.ac.stand.impl.Speaker;
@@ -10,28 +9,31 @@ import uk.ac.stand.impl.Team;
 import uk.ac.stand.impl.exceptions.StoreException;
 
 public class DataSetup {
+	
+	//TODO replace with user input generated
 
-	public DataSetup(int numRounds, int numSpeakersPerTeam, int numTeams, int numTeamsPerSide, boolean setup) {
+	public DataSetup(int numRounds, int numSpeakersPerTeam, int numTeams, int numTeamsPerSide, boolean setup) throws StoreException {
 		
 		Settings settings = Settings.getInstance();
 		
-		settings.setValue(Required.ROUNDS, numRounds);
-		settings.setValue(Required.SPEAKERS_PER_TEAM, numSpeakersPerTeam);
-		settings.setValue(Required.NUMBER_OF_TEAMS, numTeams);
-		settings.setValue(Required.TEAMS_PER_SIDE, numTeamsPerSide);
+		settings.setFlagValue("numRounds", numRounds);
+		settings.setFlagValue("speakersPerTeam", numSpeakersPerTeam);
+		settings.setFlagValue("numTeams", numTeams);
+		settings.setFlagValue("teamsPerSide", numTeamsPerSide);
 		
 		if(setup) Competition.getInstance().setup();
 	}
 	
-	public static void addTeamsSpeakers() throws StoreException {
-		for(int i = 0; i < (Integer) Required.NUMBER_OF_TEAMS.getValue(); i++) {
+	public static void addTeamsSpeakers() throws Exception {
+		Settings settings = Settings.getInstance();
+		for(int i = 0; i < (Integer) settings.getFlagValue("numTeams"); i++) {
 			ITeam t = new Team();
 			t.setFlagValue(Team.getFlagsStatic().getFlagFromString("TeamName"),"Team_" + i);
 			t.setFlagValue(Team.getFlagsStatic().getFlagFromString("Institution"), "Inst_" + ((i % 4) + 1));
 			
 			Competition.getInstance().addTeam(t);
 			
-			for(int j = 0; j < (Integer) Required.SPEAKERS_PER_TEAM.getValue(); j++) {
+			for(int j = 0; j < (Integer) settings.getFlagValue("speakersPerTeam"); j++) {
 				ISpeaker s = new Speaker(t);
 				
 				Competition.getInstance().addSpeaker(s);

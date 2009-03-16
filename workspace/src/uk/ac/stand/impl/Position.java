@@ -2,7 +2,6 @@ package uk.ac.stand.impl;
 
 import java.io.Serializable;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.enums.Side;
 
 public class Position implements Comparable<Position>, Serializable {
@@ -50,7 +49,13 @@ public class Position implements Comparable<Position>, Serializable {
 	public static Position[] getPositionArray() {
 		if(posArray==null) {
 		
-			Integer tps = (Integer)Required.TEAMS_PER_SIDE.getValue();
+			int tps = 0;
+			try {
+				tps = (Integer) Settings.getInstance().getFlagValue("teamsPerSide");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
 			
 			Position[] ret = new Position[tps*2];
 			

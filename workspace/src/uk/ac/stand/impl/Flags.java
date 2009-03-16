@@ -63,6 +63,10 @@ public class Flags implements Serializable {
 		return getFlagFromSimilar(new Flag(s, Object.class)); 
 	}
 	
+	public Flag getFlagFromString(String s, Integer index) {
+		return getFlagFromSimilar(new MultFlag(s, index, Object.class));
+	}
+	
 	/**
 	 * The array has been sorted. For the original ordering use Arrays.copyOfRange(getFlags(),getFields().length,getBuiltin().length)
 	 * 

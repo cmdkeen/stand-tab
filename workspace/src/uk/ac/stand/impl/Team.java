@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.impl.exceptions.StoreException;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
@@ -36,10 +35,10 @@ public class Team extends FlagUser implements Serializable, ITeam {
 	private ArrayList<ISpeaker> speakers;
 	
 	public Team() throws StoreException {
-		speakers = new ArrayList<ISpeaker>((Integer) Required.SPEAKERS_PER_TEAM.getValue());
+		speakers = new ArrayList<ISpeaker>();
 		//setFlagValue(flags.getFlagFromString("Speaker"), speakers);
 				
-		results = new HashMap<Integer, Integer>((Integer) Required.ROUNDS.getValue());
+		results = new HashMap<Integer, Integer>();
 		//setFlagValue(flags.getFlagFromString("Result"),results);
 	}
 
@@ -51,16 +50,22 @@ public class Team extends FlagUser implements Serializable, ITeam {
 		
 	}
 
-	public void addSpeaker(ISpeaker speaker) {
+	public boolean addSpeaker(ISpeaker speaker) {
 		//TODO decide what to do about failure - throw or return false? - probably return
-		if(!speakers.contains(speaker) && speakers.size()<(Integer) Required.SPEAKERS_PER_TEAM.getValue()) {
-			Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",speakers.size(), ISpeaker.class));
-			//If a flag to access this speaker exists
-			if(f!=null) {
-				speakers.add(speaker);
+		try {
+			if(!speakers.contains(speaker) && speakers.size()<(Integer) Settings.getInstance().getFlagValue("speakersPerTeam")) {
+				Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",speakers.size(), ISpeaker.class));
+				//If a flag to access this speaker exists
+				if(f!=null) {
+					speakers.add(speaker);
+					return true;
+				}
+				
 			}
-			
+		} catch (Exception e) {
+			//Do nothing just let return false
 		}
+		return false;
 	}
 
 	public Flag[] getBuiltInFunctions() {
@@ -68,6 +73,7 @@ public class Team extends FlagUser implements Serializable, ITeam {
 	}
 	
 	public Flags getFlags() {
+		if(flags==null) flags = Competition.getInstance().getTeamFlags(); //Get around serialisation
 		return flags;
 	}
 

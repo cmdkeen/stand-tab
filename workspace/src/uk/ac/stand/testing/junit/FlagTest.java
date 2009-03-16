@@ -59,4 +59,13 @@ public class FlagTest {
 		Assert.assertTrue(a.isAcceptable(String.class));
 	}
 	
+	@Test
+	public void GetFromString() throws Exception {
+		
+		t.setFlagValue(a, "Hello");
+		Assert.assertEquals("Hello", t.getFlagValue("one"));
+		Assert.assertEquals(0, t.getFlagValue(t.getFlags().getFlagFromString("three",0)));
+		Assert.assertEquals(0, t.getFlagValue("three", 0));
+	}
+	
 }

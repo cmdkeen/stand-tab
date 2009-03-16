@@ -6,15 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.stand.antlr.Rules;
-import uk.ac.stand.enums.Required;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
 
 public class Competition implements Serializable {
 	private static final long serialVersionUID = 50320091L;
 	
-	//TODO settings as flags?
-
 	//Singleton Factory
 	private static Competition instance = null;
 	
@@ -44,9 +41,12 @@ public class Competition implements Serializable {
 	private ArrayList<ISpeaker> speakers = null;
 	private Map<Integer,Draw> rounds = null;
 	
-	private Flags teamFlags, speakerFlags = null; 
+	private Flags teamFlags, speakerFlags, settingsFlags = null; 
 	
-			
+	public Flags getSettingsFlags() {
+		return settingsFlags;
+	}
+	
 	public Flags getTeamFlags() {
 		return teamFlags;
 	}
@@ -62,6 +62,7 @@ public class Competition implements Serializable {
 		
 		Rules r = new Rules();
 		
+		settingsFlags = r.createSettingsFlags();
 		teamFlags = r.createTeamFlags();
 		speakerFlags = r.createSpeakerFlags();
 		
@@ -114,13 +115,11 @@ public class Competition implements Serializable {
 		if(!settings.setupComplete()) return false;
 		
 		loadRules();
-		
-		Integer numTeams = (Integer) settings.getValue(Required.NUMBER_OF_TEAMS);
-		teams = new ArrayList<ITeam>(numTeams);
-		speakers = new ArrayList<ISpeaker>(numTeams * (Integer) settings.getValue(Required.SPEAKERS_PER_TEAM));
-		
-		rounds = new HashMap<Integer,Draw>((Integer)settings.getValue(Required.ROUNDS));
-		
+			
+		teams = new ArrayList<ITeam>();
+		speakers = new ArrayList<ISpeaker>();
+		rounds = new HashMap<Integer,Draw>();
+			
 		setupComplete = true;
 		return true;
 	}

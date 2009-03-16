@@ -2,7 +2,9 @@ package uk.ac.stand.gui.tablemodels;
 
 import javax.swing.table.AbstractTableModel;
 
-import uk.ac.stand.enums.Required;
+import uk.ac.stand.impl.Flags;
+import uk.ac.stand.impl.Settings;
+import uk.ac.stand.impl.exceptions.StoreException;
 
 @SuppressWarnings("serial")
 public class SettingsTableModel extends AbstractTableModel {
@@ -22,7 +24,7 @@ public class SettingsTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return Required.values().length;
+		return Settings.getFlagsStatic().getFields().length;
 	}
 	
 	public String getColumnName(int col) {
@@ -34,9 +36,15 @@ public class SettingsTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		Flags flags = Settings.getFlagsStatic();
 		switch(columnIndex) {
-		case 0: return Required.values()[rowIndex].getText();
-		case 1: return Required.values()[rowIndex].getValue();
+		case 0: return flags.getFields()[rowIndex];
+		case 1: try {
+					return Settings.getInstance().getFlagValue(flags.getFields()[rowIndex]);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
 		default: return null;
 		}
 	}
@@ -54,7 +62,12 @@ public class SettingsTableModel extends AbstractTableModel {
 	}
 	
 	public void setValueAt(Object aValue, int row, int col) {
-		Required.values()[row].setValue(aValue);
+		try {
+			Settings.getInstance().setFlagValue(Settings.getFlagsStatic().getFields()[row], aValue);
+		} catch (StoreException e) {
+			e.printStackTrace();
+			return;
+		}
 		
 		fireTableCellUpdated(row, col);
 

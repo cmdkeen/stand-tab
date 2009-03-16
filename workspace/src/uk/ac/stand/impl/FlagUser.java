@@ -18,6 +18,14 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 		indvStore = new HashMap<String, Object>();
 		multStore = new HashMap<String, Map<Integer, Object>>();
 	}
+	
+	public Object getFlagValue(String flagName) throws Exception {
+		return getFlagValue(getFlags().getFlagFromString(flagName));
+	}
+	
+	public Object getFlagValue(String flagName, int index) throws Exception {
+		return getFlagValue(getFlags().getFlagFromSimilar(new MultFlag(flagName,index, Object.class)));
+	}
 
 	public Object getFlagValue(Flag flag) throws Exception {
 		if(getFlags().isFunction(flag)) {
@@ -77,8 +85,19 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 		if(getFlags().isBuiltinFunction(flag)) return runBuiltInFunction(flag, args);
 		return null;
 	}
+	
+	public void setFlagValue(String flagName, Object data) throws StoreException {
+		setFlagValue(getFlags().getFlagFromString(flagName), data);
+	}
+	
+	public void setFlagValue(String flagName, Integer index, Object data) throws StoreException {
+		setFlagValue(getFlags().getFlagFromString(flagName, index), data);
+		
+	}
 
 	public void setFlagValue(Flag flag, Object data) throws StoreException {
+		//TODO test the passed object meets criteria
+		
 		if(getFlags().containsFlag(flag)) {
 			if(flag.isMultiple()) {
 				//Collection<Object> c = (Collection<Object>) store.get(flag.getName());
