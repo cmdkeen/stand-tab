@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import uk.ac.stand.minion.EssenceToMinion;
-import uk.ac.stand.minion.RunnerTest;
 import uk.ac.stand.scalafiles.Language.*;
+import uk.ac.stand.testing.RunnerTest;
 
 public class ScalaInterface {
 
