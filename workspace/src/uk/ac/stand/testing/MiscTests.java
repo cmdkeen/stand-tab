@@ -28,12 +28,17 @@ public class MiscTests {
 		System.out.println(i);
 		*/
 		
-		Flag f = new Flag("a", Flag.class);
+		Flag f = new Flag("a", Integer.class);
 		
-		MultFlag mf = new MultFlag("b",2);
+		MultFlag mf = new MultFlag("b",2, Integer.class);
 		
-		System.out.println(f.isAcceptable(mf));
+		System.out.println(f.isAcceptable(f));
 		
+		System.out.println(f.getClass().isInstance(mf));
+		
+		System.out.println(Integer.class.isAssignableFrom(Integer.class));
+		
+		System.out.println(f.getClass().isAssignableFrom(MultFlag.class));
 		
 	}
 

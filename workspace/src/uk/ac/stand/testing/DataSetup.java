@@ -7,6 +7,7 @@ import uk.ac.stand.impl.Speaker;
 import uk.ac.stand.interfaces.ITeam;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.impl.Team;
+import uk.ac.stand.impl.exceptions.StoreException;
 
 public class DataSetup {
 
@@ -22,7 +23,7 @@ public class DataSetup {
 		if(setup) Competition.getInstance().setup();
 	}
 	
-	public static void addTeamsSpeakers() {
+	public static void addTeamsSpeakers() throws StoreException {
 		for(int i = 0; i < (Integer) Required.NUMBER_OF_TEAMS.getValue(); i++) {
 			ITeam t = new Team();
 			t.setFlagValue(Team.getFlagsStatic().getFlagFromString("TeamName"),"Team_" + i);
