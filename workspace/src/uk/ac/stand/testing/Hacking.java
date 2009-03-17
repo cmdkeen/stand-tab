@@ -12,7 +12,7 @@ public class Hacking {
 
 		EssenceToMinion etm = new EssenceToMinion(in, param);
 		
-		etm.runMinionFind();
+		etm.runMinion();
 		System.out.println(etm.getMinionInput());
 		
 		/*

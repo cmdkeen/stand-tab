@@ -145,7 +145,7 @@ public class FakeDraw {
 				
 		EssenceToMinion etm = new EssenceToMinion(WUDC_In, WUDC_Param(p, round));
 		
-		LinkedList<String> sols = etm.runMinionOpt();
+		LinkedList<String> sols = etm.runMinion();
 		
 		Language l = new Language();
 		
@@ -187,10 +187,11 @@ public class FakeDraw {
 		return map;
 	}
 	
+	@SuppressWarnings("unused")
 	private static Draw WSDC(int round) {
 		EssenceToMinion etm = new EssenceToMinion(WSDC_In, WSDC_Param());
 		
-		LinkedList<String> sols = etm.runMinionOpt();
+		LinkedList<String> sols = etm.runMinion();
 		
 		Language l = new Language();
 		
@@ -283,7 +284,7 @@ public class FakeDraw {
 		
 		System.out.println(etm.getMinionInput());
 		
-		LinkedList<String> sols = etm.runMinionOpt();
+		LinkedList<String> sols = etm.runMinion();
 		
 		
 		

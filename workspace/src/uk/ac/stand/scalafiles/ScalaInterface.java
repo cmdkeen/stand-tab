@@ -27,7 +27,7 @@ public class ScalaInterface {
 		
 		EssenceToMinion etm = new EssenceToMinion(RunnerTest.in, RunnerTest.param);
 		
-		LinkedList<String> sols = etm.runMinionOpt();
+		LinkedList<String> sols = etm.runMinion();
 		
 		System.out.println("Value: " + etm.getObjectiveValue());
 		
@@ -48,7 +48,7 @@ public class ScalaInterface {
 		
 		EssenceToMinion etm = new EssenceToMinion(RunnerTest.otherTest, "");
 		
-		LinkedList<String> sols = etm.runMinionFind();
+		LinkedList<String> sols = etm.runMinion();
 		
 		Var[] vars = new Var[1];
 		

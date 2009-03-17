@@ -10,14 +10,12 @@ import translator.*;
 import translator.normaliser.NormaliserSpecification;
 import translator.solver.Minion;
 
-
+// Initial code from Andrea Rendl
 public class Runner {
 
 	private String minionOutputFileName = "out.chris";
 
-	// TODO check whether this works in Windows or do I need some special
-	// directory separator thing here?
-	private String minionExecPath = System.getProperty("user.dir") + "/minion";
+	private String minionExecPath = System.getProperty("user.dir") + File.separator +"minion";
 
 	Translator translator;
 
@@ -52,7 +50,6 @@ public class Runner {
 			parsingSuccessfull = translator.parse(problemSpec, parameterSpec);
 
 		if (parsingSuccessfull) {
-			// System.out.println(this.translator.printInitialProblemSpecification());
 			writeOnMessageOutput("Parsing OK.\n");
 		} else {
 			writeOnMessageOutput("===================== ERROR ======================\n"
@@ -149,8 +146,61 @@ public class Runner {
 	private void writeOnMessageOutput(String message) {
 		System.out.println(message);
 	}
+	
+	/**
+	 * Starts Minion and enables the Buffered output and error streams to be fetched using the getter methods. 
+	 * Also allows for tests of whether the process is still running.
+	 * 
+	 * @return the running Minion Process
+	 */
+	public Process runMinionInteractive() {
+		try {
+			String outputFileName = minionOutputFileName;
 
-	// Initial code from Andrea Rendl
+			// -------------- write the output into a file ---------------
+			writeOnMessageOutput("Creating Minion file: " + outputFileName
+					+ "\n");
+			File file = new File(outputFileName);
+			if (file.createNewFile())
+				;
+			FileWriter writer = new FileWriter(file);
+
+			if (!file.canRead())
+				writeOnMessageOutput("Cannot read file: \n " + file.toString()
+						+ "\nPlease change reading permissions.");
+			else if (!file.canWrite())
+				writeOnMessageOutput("Cannot write file: \n " + file.toString()
+						+ "\nPlease change writing permissions.");
+
+			writer.write(this.solverOutput);
+
+			writer.flush();
+			writer.close();
+
+			// ----------- set up execution command with arguments ----------
+
+			String[] commandArguments;
+
+			commandArguments = new String[] { minionExecPath, outputFileName };
+
+			// -------------execute process-------------------------------
+			for (String s : commandArguments)
+				System.out.print(s + " ");
+			System.out.println();
+
+			Process process = Runtime.getRuntime().exec(commandArguments);
+			
+			return process;
+
+		} catch (Exception e) {
+			writeOnMessageOutput("Could not run Minion:\n"
+					+ e.getMessage()
+					+ "\n"
+					+ "You can change the path to your Minion executable in 'Settings'.\n");
+			return null;
+		}
+	}
+
 	protected String runMinion() {
 
 		try {

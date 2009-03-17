@@ -18,10 +18,40 @@ public class RunnerTest {
 		String out = run.runMinion();
 		*/
 		
+		EssenceToMinion etm = new EssenceToMinion(interactiveTest, "");
 		
-		EssenceToMinion etm = new EssenceToMinion(in, param);
+		//LinkedList<String> sols = etm.runMinionOpt();
+		etm.runMinionInteractive();
+			
+		while(etm.isRunning()) {
 		
-		LinkedList<String> sols = etm.runMinionOpt();
+			LinkedList<String> sols = etm.getLatestResult();
+					
+			if(sols==null) {
+				System.out.println("Nothing found");
+				return;
+			}
+
+			System.out.println("Value: " + etm.getObjectiveValue());
+			
+			Integer[][] v = EssenceToMinion.getIntValues2D(sols);
+			
+			for(int i = 0; i < v.length; i++) {
+				for(int j = 0; j < v[i].length; j++) {
+					System.out.print(v[i][j] + " ");
+				}
+				System.out.println();
+			}
+		
+		}
+		
+		//Once more once finished running to get last value
+		LinkedList<String> sols = etm.getLatestResult();
+		
+		if(sols==null) {
+			System.out.println("Nothing found");
+			return;
+		}
 		
 		System.out.println("Value: " + etm.getObjectiveValue());
 		
@@ -100,5 +130,13 @@ public class RunnerTest {
 			"find b : matrix indexed by [int(1..8),int(1..4), int(1..3)] of int(1..100)\n" +
 			"such that\n" +
 			"alldifferent(b[..,1,1])";
+	
+	public static String interactiveTest = "language ESSENCE' 1.b.a\n" + 
+			"\n" + 
+			"letting n be domain int(1..10000)\n" + 
+			"\n" + 
+			"find i : n\n" + 
+			"\n" + 
+			"maximising i";
 
 }
