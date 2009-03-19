@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import uk.ac.stand.antlr.DrawFunction;
 import uk.ac.stand.antlr.Rules;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
@@ -40,6 +41,7 @@ public class Competition implements Serializable {
 	private ArrayList<ITeam> teams = null;
 	private ArrayList<ISpeaker> speakers = null;
 	private Map<Integer,Draw> rounds = null;
+	private Map<String, DrawFunction> drawFunctions = null;
 	
 	private Flags teamFlags, speakerFlags, settingsFlags = null; 
 	
@@ -55,17 +57,23 @@ public class Competition implements Serializable {
 		return speakerFlags;
 	}
 
-	public void loadRules() {
+	public void loadRules(Rules r) {
 		//TODO implement
 		//Clever thing to do with speakers and other multiple value things, create as Speaker, Speaker - then in SpeakerNumber have the associated value
 		//For now:
-		
-		Rules r = new Rules();
 		
 		settingsFlags = r.createSettingsFlags();
 		teamFlags = r.createTeamFlags();
 		speakerFlags = r.createSpeakerFlags();
 		
+		r.loadData();
+		
+		drawFunctions = r.loadDrawRules();
+		
+	}
+	
+	public DrawFunction getDrawFunction(String name) {
+		return drawFunctions.get(name);
 	}
 
 	public ArrayList<ITeam> getTeams() {
@@ -109,12 +117,12 @@ public class Competition implements Serializable {
 		return rounds.get(round);
 	}
 	
-	public boolean setup() {
+	public boolean setup(Rules rules) {
 		Settings settings = Settings.getInstance();
 		
 		if(!settings.setupComplete()) return false;
 		
-		loadRules();
+		loadRules(rules);
 			
 		teams = new ArrayList<ITeam>();
 		speakers = new ArrayList<ISpeaker>();

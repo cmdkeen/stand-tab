@@ -35,8 +35,6 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 	public Speaker(ITeam team) throws StoreException {
 		this.team = team;
 		scores = new HashMap<Integer, Integer>();
-		
-		//setFlagValue(flags.getFlagFromString("Result"), scores);
 	}
 
 	public void addScore(int round, int score) {

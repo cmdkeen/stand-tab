@@ -6,22 +6,13 @@ import uk.ac.stand.impl.Speaker;
 import uk.ac.stand.interfaces.ITeam;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.impl.Team;
-import uk.ac.stand.impl.exceptions.StoreException;
 
 public class DataSetup {
 	
 	//TODO replace with user input generated
 
-	public DataSetup(int numRounds, int numSpeakersPerTeam, int numTeams, int numTeamsPerSide, boolean setup) throws StoreException {
+	public DataSetup() {
 		
-		Settings settings = Settings.getInstance();
-		
-		settings.setFlagValue("numRounds", numRounds);
-		settings.setFlagValue("speakersPerTeam", numSpeakersPerTeam);
-		settings.setFlagValue("numTeams", numTeams);
-		settings.setFlagValue("teamsPerSide", numTeamsPerSide);
-		
-		if(setup) Competition.getInstance().setup();
 	}
 	
 	public static void addTeamsSpeakers() throws Exception {

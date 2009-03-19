@@ -36,7 +36,7 @@ public class MinionRun {
 		
 		while(etm.isRunning()) {
 			etm.getLatestResult();
-			Assert.assertTrue(etm.getObjectiveValue() < 10000);
+			Assert.assertTrue(etm.getObjectiveValue() <= 10000);
 		}
 		
 		etm.getLatestResult();

@@ -69,9 +69,8 @@ public class EssenceToMinion {
 		LinkedList<String> solutions;
 		
 		try {
-			//in.mark(524288); //1MB buffer
 			in.mark(10000);
-					
+			
 			String s = in.readLine();
 			//Deal with minion constantly reading stuff
 			int num = 0;

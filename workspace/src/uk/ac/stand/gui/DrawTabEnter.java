@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,6 +16,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import uk.ac.stand.antlr.DrawFunction;
 import uk.ac.stand.antlr.FakeDraw;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
@@ -77,8 +79,17 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 			
 			row++; //Row 0 is for round 1
 			
-			FakeDraw fd = new FakeDraw();
-			Competition.getInstance().addDraw(row, fd.doDraw(row, FakeDraw.draws[mrow]));
+			//FakeDraw fd = new FakeDraw(FakeDraw.draws[mrow]);
+			try{
+				DrawFunction fd = Competition.getInstance().getDrawFunction((String) methods.getSelectedValue());
+				Competition.getInstance().addDraw(row, fd.doDraw(row));
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this,
+					    "Error:\n" + ex.getMessage(),
+					    "Draw cancelled",
+					    JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			
 			dt.getTable().getTableModel().setRound(row);
 			

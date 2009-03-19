@@ -35,11 +35,8 @@ public class Team extends FlagUser implements Serializable, ITeam {
 	private ArrayList<ISpeaker> speakers;
 	
 	public Team() throws StoreException {
-		speakers = new ArrayList<ISpeaker>();
-		//setFlagValue(flags.getFlagFromString("Speaker"), speakers);
-				
+		speakers = new ArrayList<ISpeaker>();			
 		results = new HashMap<Integer, Integer>();
-		//setFlagValue(flags.getFlagFromString("Result"),results);
 	}
 
 	public void addResult(int round, Integer result) {

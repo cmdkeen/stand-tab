@@ -17,17 +17,19 @@ import uk.ac.stand.interfaces.ITeam;
 import uk.ac.stand.minion.EssenceToMinion;
 import uk.ac.stand.scalafiles.*;
 
-public class FakeDraw {
+public class FakeDraw extends DrawFunction {
 	
 	//TODO Replace this!!!! - probably with a class that takes a rule set
 	
 	public static String[] draws = {"Random WUDC", "WUDC", "WUDC Pullups"};
+	private String drawType;
 	
-	public FakeDraw() {
-		
+	public FakeDraw(String name) {
+		super(name, null);
+		this.drawType = name;
 	}
 	
-	public Draw doDraw(int round, String drawType) {
+	public Draw doDraw(int round) {
 		
 		try{
 			String dirs = "saves/"; 

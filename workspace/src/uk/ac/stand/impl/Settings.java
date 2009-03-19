@@ -10,7 +10,7 @@ public class Settings extends FlagUser {
 	//Singleton factory
 	
 	private Settings() {
-		
+		super();
 	}
 	
 	public static Settings getInstance() {
@@ -53,6 +53,7 @@ public class Settings extends FlagUser {
 	 * @return whether the fields have values
 	 */
 	public boolean setupComplete() {
+		if(flags==null) return false;
 		for(Flag f : flags.getFields())
 			try {
 				if(getFlagValue(f)==null) return false;

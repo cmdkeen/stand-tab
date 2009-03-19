@@ -100,7 +100,6 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 		
 		if(getFlags().containsFlag(flag)) {
 			if(flag.isMultiple()) {
-				//Collection<Object> c = (Collection<Object>) store.get(flag.getName());
 				Map<Integer, Object> m = multStore.get(flag.getName());
 				if(m==null) { //Create the multiple mapping
 					Map<Integer, Object> n = new HashMap<Integer, Object>();
@@ -108,17 +107,9 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 					multStore.put(flag.getName(), n);
 				} else if(m instanceof Map) {
 					m.put(flag.getIndex(), data);
-				} /*else if(c.size()<flag.getIndex()) {
-					//Place data into c at a given position
-					//TODO inefficient - is there a better way?
-					Object[] array = c.toArray();
-					array[flag.getIndex()] = data;
-					c.clear();
-					c.addAll(Arrays.asList(array));
-				}*/ else {
-						throw new StoreException("Stored flag not null or a Map");
+				} else {
+					throw new StoreException("Stored flag not null or a Map");
 				}
-			
 			} else {
 				indvStore.put(flag.getName(), data);
 			}

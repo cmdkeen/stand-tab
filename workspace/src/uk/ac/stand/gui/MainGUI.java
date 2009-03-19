@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,10 +15,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.table.TableModel;
 
+import uk.ac.stand.antlr.InterpretedRules;
 import uk.ac.stand.export.CSVExport;
 import uk.ac.stand.export.Export;
 import uk.ac.stand.export.Import;
@@ -30,38 +31,55 @@ import uk.ac.stand.interfaces.ITeam;
 @SuppressWarnings("serial")
 public class MainGUI extends JFrame implements ActionListener {
 	
-	JTabbedPane tabbedPane = new JTabbedPane();
-    TeamsTab teams = null;
-    SettingsTab settings = null;
-    SpeakersTab speakers = null;
-    DrawTabEnter rounds = null;
-    
+	JPanel panel = null;
+	
     JMenuBar menubar;
-    JMenu mcompetition, mteams, mspeakers, mdraw, tExport, sExport, dExport;
-    JMenuItem buildComp, save, open, tCreate, sCreate;
+    JMenu mCompetition, mTeams, mSpeakers, mdraw, tExport, sExport, dExport, mRules;
+    JMenuItem buildComp, save, open, tCreate, sCreate, rulesCompetition, rulesDraw;
+    
+    CompetitionGUI cgui = null;
     
     String[] exportPossibilities = {"CSV - Headers", "CSV - No Header"};
     int[] exportKeyEvents = {KeyEvent.VK_H, KeyEvent.VK_W};
 
 	public MainGUI(String title) {
-		super(title); //Construct the JFrame
-		JPanel panel = new JPanel(new GridLayout(1, 1));
+		super(title);
+		
+		panel = new JPanel(new GridLayout(1, 1));
 		
 		menubar = new JMenuBar();
 		
+		//Rules menu bar
+			mRules = new JMenu("Rules");
+			mRules.getAccessibleContext().setAccessibleDescription("Menu dealing with rules for the competition");
+			
+			rulesCompetition = new JMenuItem("Set Competition Rules");
+			rulesCompetition.getAccessibleContext().setAccessibleDescription("Loads the rules associated with a compeition");
+			rulesCompetition.addActionListener(this);
+			rulesCompetition.setActionCommand("rulesCompetition");
+			mRules.add(rulesCompetition);
+			
+			rulesDraw = new JMenuItem("Set Draw Rules");
+			rulesDraw.getAccessibleContext().setAccessibleDescription("Sets the rules for the next draw");
+			rulesDraw.addActionListener(this);
+			rulesDraw.setActionCommand("rulesDraw");
+			mRules.add(rulesDraw);
+			
+			menubar.add(mRules);
+		
 		
 		//Competition menu bar
-			mcompetition = new JMenu("Competition");
-			mcompetition.getAccessibleContext().setAccessibleDescription("Menu dealing with competition level actions");
+			mCompetition = new JMenu("Competition");
+			mCompetition.getAccessibleContext().setAccessibleDescription("Menu dealing with competition level actions");
 		
 			buildComp = new JMenuItem("Build competiton");
-			if(!Settings.getInstance().setupComplete()) buildComp.setEnabled(false);
+			buildComp.setEnabled(false);
 			buildComp.getAccessibleContext().setAccessibleDescription("Creates a competition from the given settings");
 			buildComp.addActionListener(this);
 			buildComp.setActionCommand("buildCompetition");
 			buildComp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,
 				    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-			mcompetition.add(buildComp);
+			mCompetition.add(buildComp);
 			
 			save = new JMenuItem("Save");
 			save.setEnabled(false);
@@ -70,7 +88,7 @@ public class MainGUI extends JFrame implements ActionListener {
 			save.setActionCommand("saveCompeition");
 			save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
 				    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-			mcompetition.add(save);
+			mCompetition.add(save);
 			
 			open = new JMenuItem("Open");
 			open.getAccessibleContext().setAccessibleDescription("Opens a competition from a file");
@@ -78,9 +96,9 @@ public class MainGUI extends JFrame implements ActionListener {
 			open.setActionCommand("openCompeition");
 			open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
 				    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-			mcompetition.add(open);
+			mCompetition.add(open);
 			
-			menubar.add(mcompetition);
+			menubar.add(mCompetition);
 			
 		//Export submenu
 			tExport = new JMenu("Export");
@@ -95,9 +113,9 @@ public class MainGUI extends JFrame implements ActionListener {
 			}
 			
 		//Teams menu bar
-			mteams = new JMenu("Teams");
-			mteams.setEnabled(false);
-			mteams.getAccessibleContext().setAccessibleDescription("Menu dealing with teams");
+			mTeams = new JMenu("Teams");
+			mTeams.setEnabled(false);
+			mTeams.getAccessibleContext().setAccessibleDescription("Menu dealing with teams");
 			
 			tCreate = new JMenuItem("Add team(s)");
 			tCreate.getAccessibleContext().setAccessibleDescription("Create new teams");
@@ -105,7 +123,7 @@ public class MainGUI extends JFrame implements ActionListener {
 			tCreate.setActionCommand("createTeam");
 			tCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
 				    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-			mteams.add(tCreate);
+			mTeams.add(tCreate);
 			
 				//Export submenu
 				tExport = new JMenu("Export");
@@ -119,15 +137,15 @@ public class MainGUI extends JFrame implements ActionListener {
 					tExport.add(mi);
 				}
 			
-			mteams.addSeparator();
-			mteams.add(tExport);
+			mTeams.addSeparator();
+			mTeams.add(tExport);
 			
-			menubar.add(mteams);
+			menubar.add(mTeams);
 			
 		//Speakers menu bar
-			mspeakers = new JMenu("Speakers");
-			mspeakers.setEnabled(false);
-			mspeakers.getAccessibleContext().setAccessibleDescription("Menu dealing with speakers");
+			mSpeakers = new JMenu("Speakers");
+			mSpeakers.setEnabled(false);
+			mSpeakers.getAccessibleContext().setAccessibleDescription("Menu dealing with speakers");
 			
 			sCreate = new JMenuItem("Add seaker(s)");
 			sCreate.getAccessibleContext().setAccessibleDescription("Create new speakers");
@@ -135,7 +153,7 @@ public class MainGUI extends JFrame implements ActionListener {
 			sCreate.setActionCommand("createSpeaker");
 			sCreate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
 				    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-			mspeakers.add(sCreate);
+			mSpeakers.add(sCreate);
 			
 				//Export submenu
 				sExport = new JMenu("Export");
@@ -147,10 +165,10 @@ public class MainGUI extends JFrame implements ActionListener {
 					sExport.add(mi);
 				}
 			
-			mspeakers.addSeparator();
-			mspeakers.add(sExport);
+			mSpeakers.addSeparator();
+			mSpeakers.add(sExport);
 			
-			menubar.add(mspeakers);
+			menubar.add(mSpeakers);
 			
 		//Draw menu bar
 			mdraw = new JMenu("Draws");
@@ -174,41 +192,11 @@ public class MainGUI extends JFrame implements ActionListener {
 		//*** End of menu bar setup
 			
 		setJMenuBar(menubar);
+		panel.setOpaque(true);
 		
-		settings = new SettingsTab(true);
-        
-        tabbedPane.addTab("Settings", settings);
-        
-        
-        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        
-        panel.add(tabbedPane);
-        panel.setOpaque(true);
-        
         setContentPane(panel);
 	}
-	
-	protected void competitionSetup() {
-		if(!Competition.getInstance().isSetupComplete()) Competition.getInstance().setup();
-		
-		mteams.setEnabled(true);
-		mspeakers.setEnabled(true);
-		mdraw.setEnabled(true);
-		
-		teams = new TeamsTab();
-	    speakers = new SpeakersTab();
-	    rounds = new DrawTabEnter();
-	    
-	    tabbedPane.removeAll();
-		
-		tabbedPane.addTab("Teams", teams);
-        tabbedPane.addTab("Speakers", speakers);
-        tabbedPane.addTab("Rounds", rounds);
-        
-        tabbedPane.setSelectedComponent(teams);
-        
-	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("saveCompeition")) {save(); return;}
 		if(e.getActionCommand().equals("openCompeition")) {load(); return;}
@@ -218,12 +206,52 @@ public class MainGUI extends JFrame implements ActionListener {
 		if(e.getActionCommand().equals("createSpeaker")) {createSpeaker(); return;}
 			
 		for(String s : exportPossibilities) if(s.equals(e.getActionCommand().substring(1))) {
-			if(e.getActionCommand().charAt(0)=='t') exportTM(s, teams.table.getTableModel());
-			if(e.getActionCommand().charAt(0)=='s') exportTM(s, speakers.table.getTableModel());
-			if(e.getActionCommand().charAt(0)=='d') exportTM(s, rounds.dt.getTable().getTableModel());
+			if(e.getActionCommand().charAt(0)=='t') exportTM(s, cgui.teams.table.getTableModel());
+			if(e.getActionCommand().charAt(0)=='s') exportTM(s, cgui.speakers.table.getTableModel());
+			if(e.getActionCommand().charAt(0)=='d') exportTM(s, cgui.rounds.dt.getTable().getTableModel());
 			//Add in others as needed
 		}
+		System.out.println("here");
+		if(e.getActionCommand().equals("rulesDraw")) {loadDrawRules(-1); return;}
+		if(e.getActionCommand().equals("rulesCompetition")) {loadRules(-1); return;}
 		
+		//Known rules in folder are put into the menus - identified by a number after the underscore
+		if(e.getActionCommand().contains("rulesDraw_")) {
+			String[] command = e.getActionCommand().split("_");
+			if(command.length==2) {
+				
+			}
+		}
+		if(e.getActionCommand().contains("rulesCompetition_")) {
+			
+		}
+		
+	}
+	
+	private void loadRules(int num) {
+		File f = null;
+		if(num==-1) {//Prompt for file location
+			Export.getFile("Load rules");
+		}
+		
+		if(f==null) return;
+		
+		InterpretedRules rules = new InterpretedRules(f);
+		
+		rules.loadData();
+	}
+	
+	private void loadDrawRules(int num) {
+		File f = null;
+		if(num==-1) {//Prompt for file location
+			Export.getFile("Load rules");
+		}
+		
+		if(f==null) return;
+		
+		InterpretedRules rules = new InterpretedRules(f);
+		
+		rules.loadData();
 	}
 	
 	private void createTeam() {
@@ -270,7 +298,7 @@ public class MainGUI extends JFrame implements ActionListener {
 	
 	private void load() {
 		try {
-			if(Import.importCompetition()) competitionSetup();
+			if(Import.importCompetition()) cgui.competitionSetup();
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this,
@@ -280,9 +308,13 @@ public class MainGUI extends JFrame implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Checks that all the required settings have been provided. If so sets up the competition so it can be run.
+	 * The settings check depends on a the rule set that has been loaded
+	 */
 	private void build() {
 		if(Settings.getInstance().setupComplete()) {
-			competitionSetup();
+			cgui.competitionSetup();
 			
 			save.setEnabled(true);
 			buildComp.setEnabled(false);
@@ -325,6 +357,5 @@ public class MainGUI extends JFrame implements ActionListener {
 		
 		
 	}
-
 	
 }
