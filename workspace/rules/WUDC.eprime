@@ -1,0 +1,24 @@
+language ESSENCE' 1.b.a
+
+given weight, tpr, size, rounds : int
+
+letting TEAMS be domain int(1..size)
+letting TPR be domain int(1..tpr)
+letting ROUNDS be domain int(1..rounds)
+
+given pp : matrix indexed by [TEAMS,TPR] of ROUNDS
+
+find a : matrix indexed by [TEAMS,TPR] of bool
+
+minimising sum t : TEAMS . sum p : TPR . 
+	a[t, p] * pp[t,p]* weight
+
+such that
+
+forall t : TEAMS .
+	(sum c : TPR . a[t, c]) = 1,
+
+forall col : TPR .
+	(sum t : TEAMS . a[t, col]) = (size/tpr)
+
+
