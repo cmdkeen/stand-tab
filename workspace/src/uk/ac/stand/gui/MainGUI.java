@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,13 +35,31 @@ public class MainGUI extends JFrame implements ActionListener {
 	JPanel panel = null;
 	
     JMenuBar menubar;
-    JMenu mCompetition, mTeams, mSpeakers, mdraw, tExport, sExport, dExport, mRules;
-    JMenuItem buildComp, save, open, tCreate, sCreate, rulesCompetition, rulesDraw;
+    JMenu mCompetition, mTeams, mSpeakers, mdraw, tExport, sExport, dExport, mRules, rulesCompetition, rulesDraw;
+    JMenuItem buildComp, save, open, tCreate, sCreate;
     
     CompetitionGUI cgui = null;
     
     String[] exportPossibilities = {"CSV - Headers", "CSV - No Header"};
     int[] exportKeyEvents = {KeyEvent.VK_H, KeyEvent.VK_W};
+    
+    private class CompetitionFilter implements FileFilter {
+
+		public boolean accept(File pathname) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+    	
+    }
+    
+    private class DrawFilter implements FileFilter {
+
+		public boolean accept(File pathname) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+    	
+    }
 
 	public MainGUI(String title) {
 		super(title);
@@ -50,21 +69,44 @@ public class MainGUI extends JFrame implements ActionListener {
 		menubar = new JMenuBar();
 		
 		//Rules menu bar
+			JMenuItem subrule;
+			File d = new File("rules/");
+			
 			mRules = new JMenu("Rules");
 			mRules.getAccessibleContext().setAccessibleDescription("Menu dealing with rules for the competition");
 			
-			rulesCompetition = new JMenuItem("Set Competition Rules");
-			rulesCompetition.getAccessibleContext().setAccessibleDescription("Loads the rules associated with a compeition");
-			rulesCompetition.addActionListener(this);
-			rulesCompetition.setActionCommand("rulesCompetition");
+			//rulesCompetition = new JMenuItem("Set Competition Rules");
+			rulesCompetition = new JMenu("Competition rules");
+			rulesCompetition.getAccessibleContext().setAccessibleDescription("Loads the rules associated with a competition");
 			mRules.add(rulesCompetition);
 			
-			rulesDraw = new JMenuItem("Set Draw Rules");
+			subrule = new JMenuItem("Other");
+			
+			subrule.addActionListener(this);
+			subrule.setActionCommand("rulesCompetition");
+			subrule.getAccessibleContext().setAccessibleDescription("Loads from a user specified file");
+			rulesCompetition.add(subrule);
+			
+			for(File f : d.listFiles(new DrawFilter())) {
+				subrule = new JMenuItem(f.getName());
+				
+			}
+			
+			//rulesDraw = new JMenuItem("Set Draw Rules");
+			rulesDraw = new JMenu("Draw rules");
 			rulesDraw.getAccessibleContext().setAccessibleDescription("Sets the rules for the next draw");
-			rulesDraw.addActionListener(this);
-			rulesDraw.setActionCommand("rulesDraw");
 			mRules.add(rulesDraw);
 			
+			subrule = new JMenuItem("Other");
+			
+			subrule.addActionListener(this);
+			subrule.setActionCommand("rulesDraw");
+			subrule.getAccessibleContext().setAccessibleDescription("Loads from a user specified file");
+			rulesDraw.add(subrule);
+			
+			for(File f : d.listFiles(new DrawFilter())) {
+				
+			}
 			menubar.add(mRules);
 		
 		
