@@ -11,6 +11,7 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 	
 	private static final long serialVersionUID = 50320091L;
 	
+	//Namespace
 	public Map<String, Object> indvStore;
 	public Map<String, Map<Integer, Object>> multStore;
 	
