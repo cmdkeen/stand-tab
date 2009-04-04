@@ -15,6 +15,7 @@ public class Team extends FlagUser implements Serializable, ITeam {
 	private static Flags flags = null;
 	
 	//Every function here must be referenced in runBuiltInFunction and return something
+	//TODO add in MultFlag("positions", Integer.class)
 	private static Flag[] functions = {new Flag("TotalScore", Integer.class), new Flag("TotalSpeakerScore", Integer.class)};
 	private static final long serialVersionUID = 50320091L;
 	
