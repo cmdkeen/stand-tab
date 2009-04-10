@@ -1,98 +1,98 @@
 grammar stab;
-options {output=AST;}
 
-tokens {
-	PROGRAM;
-	PESSENCE;
-	PSETTINGS;
-	PVALNAMEATION;
-  	EBLOCK;
-  	SBLOCK;
-  	EVERSION;
-  	
-  	EINT;
-  	EBOOL;
-  	ESTRING;
-  	EARRAY;
-  	
-  	FUNCTION;
-  	FARGS;
-  	
-  	IF;
-  	WHILE;
-  	FOR;
-  	
-  	EOP1;
-  	EOP2;
-  	
-  	AUGASSIGN;
-  	TEST;
-  	
-  	VAR;
-  	ELEM;
-  	CALL;
-  	
-  	BREAK;
-  	CONTINUE;
-  	RETURN;
+@lexer::header {
+	package uk.ac.stand.antlr.gen;
+	
 }
  
 @header {
+	package uk.ac.stand.antlr.gen;
+
 	import java.util.Map;
 	import java.util.HashMap;
+	import java.util.List;
+	import java.util.LinkedList;
+	import uk.ac.stand.scalafiles.Stab;
+	import uk.ac.stand.scalafiles.Stab.*;
+	import scala.Some;
 }
 
 @members {
-
-	class Data {
-		Map<Integer, String> essence;
-		Map<String, CommonTree> functions;	
-		
-		public Data(Map<Integer, String> e, Map<String, CommonTree> f) {
-			essence = e;
-			functions = f;
-		}
-	}
-
-	int eblock = 0;
-	HashMap<Integer, String> essence = new HashMap<Integer, String>();
-	HashMap<String, CommonTree> functions = new HashMap<String, CommonTree>();
 	
-	StringBuffer buffer;
+	List<FuncDef> funcdefs = new LinkedList<FuncDef>();
+	
+	Map<Integer, String> essence = new HashMap<Integer, String>();
+	
+	int eblock = 0;
 }
 
-program	returns [Data data]
+program	returns [Program p]
 @after {
-	$data = new Data(essence, functions);
+	$p = new Program(funcdefs, $r.ret);
 }
-	:	rules {for(Integer i : essence.keySet()) System.out.println(essence.get(i));} -> ^(PROGRAM rules)
+	:	r=rules
 	;
-
-rules	:	stab statement* essence -> ^(SBLOCK statement*) essence
-	|	essence
+	
+rules	returns [List<Stats> ret]
+	:	stab s=statements e=essence
+		{
+			List<Stats> l = new LinkedList<Stats>();
+			l.add(new Stats($s.ret));
+			l.addAll($e.ret);
+			$ret = l;
+		}
+	|	e=essence {$ret = $e.ret;}
 	;
 	
 //The actual code block - mix of essence prime and <stab> code </stab> blocks
 //Is turned into the output eprime file for tailor
 //essence	:	essencedef ((stabblock)=>stabblock |  essencecode)* ;
-essence	:	essencedef estatement* -> ^(PESSENCE essencedef estatement+)
+essence	returns [List<Stats> ret]
+	:	d=essencedef e=estatements
+		{
+			List<Term> lt = new LinkedList<Term>();
+			lt.add(new EString($d.v));
+			List<Stats> ls = new LinkedList<Stats>();
+			ls.add(new Stats(lt));
+			ls.addAll($e.ret);
+			$ret = ls;
+		}
 	;
 	
-estatement
-	: (stabblock) => stabblock
-	| essencecode
+estatements returns [List<Stats> ret]
+@init {
+	List<Stats> l = new LinkedList<Stats>();
+}
+@after {
+	$ret = l;
+}
+	:	(s=estatement
+			{l.add($s.ret);}
+		)*
+	;
+	
+estatement returns [Stats ret]
+	: (stabblock) => s=stabblock {$ret = $s.ret;}
+	| ec=essencecode {
+				List<Term> l = new LinkedList<Term>();
+				l.add(new EString($ec.ret));
+				$ret = new Stats(l);
+			}
 	;
 
-essencecode
+essencecode returns [String ret]
 @init {
 	eblock++;
 }
-	:	something -> ^(EBLOCK INT[String.valueOf(eblock)])
+@after {
+	$ret = essence.get(eblock);
+}
+	:	something
 	;
 
 something
 @init {
-	buffer = new StringBuffer();
+	StringBuffer buffer = new StringBuffer();
 }
 @after {
 	essence.put(eblock, buffer.toString());
@@ -107,141 +107,228 @@ something
 					tkn = input.get(i);
 				}
 			}
-		} )* NEWLINE!
+		} )* NEWLINE
 	;
 	
-stabblock
-	:	SBEGIN statement* SEND -> ^(SBLOCK statement*)
+stabblock returns [Stats ret]
+@after {
+	$ret = new Stats($s.ret);
+}
+	:	SBEGIN s=statements SEND
+	;
+	
+statements returns [List<Term> ret]
+@init {
+	List<Term> l = new LinkedList<Term>();
+}
+@after {
+	$ret = l;
+}
+	:	(s=statement {if($s.ret!=null) l.addAll($s.ret);})*
 	;
 
-//The stab code to be interpreted
-statement	
-	:	LCURLY statement* RCURLY -> ^(SBLOCK statement*)
-	|	simple_stmt
-	|	compound_stmt
-	|	NEWLINE!
+statement returns [List<Term> ret]
+	:	LCURLY ls=statements RCURLY
+			{$ret = $ls.ret;}
+	|	ss=simple_stmt
+			{$ret = $ss.ret;}
+	|	s=compound_stmt
+			{List<Term> lt = new LinkedList<Term>(); lt.add($s.ret); $ret = lt;}
+	|	NEWLINE
 	;
 	
-simple_stmt
-    	:   	s+=small_stmt (options {greedy=true;}:SEMI s+=small_stmt)* (SEMI)? NEWLINE -> $s*
+simple_stmt returns [List<Term> ret]
+@init {
+	List<Term> l = new LinkedList<Term>();
+}
+@after {
+	$ret = l;
+}
+    	:   	s=small_stmt {l.add($s.ret);} (options {greedy=true;}:SEMI s=small_stmt {l.add($s.ret);})* (SEMI)? NEWLINE
 	;
 	
-small_stmt
-	: 	expr_stmt
-	| 	flow_stmt
+small_stmt returns [Term ret]
+@after {
+	$ret = r;
+}
+	: 	r=expr_stmt 
+	| 	r=flow_stmt
 	;
 	
-expr_stmt
-	:	test
-		(	augassign^ test
-		|	ASSIGN^ test
-		)?
+expr_stmt returns [Term ret]
+	:	(NAME augassign test) => v=NAME o=augassign r=test {$ret = new Assign($v.text, $o.text, $r.ret);}
+	|	(NAME LBRACK test RBRACK augassign test) => NAME LBRACK t=test RBRACK augassign test {$ret = new ElAssign($v.text, $t.ret, $o.text, $r.ret);}
+	|	t=test {$ret = $t.ret;}
 	;
 	    	
-test	: 	and_test (OR^ and_test)*
-	;
-
-and_test
-	: 	not_test (AND^ not_test)*
-	;
-
-not_test
-	: 	NOT^ not_test
-	| 	comparison
-	;
-
-comparison
-	:	 arith_expr (comp_op^ arith_expr)*
-	;
-
-comp_op	: 	LESS
-	|	GREATER
-	|	EQUALS
-	|	GREATEREQUAL
-	|	LESSEQUAL
-	|	NOTEQUAL
-	;
-
-arith_expr	
-	: 	term ((PLUS|MINUS)^ term)*
-	;
-
-term	:	factor ((MULT | DIV | MOD )^ factor)*
-	;
-
-factor	: 	atom (POW^ factor)?
-	;
-
-atom	: 	LPAREN (test)? RPAREN -> test
-	|	NAME -> ^(VAR NAME)
-	|	NAME LBRACK test RBRACK -> ^(ELEM NAME ^(TEST test))//array
-	|	NAME LPAREN args RPAREN -> ^(CALL NAME ^(FARGS args)) //func call
-	|	o=NAME DOT m=NAME LPAREN args RPAREN -> ^(CALL $o $m ^(FARGS args)) //method call
-	| 	INT -> ^(EINT INT)
-	| 	STRING -> ^(ESTRING STRING)
-	|	BOOL -> ^(EBOOL BOOL)
-	;
-	
-args	:	a+=test (COMMA a+=test)* -> $a*;
-	
-flow_stmt
-	: 	break_stmt
-	| 	continue_stmt
-	| 	return_stmt
-	;
-
-break_stmt
-	: 	'break' -> ^(BREAK)
-	;
-
-continue_stmt
-	: 	'continue' -> ^(CONTINUE)
-	;
-
-return_stmt
-	: 	'return' (test)? -> ^(RETURN test)
-	;
-	
-compound_stmt
-	:	if_stmt
-	| 	while_stmt
-	| 	for_stmt
-	| 	funcdef
-	;
-	
-if_stmt	:	'if'^ LPAREN! test RPAREN! statement ('else' statement)?
-	;
-	
-while_stmt
-	:	'while'^ LPAREN! test RPAREN! statement
-	;
-	
-for_stmt:	'for'^ LPAREN! test RPAREN! statement
-	;
-	
-funcdef	
+test returns [Exp ret]
+@init{Exp left = null;}
 @after {
-	functions.put($name.text, (CommonTree)$funcdef.tree);
+	$ret = left;
 }
-	:	'function' name=NAME LPAREN args RPAREN -> ^(FUNCTION $name ^(FARGS args)) 
+	: 	l=and_test {left = $l.ret;} (OR r=and_test {left = new EOp("or", left, $r.ret);})*
+	;
+
+and_test returns [Exp ret]
+@init{Exp left = null;}
+@after {
+	$ret = left;
+}
+	: 	l=not_test {left = $l.ret;} (AND r=not_test {left = new EOp("and", left, $r.ret);})*
+	;
+
+not_test returns [Exp ret]
+	: 	NOT t=not_test {$ret = new EOp1("not", $t.ret);}
+	| 	c=comparison {$ret = $c.ret;}
+	;
+
+comparison returns [Exp ret]
+@init{Exp left = null;}
+@after {
+	$ret = left;
+}
+	:	 l=arith_expr {left = $l.ret;} (o=comp_op r=arith_expr {left = new EOp($o.text, left, $r.ret);})*
+	;
+
+comp_op	returns [String s]
+	: 	LESS {$s = "<";}
+	|	GREATER {$s = ">";}
+	|	EQUALS {$s = "==";}
+	|	GREATEREQUAL {$s = ">=";}
+	|	LESSEQUAL {$s = "<=";}
+	|	NOTEQUAL {$s = "!=";}
+	;
+
+arith_expr returns [Exp ret]
+@init{Exp left = null;}
+@after {
+	$ret = left;
+}
+	: 	l=term {left = $l.ret;} (o=(PLUS|MINUS) r=term {left = new EOp($o.text, left, $r.ret);})*
+	;
+
+term returns [Exp ret]
+@init{Exp left = null;}
+@after {
+	$ret = left;
+}
+	:	l=factor {left = $l.ret;} (o=(MULT | DIV | MOD ) r=factor {left = new EOp($o.text, left, $r.ret);})*
+	;
+
+factor	returns [Exp ret]
+	: 	l=atom {$ret = $l.ret;} (POW r=factor {$ret = new EOp("^", $l.ret, $r.ret);})?
+	;
+
+atom	returns [Exp ret]
+	: 	LPAREN (t=test)? RPAREN {$ret = $t.ret;}
+	|	n=NAME LPAREN a=args RPAREN 
+			{$ret = new Call($n.text, $a.ret);}
+	|	o=NAME DOT m=NAME LPAREN a=args RPAREN 
+			{$ret = new Method($n.text, $m.text, $a.ret);}
+	|	MINUS i=INT {$ret = new EOp1("-",new EInt(Integer.parseInt($i.text)));}
+	|	v=value {$ret = $v.ret;}
+	|	v=var {$ret = $v.ret;}
 	;
 	
-val	:	INT -> ^(EINT INT)
-	|	STRING -> ^(ESTRING STRING)
-	|	BOOL -> ^(EBOOL BOOL)
-	;
-
-stab	:	STAB! NEWLINE!;
-
-essencedef
-	:	ESSENCE version NEWLINE -> ^(EVERSION version)
-	;
-
-augassign
-	:	PLUSEQUAL | MINUSEQUAL | MULTEQUAL | DIVEQUAL | MODEQUAL
+value	returns [Value ret]
+	:	i=INT {$ret = new EInt(Integer.parseInt($i.text));}
+	|	BOOL {$ret = new EBool(Boolean.parseBoolean($i.text));}
 	;
 	
-version	:	(INT|NAME) (DOT (INT|NAME))*;
+var	returns [Exp ret]
+	:	n=NAME {$ret = new Var($n.text);}
+	|	n=NAME LBRACK t=test RBRACK {$ret = new ArrayEl($n.text, $t.ret);}
+	;
+	
+args	returns [List<Exp> ret]
+@init {
+	List<Exp> l = new LinkedList<Exp>();
+}
+@after {
+	$ret = l;
+}
+	:	a=test {l.add($a.ret);} (COMMA a=test {l.add($a.ret);})*
+	;
+	
+flow_stmt returns [Term ret]
+@after {
+	$ret = $s.ret;
+}
+	: 	s=break_stmt
+	| 	s=continue_stmt
+	| 	s=return_stmt
+	;
+
+break_stmt returns [Term ret]
+	: 	'break' {$ret = new Break();}
+	;
+
+continue_stmt returns [Term ret]
+	: 	'continue' {$ret = new Continue();}
+	;
+
+return_stmt returns [Term ret]
+	: 	'return' (t=test {$ret = new Return(new Some<Exp>($t.ret));})? {if($ret==null) $ret = new Return();} 
+	;
+	
+compound_stmt returns [Term ret]
+@after {
+	$ret = $t.ret;
+}
+	:	t=if_stmt
+	| 	t=while_stmt
+	| 	t=for_stmt
+	| 	t=funcdef
+	;
+	
+if_stmt	returns [Term ret]
+	:	'if' LPAREN t=test RPAREN s=statement ('else' e=statement {$ret = new If($t.ret, new Stats($s.ret), new Some<Stats>(new Stats($e.ret)));})? 
+			{if($ret==null) $ret = new If($t.ret, new Stats($s.ret));}
+	;
+	
+while_stmt returns [Term ret]
+	:	'while' LPAREN t=test RPAREN s=statement {$ret = new While($t.ret, new Stats($s.ret));}
+	;
+	
+for_stmt returns [Term ret]
+	:	'for' LPAREN v=NAME COLON c=var RPAREN s=statement {$ret = new For($v.text, $c.ret, new Stats($s.ret));}
+	;
+	
+funcdef returns [Term ret]
+@init {
+	List<String> args = new LinkedList<String>();
+}
+@after {
+	FuncDef func = new FuncDef($name.text, args, new Stats($s.ret));
+	funcdefs.add(func);
+	$ret = func;
+}
+	:	'function' name=NAME LPAREN (a=NAME {args.add($a.text);} (COMMA a=NAME {args.add($a.text);})*)? RPAREN LCURLY s=statements RCURLY
+	;
+
+stab	:	STAB NEWLINE;
+
+essencedef returns [String v]
+	:	ESSENCE ver=version NEWLINE {$v = "language ESSENCE\' " + $ver.ret;}
+	;
+
+augassign returns [String op]
+	:	PLUSEQUAL {$op = "+=";} 
+	| 	MINUSEQUAL {$op = "-=";} 
+	| 	MULTEQUAL {$op = "*=";} 
+	| 	DIVEQUAL {$op = "/=";} 
+	| 	MODEQUAL {$op = "\%=";} 
+	| 	ASSIGN {$op = "=";}
+	;
+	
+version	returns [String ret]
+@init {
+	StringBuffer sb = new StringBuffer();
+}
+@after {
+	$ret = sb.toString();
+}
+	:	s=(INT|NAME) {sb.append($s.text);} (s=DOT {sb.append($s.text);} s=(INT|NAME) {sb.append($s.text);})*;
 
 	
 SBEGIN	:	'<stab>';

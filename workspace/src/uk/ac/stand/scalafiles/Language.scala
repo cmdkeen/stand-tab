@@ -1,12 +1,13 @@
 package uk.ac.stand.scalafiles
 
 import uk.ac.stand.minion.EssenceToMinion
+import scala.collection.mutable.HashMap
 
 class Language {
   
   type Id = String
   type Op = String
-  val Env = new scala.collection.mutable.HashMap[Id, Var]
+  val Env = new HashMap[Id, Var]
   
   trait Var {   
     
