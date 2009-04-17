@@ -2,13 +2,10 @@ package uk.ac.stand.testing;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-
-import org.antlr.runtime.CommonToken;
 
 import uk.ac.stand.scalafiles.Stab;
 import uk.ac.stand.scalafiles.Stab.*;
@@ -18,12 +15,8 @@ import uk.ac.stand.antlr.gen.stabLexer;
 import uk.ac.stand.antlr.gen.stabParser;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
-import uk.ac.stand.impl.Flag;
-import uk.ac.stand.impl.Position;
-import uk.ac.stand.impl.Room;
 import uk.ac.stand.impl.Settings;
 import uk.ac.stand.impl.exceptions.StoreException;
-import uk.ac.stand.interfaces.ITeam;
 
 public class SystemTest {
 
@@ -127,7 +120,7 @@ public class SystemTest {
 		
 		try {
 			s.setFlagValue("numRounds", 3);
-			s.setFlagValue("numTeams", 200);
+			s.setFlagValue("numTeams", 20);
 			s.setFlagValue("speakersPerTeam", 2);
 			s.setFlagValue("teamsPerSide", 2);
 		} catch (StoreException e) {
@@ -142,11 +135,9 @@ public class SystemTest {
 		try {
 			rules = new Rules(f);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(-1);
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(-1);
 		}

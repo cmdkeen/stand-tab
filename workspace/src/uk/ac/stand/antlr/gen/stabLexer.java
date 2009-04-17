@@ -5,9 +5,6 @@
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 
 public class stabLexer extends Lexer {
     public static final int LBRACK=12;

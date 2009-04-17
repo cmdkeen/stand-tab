@@ -17,6 +17,7 @@ public class FlagTest {
 	Flag b;
 	Flag c;
 	Flag d;
+	Flag e;
 	
 	@Before
 	public void SetUp() throws StoreException {
@@ -25,6 +26,7 @@ public class FlagTest {
 		b = new Flag("two", Collection.class);
 		c = new MultFlag("three", 0, Integer.class);
 		d = new MultFlag("three", 1,  Integer.class);
+		e = new Flag("four", Integer.class);
 		
 		Flag[] temp = new Flag[4];
 		temp[0] = a;
@@ -55,6 +57,12 @@ public class FlagTest {
 		Assert.assertTrue(a.isAcceptable("hello"));
 		Assert.assertTrue(b.isAcceptable(new LinkedList<Object>()));
 		Assert.assertFalse(a.isAcceptable(new LinkedList<String>()));
+		
+		Assert.assertTrue(e.isAcceptable(3));
+		Assert.assertTrue(e.isAcceptable(Integer.valueOf(3)));
+		
+		Object o = 3;
+		Assert.assertTrue(e.isAcceptable(o));
 		
 		Assert.assertTrue(a.isAcceptable(String.class));
 	}

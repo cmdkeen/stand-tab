@@ -64,4 +64,9 @@ public class Settings extends FlagUser {
 		return true;
 	}
 
+	public boolean isValid(String name, Object value) {
+		//Call to the current rules file to check if value is a valid assignment
+		return Competition.getInstance().getSettingsRules().validateSetting(name, value);
+	}
+
 }

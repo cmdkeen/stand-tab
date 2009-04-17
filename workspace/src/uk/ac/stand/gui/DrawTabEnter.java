@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import uk.ac.stand.antlr.DrawFile;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Position;
@@ -27,7 +28,6 @@ import uk.ac.stand.interfaces.ITeam;
 public class DrawTabEnter extends JPanel implements ActionListener, ListSelectionListener {
 
 	protected DrawTab dt;
-	private JList methods;
 	private JButton generateRound;
 	private JButton enterResults;
 	private EnterResults resultsPanel;
@@ -47,17 +47,12 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 		generateRound.setActionCommand("genRound");
 		generateRound.addActionListener(this);
 		generateRound.setEnabled(false);
-		
-		//TODO DISS replace
-		//methods = new JList(FakeDraw.draws);
-		//methods.addListSelectionListener(this);
-		
+			
 		enterResults = new JButton("Enter Results");
 		enterResults.setActionCommand("enterResults");
 		enterResults.addActionListener(this);
 		enterResults.setEnabled(false);
 		
-		lower.add(methods);
 		lower.add(generateRound);
 		lower.add(enterResults);
 		
@@ -72,17 +67,26 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("genRound")) {			
 			int row = dt.getList().getSelectedIndex();
-			int mrow = methods.getSelectedIndex();
 			
-			if(row==-1||mrow==-1) return;
+			if(row==-1) return;
 			
 			row++; //Row 0 is for round 1
 			
 			//FakeDraw fd = new FakeDraw(FakeDraw.draws[mrow]);
 			try{
-				//DrawFunction fd = Competition.getInstance().getDrawFunction((String) methods.getSelectedValue());
-				//TODO DISS fill in here
-				//Competition.getInstance().addDraw(row, fd.doDraw(row));
+				DrawFile df = Competition.getInstance().getDrawFile();
+				
+				if(df==null) {
+					JOptionPane.showMessageDialog(this,
+						    "You need to select a Stab file with a draw algorithm in first",
+						    "Draw cancelled",
+						    JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				int round = row;
+				Draw d = df.doDraw(round);
+				Competition.getInstance().addDraw(round, d);
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(this,
 					    "Error:\n" + ex.getMessage(),
@@ -101,7 +105,6 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 			if(row==-1) return;
 			row++;
 			
-			//TODO enter the results in somehow
 			saveResults();
 			
 			enterResults(false);
@@ -150,7 +153,7 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 	 */
 	protected void testButtons() {
 		int round = getRoundNum();
-		//TODO some means of editing the results already entered
+
 		if(round==0) { //A round is not selected
 			generateRound.setEnabled(false);
 			enterResults(false);
@@ -168,8 +171,8 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 					}
 				}
 			} else {
-				if(methods.getSelectedIndex()!=-1 && c.getTeams().size()>0 && (c.getTeams().get(0).getTeamResult(round-1)!=null||methods.getSelectedIndex()==0)) {
-					//A draw method is selected & the previous round has results entered or the round is the first round
+				if(c.getTeams().size()>0 && (round==1 || c.getTeams().get(0).getTeamResult(round-1)!=null)) {
+					//The previous round has results entered or the round is the first round
 					generateRound.setEnabled(true);
 					enterResults(false);
 				} else {

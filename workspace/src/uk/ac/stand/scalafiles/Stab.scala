@@ -6,26 +6,34 @@ import scala.collection.mutable.HashMap
 import java.lang.reflect.Field
 import uk.ac.stand.impl._
 
+/*
+ * The language definition and interpreter for Stab
+ * Stab is a preprocessor Essence' and also interfaces between CSPs and tabbing applications
+ */
+
 object Stab {
   
   type Id = String
   type Op = String
   
+  //If debugging will print out the AST nodes as they are being interpreted at each stage
   var debug_on = false;
-  
   def setdebug(b: Boolean) {
     debug_on = b
   }
   
+  //The result of parsing a Stab file, contains everything for interpreting the file
   case class Program(funcs:List[FuncDef], stats:List[Stats]) {
     def this(f: java.util.List[FuncDef], s: java.util.List[Stats]) = this (f.toList, s.toList)
     def statString(): String = {stats.toString} 
   }
   
+  //A series of statements
   case class Stats(terms: List[Term]) {
     def this(t: java.util.List[Term]) = this(t.toList)
   }
   
+  //Terms alter the state of the program. But can't be evaluated to anything
   trait Term
   case class Assign(n:Id, o:Op, v: Exp) extends Term
   case class ElAssign(n: Id, e: Exp, o:Op, v: Exp) extends Term
@@ -44,6 +52,7 @@ object Stab {
     def this(n:Id, ar: java.util.List[Id], s:Stats) = this(n, ar.toList, s)
   }
   
+  //Expressions can be evaluated to a Value
   trait Exp extends Term
   case class Var(i: Id) extends Exp
   case class ArrayEl(n: Id, e: List[Exp]) extends Exp {//Can either be a single values or an EArray of values for multidimensional arrays
@@ -78,24 +87,31 @@ object Stab {
     }
   }
   
-  
+  //The global namespace
   val Env = new HashMap[Id, Value]
+  //The functions that have been defined during parsing
   val Functions = new HashMap[Id, FuncDef]
   
+  //The fields that have been defined by the Stab file
   val settings = new HashMap[Id, (java.lang.Class[_], java.lang.Object)]
   val teamFields = new HashMap[Id, (java.lang.Class[_], java.lang.Object)]
   val speakerFields = new HashMap[Id, (java.lang.Class[_], java.lang.Object)]
   
+  //Validation functions that have been defined
   val validSettingsFuncs = new HashMap[Id, Stats]
   val validTeamFieldsFuncs = new HashMap[Id, Stats]
   val validSpeakerFieldsFuncs = new HashMap[Id, Stats]
+  //Only one room validation function as only one type of room results
   var roomValidiationFunc:Option[Stats] = None
   
+  //The Essence' output is collated here
   val emain = new StringBuffer
   val eparam = new StringBuffer
   
+  //Local memory holds things like function arguments and the variable in a loop
   var localMemory:Map[Id, Value] = new HashMap[Id, Value]
   
+  //When running all the settings from the associated application are copied across into memory
   def getSettings(): java.util.Map[Flag, java.lang.Object] = {
     val l = new java.util.HashMap[Flag, java.lang.Object]
     
@@ -108,6 +124,7 @@ object Stab {
     l  
   }
   
+  //Return all the extra team fields that have been defined
   def getTeamFields(): java.util.Map[Flag, java.lang.Object] = {
     val l = new java.util.HashMap[Flag, java.lang.Object]
     
@@ -119,6 +136,7 @@ object Stab {
     l  
   }
   
+  //Return all the extra speaker fields that have been defined
   def getSpeakerFields(): java.util.Map[Flag, java.lang.Object] = {
     val l = new java.util.HashMap[Flag, java.lang.Object]
     
@@ -130,30 +148,35 @@ object Stab {
     l  
   }
   
+  //This section is the interface between Stab and the application for validating data. The application will call these functions
   def validateSetting(name: String, v:java.lang.Object): Boolean = {
     var ret = true
-    val value = convert(v)
     
-    if(validSettingsFuncs.contains(name)) ret = runValidateFunction(validSettingsFuncs(name), List(("Value", value)))
+    if(validSettingsFuncs.contains(name)) {
+      val value = convert(v)
+      ret = runValidateFunction(validSettingsFuncs(name), List(("Value", value)))
+    } 
     
     ret
   }
   
   def validateTeamField(name:String, t:Team, v:java.lang.Object):Boolean = {
     var ret = true
-    val value = convert(v)
-    
-    if(validTeamFieldsFuncs.contains(name)) ret = runValidateFunction(validTeamFieldsFuncs(name), List(("Value", value), ("Team",EObject(t))))
-    
+   
+    if(validTeamFieldsFuncs.contains(name)) {
+      val value = convert(v)
+      ret = runValidateFunction(validTeamFieldsFuncs(name), List(("Value", value), ("Team",EObject(t))))
+    }
     ret
   }
   
   def validateSpeakerField(name:String, s:Speaker, v:java.lang.Object):Boolean = {
     var ret = true
-    val value = convert(v)
     
-    if(validSpeakerFieldsFuncs.contains(name)) ret = runValidateFunction(validSpeakerFieldsFuncs(name), List(("Value", value), ("Speaker",EObject(s))))
-    
+    if(validSpeakerFieldsFuncs.contains(name)) {
+      val value = convert(v)
+      ret = runValidateFunction(validSpeakerFieldsFuncs(name), List(("Value", value), ("Speaker",EObject(s))))
+    }
     ret
   }
   
@@ -169,6 +192,7 @@ object Stab {
     ret
   }
   
+  //Runs the statements associated with a function expecting to end up with a EBool
   private def runValidateFunction(s:Stats, lm:List[(Id, Value)]): Boolean = {
     Env.clear
     localMemory.clear
@@ -185,6 +209,8 @@ object Stab {
     }
   }
   
+  //Deals with the memory between each interpretation
+  //This is a singleton object so multiple interpretations can have side effects without clearing the memory
   def setupMemory() {
     Env.clear
     localMemory.clear
@@ -202,11 +228,14 @@ object Stab {
     validTeamFieldsFuncs.clear
     
     val s = uk.ac.stand.impl.Settings.getInstance
-    if(s.getFlags!=null && s.getFlags.getFields!=null) s.getFlags.getFields.foreach(x => Env += x.getName -> convert(s.getFlagValue(x)))
+    //Check for various null values before proceeding, might be being called while trying to set something up
+    //This includes s.getFlagValue(x) -> if trying to validate x then s won't have a value yet
+    if(s.getFlags!=null && s.getFlags.getFields!=null) s.getFlags.getFields.foreach(x => if(s.getFlagValue(x)!=null) Env += x.getName -> convert(s.getFlagValue(x)))
     
     val c = uk.ac.stand.impl.Competition.getInstance
     if(c.getTeams!=null) Env += "teams" -> EArray(c.getTeams.map(x=> EObject(x)).toArray) //Map each team into an array and store it - allows for consistent ordering
   }
+  
   
   def runInitial(p: Program) { //Use to extract the settings and setup the validation function
     setupMemory
@@ -237,6 +266,7 @@ object Stab {
     run(s, new HashMap[Id, Value]())  
   }
   
+  //Run takes a list of statements and interprets them until either there is nothing left to do, or it has been interrupted for some reason
   def run(s: Stats, local:Map[Id, Value]): List[Any] = {
     localMemory = local
     
@@ -244,7 +274,8 @@ object Stab {
 
 	    s.terms match {
 	      case Nil => return List() //List is empty - nothing to evaluate
-	      //case (_:Value) :: List() => List(s.terms.head) //EString is a value so still need to interpret
+	      //case (_:Value) :: List() => List(s.terms.head) //EString is a value so still need to interpret it in order to add it to the essence buffers
+          //Control flow statements - interrupt the normal progression
           case Return(None) :: _ => List()
           case Return(Some(v:Value)) :: _ => List(v)
           case Return(Some(e:Exp)) :: _ => List(interpret(e))
@@ -263,6 +294,7 @@ object Stab {
   def interpret(b: Term): Term = {
     if (debug_on) println("interp: " + b)
     
+    //Deal with any control flow statements now rather than in neval
     b match {
       case r:Return => return r
       case c:Continue => return c
@@ -270,10 +302,12 @@ object Stab {
       case _ =>
     }
     
+    //Try to deal with the Term as something that doesn't evaluate to anything
+    //If that fails then evaluate it
     neval(b) match {
       case (true, None) => return null
       case (true, Some(r)) => return r
-      case (false, _) => eval(b) //If it is a while loop replace with null, otherwise go to eval
+      case (false, _) => eval(b)
     }
   }
   
@@ -417,13 +451,16 @@ validateRoomResult(array[tpr] of ints)
     (true, None) //Did find something matching so don't proceed to eval in interpret
   }
   
+  
+  //Deal with assignments - determines what the new value to be assigned is
   private def augassign(o:Op, l:Option[Value], r:Value): Value = {
     
-    o match {
-      case "=" => return r
+    o match { //All manner of things can be assigned (e.g. Arrays) that can't have an augmented assignment
+      case "=" => return r //Normal assignments need no trickery so just return the value to assign
       case _ =>
     }
     
+    //Find the current value
     var left:EInt = l match {
       case null => EInt(0)
       case None => EInt(0)
@@ -433,13 +470,13 @@ validateRoomResult(array[tpr] of ints)
       case Some(v:Value) => throw new IllegalArgumentException("Passed left value wasn't and Integer or Boolean: found " + v) 
     }
     
-    var right:EInt = r match {
+    var right:EInt = r match { //Find the new value
       case null => EInt(0)
       case EBool(true) => EInt(1)
       case EBool(false) => EInt(0)
     }
     
-    o match {
+    o match { //Determine which operation to carry out and return the new value to be stored
       case "=" => right
       case "+=" => EInt(left.v + right.v)
       case "-=" => EInt(left.v - right.v)
@@ -652,6 +689,8 @@ createSpeakerField(name, type, default value)
     }
   } 
   
+  //Gathers the bound of the array up to any number of dimensions
+  //Assumes however that the bounds of each layer are the same i.e a[3,4].length == a[2,8].length
   def indicies(l:Array[Value]): EArray = {   
     EArray(indicies_h(l).map(x=> ERange(0,x-1)).toArray)
   }
@@ -678,9 +717,9 @@ createSpeakerField(name, type, default value)
       case Var(name) =>
         a(1) match { //Don't evaluate as want the Var node's Id - should evaluate to a class name
           case Var("Int") =>
-            t = java.lang.Integer.TYPE
+            t = java.lang.Integer.valueOf("1").getClass
           case Var("Boolean") =>
-            t = java.lang.Boolean.TYPE
+            t = java.lang.Boolean.valueOf("true").getClass
           case Var(x) => throw new IllegalArgumentException("Create settings or fields take as its second argument a class (currently Int or Boolean), not " + x)
         }
         eval(a(2)) match {
@@ -728,6 +767,8 @@ createSpeakerField(name, type, default value)
     roomValidiationFunc = Some(s)
   }
   
+  //Converts a java object into something the interpreter can handle
+  //If nothing else than wrapping it inside an EObject class
   def convert(o:Object): Value = {
     o match {
       case null => throw new IllegalArgumentException("Trying to convert a null object")
@@ -808,7 +849,6 @@ createSpeakerField(name, type, default value)
                        case _ => throw new IllegalArgumentException("Function paramMatrix requires all values in the array of its 3rd argument to evaluate to a range")
                      }).toList
                      
-                     println("***ranges len " + ranges.length)
                      //rlist now is a list of the ranges - now fold the list of domains into a string
                      val pstring = if(rlist.length>1) {
                        "[" + rlist.tail.map(x=>x.domain).foldLeft(rlist.head.domain)(_ + ", " + _) + "]"
@@ -833,6 +873,7 @@ createSpeakerField(name, type, default value)
        }
   }
   
+  //Turns an EArray into a String suitable for Essence' to interpret
   def printMatrix(a:Array[Value], l:List[ERange]): String = {
     if(l==Nil) throw new IllegalArgumentException("Passed array for printing has too many indices")
     

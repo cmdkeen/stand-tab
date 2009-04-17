@@ -12,17 +12,12 @@ public class CompetitionGUI extends JPanel {
     DrawTabEnter rounds = null;
     SettingsTab settings = null;
 
-	public CompetitionGUI(String title) {
+	public CompetitionGUI() {
 		settings = new SettingsTab(true);
+               
+        add(tabbedPane);
         
-        //tabbedPane.addTab("Settings", settings);
-        
-        
-        //tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        
-        add(settings);
-        //panel.setOpaque(true);
-        
+        tabbedPane.add(settings);
 	}
 	
 	protected void competitionSetup() {

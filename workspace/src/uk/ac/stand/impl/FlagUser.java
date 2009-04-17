@@ -94,8 +94,9 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 		setFlagValue(getFlags().getFlagFromString(flagName, index), data);
 	}
 
-	public void setFlagValue(Flag flag, Object data) throws StoreException {
-		//TODO test the passed object meets criteria
+	public void setFlagValue(Flag flag, Object data) throws StoreException {	
+		if(!flag.isAcceptable(data.getClass())) throw new StoreException("Value " + data + " not of the correct type: " + flag.getType() + " found " + data.getClass());
+		if(!isValid(flag.getName(),data)) throw new StoreException("Value " + data + " is not valid according to the specified criteria");
 		
 		if(getFlags().containsFlag(flag)) {
 			if(flag.isMultiple()) {

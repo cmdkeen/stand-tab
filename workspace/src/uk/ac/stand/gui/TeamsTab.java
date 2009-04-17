@@ -39,7 +39,6 @@ public class TeamsTab extends JPanel implements ActionListener {
 			try {
 				DataSetup.addTeamsSpeakers();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} 
 			

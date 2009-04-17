@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.ArrayList;
 
-import uk.ac.stand.scalafiles.Language;
-import uk.ac.stand.scalafiles.ScalaInterface;
-import uk.ac.stand.scalafiles.Language.*;
-
+/**
+ * @author chris
+ *
+ */
 public class EssenceToMinion {
 
+	//global variables for interfacing with Minion
 	private String minionOut = null;
 	private String essenceIn = null;
 	private String essenceParam = null;
@@ -25,9 +25,12 @@ public class EssenceToMinion {
 	private Runner run = null;
 	private Process minion = null;
 	
+	//Minion's output
 	private BufferedReader in = null;
+	//The last result read from in
 	private LinkedList<String> lastResult = null;
 	
+	//Having examined the minion input we know what the variables are and their sizes
 	private List<String> varNames = null;
 	private List<Integer> varBounds = null;
 	
@@ -42,6 +45,11 @@ public class EssenceToMinion {
 		return run.getMinionInput();
 	}
 	
+	/**
+	 * Take Essence' code and translate it into Minion input
+	 * 
+	 * @return
+	 */
 	public String translate() {
 		run = new Runner(essenceIn, essenceParam);
 		
@@ -50,27 +58,42 @@ public class EssenceToMinion {
 		return run.getMinionInput();
 	}
 	
+	/**
+	 * Whether a current Minion process is registered as running
+	 * 
+	 * @return
+	 */
 	public boolean isRunning() {
 		if(minion==null) return false;
 		try {
 			minion.exitValue();
+			//Process doesn't provide a nice interface
+			//Check to see if the process is dead, if it is not it throws and Exception
 		} catch (IllegalThreadStateException e) {
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Kill the current minion process
+	 */
 	public void killMinion() {
 		minion.destroy();
 	}
 	
 
+	/**
+	 * Given the current state of the Minion stdout connection read backwards until a valid result is encountered
+	 * 
+	 * @return the most recent solution from Minion
+	 */
 	public LinkedList<String> getLatestResult() {
 		LinkedList<String> lines = new LinkedList<String>();
 		LinkedList<String> solutions;
 		
 		try {
-			in.mark(10000);
+			in.mark(10000); //Allow the stream to reset if nothing found
 			
 			String s = in.readLine();
 			//Deal with minion constantly reading stuff
@@ -98,12 +121,18 @@ public class EssenceToMinion {
 			return null;
 		}
 		
+		//Found something so return it
 		if(solutions==null && lastResult!=null) return lastResult;
+		//Didn't find anything new, so just return the last result from before this call
 		lastResult = solutions;
 		
 		return solutions;
 	}
 	
+	/**
+	 * Starts Minion running in interactive mode for when it will take a long time to search through
+	 * the solutions seeking to optimise a solution. 
+	 */
 	public void runMinionInteractive() {
 		if(run==null) {
 			run = new Runner(essenceIn, essenceParam);
@@ -162,8 +191,6 @@ public class EssenceToMinion {
 	 * @return a linked list of the solutions
 	 */
 	private LinkedList<String> extractValueSol(LinkedList<String> input) {
-		//TODO make fail on improper input
-		//TODO define how minion output looks for a result
 		ListIterator<String> li = input.listIterator(input.size()); //Start at the end
 		
 		if(!li.hasPrevious()) {
@@ -182,12 +209,15 @@ public class EssenceToMinion {
 				return null; //Found no solutions so fail
 			}
 
+			//Go back until find the block of solutions
+			//Solutions are "sol: x y z"
 			sc = new Scanner(li.previous());
 			sc.useDelimiter(":");
 			
 			if(sc.hasNext()) {
 				String s = sc.next();
 				
+				//Objective function solution value
 				if(s.equals("Solution found with Value")) {
 					objectiveValue = Integer.parseInt(sc.next().trim());
 				}
@@ -206,6 +236,12 @@ public class EssenceToMinion {
 		return sols;
 	}
 		
+	/**
+	 * Extracts from a series of lines of Minion solutions a 2d array of integers
+	 * 
+	 * @param sols a list of solutions in order, consisting of ints seperated by spaces
+	 * @return
+	 */
 	public static Integer[][] getIntValues2D(List<String> sols) {
 		if(sols==null) return null;
 		
@@ -221,6 +257,12 @@ public class EssenceToMinion {
 		return ret;
 	}
 	
+	/**
+	 * From a single line of Minion output extracts a 1d array of integers
+	 * 
+	 * @param sol a solution of ints seperated by spaces
+	 * @return
+	 */
 	public static Integer[] getIntValues(String sol) {
 		if(sol==null) return null;
 		
@@ -235,6 +277,12 @@ public class EssenceToMinion {
 		return ret;
 	}
 	
+	/**
+	 * Extracts from a series of lines of Minion solutions a 2d array of integers
+	 * 
+	 * @param sols solutions of doubles seperated by spaces
+	 * @return
+	 */
 	public static Double[][] getDoubleValues2D(List<String> sols) {
 		if(sols==null) return null;
 		Double[][] ret = new Double[sols.size()][];
@@ -249,6 +297,12 @@ public class EssenceToMinion {
 		return ret;
 	}
 	
+	/**
+	 * From a single line of Minion output extracts a 1d array of doubles
+	 * 
+	 * @param sol a solution of doubles seperated by spaces
+	 * @return
+	 */
 	public static Double[] getDoubleValues(String sol) {
 		if(sol==null) return null;
 		StringTokenizer st = new StringTokenizer(sol);
@@ -300,6 +354,11 @@ public class EssenceToMinion {
 		return objectiveValue;
 	}
 	
+	/**
+	 * Extract from the Minion input data what variables of what sizes are going to be output by Minion
+	 * 
+	 * @throws IOException
+	 */
 	private void outputSizes() throws IOException {
 		if(run==null || run.getMinionInput()==null) return;
 		

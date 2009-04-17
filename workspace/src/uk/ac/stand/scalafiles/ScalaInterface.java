@@ -9,17 +9,20 @@ import uk.ac.stand.minion.EssenceToMinion;
 import uk.ac.stand.scalafiles.Language.*;
 import uk.ac.stand.testing.RunnerTest;
 
+
+
+/**
+ * Interface between Scala and Java
+ * Used to assist in translating Minion output of known sizes into Java variables 
+ * 
+ * @author crh24
+ *
+ */
 public class ScalaInterface {
 
 	public static void main(String[] args)
     {
-		/*
-		String[] aas = { "Sum(Sum(Var(\"x\"),Var(\"x\")),Sum(Const(7),Var(\"y\")))" };
-        simpleInterpreter.main(aas);
-        */
-		
 		test1();
-        
     } 
 	
 	public static void test1() {
@@ -82,9 +85,7 @@ public class ScalaInterface {
 		//for(Var v : vars) System.out.println(v.toString());
 		
 	}
-	
-	//TODO other extracts...
-	
+		
 	public static int[] extractIntArray(EArray ea) {
 		Var[] ia = ea.getValue();
 		

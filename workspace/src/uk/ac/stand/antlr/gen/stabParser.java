@@ -12,11 +12,7 @@
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+
 public class stabParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "NEWLINE", "COMMENT", "SBEGIN", "SEND", "LCURLY", "RCURLY", "SEMI", "NAME", "LBRACK", "RBRACK", "OR", "AND", "NOT", "LESS", "GREATER", "EQUALS", "GREATEREQUAL", "LESSEQUAL", "NOTEQUAL", "PLUS", "MINUS", "MULT", "DIV", "MOD", "POW", "LPAREN", "RPAREN", "DOT", "INT", "BOOL", "EPRIMEBLOCK", "COMMA", "COLON", "STAB", "ESSENCE", "PLUSEQUAL", "MINUSEQUAL", "MULTEQUAL", "DIVEQUAL", "MODEQUAL", "ASSIGN", "ENDESSENCE", "DEF", "WS", "USCORE", "ECOMMENT", "QUOTE", "LQUOTE", "ESC", "'break'", "'continue'", "'return'", "'if'", "'else'", "'while'", "'for'", "'function'"

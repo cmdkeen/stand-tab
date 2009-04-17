@@ -24,6 +24,9 @@ public class Room implements Serializable {
 		teams = new HashMap<Position,ITeam>();
 	}
 	
+	/**
+	 * @return whether the room is full
+	 */
 	public boolean isComplete() {
 		try {
 			return (teams.size()==(((Integer) Settings.getInstance().getFlagValue("teamsPerSide")) * 2));
@@ -53,8 +56,11 @@ public class Room implements Serializable {
 		roomName = name;
 	}
 	
+	/**
+	 * @param round
+	 * @return whether the result for the round has been entered yet
+	 */
 	public boolean resultEntered(int round) {
-		//TODO get rid of round here, make a field
 		if(teams.values().iterator().next().getTeamResult(round)!=null) return true;
 		return false;
 	}

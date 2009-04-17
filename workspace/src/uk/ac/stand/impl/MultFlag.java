@@ -8,6 +8,13 @@ public class MultFlag extends Flag implements Serializable {
 	
 	private int index;
 
+	/**
+	 * Creates a multi value flag refering to the collection of data name, mapping within that data by index and of the specified type.
+	 * 
+	 * @param name
+	 * @param index
+	 * @param type
+	 */
 	public MultFlag(String name, int index, Class<?> type) {
 		super(name, type);
 		this.index = index;

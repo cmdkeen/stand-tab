@@ -18,18 +18,19 @@ private static Flags flags = null;
 	}
 
 	public Flag[] getBuiltInFunctions() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public Object runBuiltInFunction(Flag name, Object... args) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public Object runInterpretedFunction(Flag flag, Object... args)
 			throws Exception {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean isValid(String name, Object value) {
+		return true;
 	}
 }

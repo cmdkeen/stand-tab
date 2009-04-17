@@ -15,7 +15,6 @@ public class Team extends FlagUser implements Serializable, ITeam {
 	private static Flags flags = null;
 	
 	//Every function here must be referenced in runBuiltInFunction and return something
-	//TODO add in MultFlag("positions", Integer.class) - then rewrite Scala position array
 	private static Flag[] functions = {new Flag("TotalScore", Integer.class), new Flag("TotalSpeakerScore", Integer.class)};
 	private static final long serialVersionUID = 50320091L;
 	
@@ -43,19 +42,24 @@ public class Team extends FlagUser implements Serializable, ITeam {
 	public void addResult(int round, Integer result) {
 		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round,Integer.class));
 		if(f!=null) {
+			try {
+				setFlagValue(f, result);
+			} catch (StoreException e) {
+				e.printStackTrace();
+			}
 			results.put(round, result);
 		}
 		
 	}
 
 	public boolean addSpeaker(ISpeaker speaker) {
-		//TODO decide what to do about failure - throw or return false? - probably return
 		try {
 			if(!speakers.contains(speaker) && speakers.size()<(Integer) Settings.getInstance().getFlagValue("speakersPerTeam")) {
 				Flag f = flags.getFlagFromSimilar(new MultFlag("Speaker",speakers.size(), ISpeaker.class));
 				//If a flag to access this speaker exists
 				if(f!=null) {
 					speakers.add(speaker);
+					setFlagValue(f, speaker);
 					return true;
 				}
 				
@@ -142,6 +146,10 @@ public class Team extends FlagUser implements Serializable, ITeam {
 		int r = 0;
 		for(ISpeaker s : speakers) for(Integer i : s.getScores().values()) r += i;
 		return r;
+	}
+
+	public boolean isValid(String name, Object value) {
+		return Competition.getInstance().getSettingsRules().validateTeamField(name, this, value);
 	}
 
 }

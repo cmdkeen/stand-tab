@@ -47,8 +47,14 @@ public class Draw implements Serializable {
 		
 	}
 	
+	/**
+	 * Allows many teams to be added, each position is mapped to a list of teams. 
+	 * Position x in each list refers to the teams in the same room 
+	 * 
+	 * @param map
+	 * @param numAdded the number of rooms being added
+	 */
 	public void addTeams(Map<Position,LinkedList<ITeam>> map, int numAdded) {
-		System.out.println("Added: " + numAdded);
 		for(int i = 0; i < numAdded/map.keySet().size(); i++) {
 			
 			Room r = new Room("Room: " + curRoom++);

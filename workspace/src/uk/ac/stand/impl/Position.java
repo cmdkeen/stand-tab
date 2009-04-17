@@ -18,10 +18,18 @@ public class Position implements Comparable<Position>, Serializable {
 		this.order = order;
 	}
 
+	/**
+	 * @return which side the team is on. A binary variable
+	 */
 	public Side getSide() {
 		return side;
 	}
 
+	/**
+	 * How far along the table the team is on its given side.
+	 * 
+	 * @return
+	 */
 	public int getOrder() {
 		return order;
 	}
@@ -40,12 +48,22 @@ public class Position implements Comparable<Position>, Serializable {
 		
 	}
 	
+	/**
+	 * This value allows for comparison between any Position on either side. It is how arrays of position are to be indexed.
+	 * 
+	 * @return
+	 */
 	public int absNumber() {
 		int ret = (order-1)*2;
 		if(side==Side.Opposition) ret++;
 		return ret;
 	}
 
+	/**
+	 * This array of positions is a singleton, use it for mapping teams to position.
+	 * 
+	 * @return an array of positions
+	 */
 	public static Position[] getPositionArray() {
 		if(posArray==null) {
 		

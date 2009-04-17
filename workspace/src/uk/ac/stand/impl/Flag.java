@@ -69,6 +69,9 @@ public class Flag implements Comparable<Flag>, Serializable {
 		return type.isAssignableFrom(t);
 	}
 
+	/**
+	 * @return the class type that assignments to this Flag must be compatible with 
+	 */
 	public Class<?> getType() {
 		return type;
 	}

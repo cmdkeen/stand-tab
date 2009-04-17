@@ -3,6 +3,10 @@ package uk.ac.stand.scalafiles
 import uk.ac.stand.minion.EssenceToMinion
 import scala.collection.mutable.HashMap
 
+/*
+ * This file is designed to assist in Extracting data from Minion solutions into Java variables
+ */
+
 class Language {
   
   type Id = String

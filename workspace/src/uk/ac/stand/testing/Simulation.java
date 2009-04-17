@@ -28,7 +28,9 @@ public class Simulation {
 	}
 	
 	public void makeResults(int round) {
+		if(round<1) return;
 		Draw d = Competition.getInstance().getDraw(round);
+		if(d==null) return;
 		int tpr = d.getRooms().get(0).getTeams().keySet().size();
 		
 		ArrayList<Integer> scores = new ArrayList<Integer>(tpr);

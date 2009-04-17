@@ -31,6 +31,8 @@ import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Settings;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
+import uk.ac.stand.testing.DataSetup;
+import uk.ac.stand.testing.Simulation;
 
 @SuppressWarnings("serial")
 public class MainGUI extends JFrame implements ActionListener {
@@ -38,8 +40,8 @@ public class MainGUI extends JFrame implements ActionListener {
 	JPanel panel = null;
 	
     JMenuBar menubar;
-    JMenu mCompetition, mTeams, mSpeakers, mdraw, tExport, sExport, dExport, mRules, rulesCompetition, rulesDraw;
-    JMenuItem buildComp, save, open, tCreate, sCreate;
+    JMenu mCompetition, mTeams, mSpeakers, mdraw, tExport, sExport, dExport, mRules, rulesCompetition, rulesDraw, simulation;
+    JMenuItem buildComp, save, open, tCreate, sCreate, simAddAll, simAddResults;
     
     CompetitionGUI cgui = null;
     
@@ -56,7 +58,7 @@ public class MainGUI extends JFrame implements ActionListener {
 		super(title);
 		
 		panel = new JPanel(new GridLayout(1, 1));
-		
+				
 		menubar = new JMenuBar();
 		
 		//Rules menu bar
@@ -78,13 +80,14 @@ public class MainGUI extends JFrame implements ActionListener {
 			subrule.getAccessibleContext().setAccessibleDescription("Loads from a user specified file");
 			rulesCompetition.add(subrule);
 			
+			int ifile = 1;
 			for(File f : d.listFiles(new StabFileFilter())) {
 				subrule = new JMenuItem(f.getName());
-				//TODO DISS add in what happen when click
 				subrule.addActionListener(this); 
-				subrule.setActionCommand("rulesCompetition"); //TODO DISS how does action command distinguish between comp and draw rule - pre?
+				subrule.setActionCommand("rulesCompetition_" + ifile);
 				subrule.getAccessibleContext().setAccessibleDescription("Loads this file from the rules folder");
 				rulesCompetition.add(subrule);
+				ifile++;
 			}
 			
 			//rulesDraw = new JMenuItem("Set Draw Rules");
@@ -99,13 +102,14 @@ public class MainGUI extends JFrame implements ActionListener {
 			subrule.getAccessibleContext().setAccessibleDescription("Loads from a user specified file");
 			rulesDraw.add(subrule);
 			
+			ifile = 1;
 			for(File f : d.listFiles(new StabFileFilter())) {
 				subrule = new JMenuItem(f.getName());
-				//TODO DISS add in what happen when click
 				subrule.addActionListener(this); 
-				subrule.setActionCommand("rulesDraw"); //TODO DISS how does action command distinguish between comp and draw rule - pre?
+				subrule.setActionCommand("rulesDraw_" + ifile);
 				subrule.getAccessibleContext().setAccessibleDescription("Loads this file from the rules folder");
 				rulesDraw.add(subrule);
+				ifile++;
 			}
 			menubar.add(mRules);
 		
@@ -230,6 +234,23 @@ public class MainGUI extends JFrame implements ActionListener {
 				
 			mdraw.add(dExport);
 			menubar.add(mdraw);
+			
+		//Simualtion menu bar
+			simulation = new JMenu("Simulation");
+			simulation.getAccessibleContext().setAccessibleDescription("Provides features for simulating a competition");
+			
+			simAddAll = new JMenuItem("Add Teams & Speakers");
+			simAddAll.setActionCommand("simAddAll");
+			simAddAll.addActionListener(this);
+			
+			simAddResults = new JMenuItem("Simulate Results");
+			simAddResults.setActionCommand("addResults");
+			simAddResults.addActionListener(this);
+			
+			simulation.add(simAddAll);
+			simulation.add(simAddResults);
+			menubar.add(simulation);
+			
 		
 		//*** End of menu bar setup
 			
@@ -238,8 +259,43 @@ public class MainGUI extends JFrame implements ActionListener {
 		
         setContentPane(panel);
 	}
+	
+	/**
+	 * Use Simulation to add results to the competition
+	 */
+	private void addResults() {
+		Simulation s = new Simulation();
+		
+		String ret = JOptionPane.showInputDialog("Enter the round to Simulate results for:");
+		
+		if(ret==null) return;
+		
+		try {
+			s.makeResults(Integer.parseInt(ret));
+		} catch(NumberFormatException e) {
+			return;
+		}
+	}
+	
+	/**
+	 * Use Simulation to add in test teams and speakers
+	 */
+	private void addAll() {
+	
+		try {
+			DataSetup.addTeamsSpeakers();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+				    "Failed to add data:\n" + e.getMessage(),
+				    "Simulation error",
+				    JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("addResults")) {addResults(); return;}
+		if(e.getActionCommand().equals("simAddAll")) {addAll(); return;}
+		
 		if(e.getActionCommand().equals("saveCompeition")) {save(); return;}
 		if(e.getActionCommand().equals("openCompeition")) {load(); return;}
 		if(e.getActionCommand().equals("buildCompetition")) {build(); return;}
@@ -253,20 +309,17 @@ public class MainGUI extends JFrame implements ActionListener {
 			if(e.getActionCommand().charAt(0)=='d') exportTM(s, cgui.rounds.dt.getTable().getTableModel());
 			//Add in others as needed
 		}
-		System.out.println("here");
+		
 		if(e.getActionCommand().equals("rulesDraw")) {try {
-			loadDrawRules(-1);
+			loadDrawRules(Export.getFile("Load rules"));
 		} catch (Exception e1) {
-			// TODO DISS user alert
 			e1.printStackTrace();
 		} return;}
 		if(e.getActionCommand().equals("rulesCompetition")) {try {
-			loadRules(-1);
+			loadRules(Export.getFile("Load rules"));
 		} catch (IOException e1) {
-			//TODO DISS user alert
 			e1.printStackTrace();
 		} catch (RecognitionException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		} return;}
 		
@@ -274,39 +327,55 @@ public class MainGUI extends JFrame implements ActionListener {
 		if(e.getActionCommand().contains("rulesDraw_")) {
 			String[] command = e.getActionCommand().split("_");
 			if(command.length==2) {
+				int t = Integer.valueOf(command[1]);
 				
+				File d = new File("rules/");
+				File f = d.listFiles(new StabFileFilter())[t-1]; //menu values indexed from 1
+				
+				try {
+					loadDrawRules(f);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 		if(e.getActionCommand().contains("rulesCompetition_")) {
-			
+			String[] command = e.getActionCommand().split("_");
+			if(command.length==2) {
+				int t = Integer.valueOf(command[1]);
+				
+				File d = new File("rules/");
+				File f = d.listFiles(new StabFileFilter())[t-1]; //menu values indexed from 1
+				
+				try {
+					loadRules(f);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (RecognitionException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
 		
 	}
 	
-	private void loadRules(int num) throws IOException, RecognitionException {
-		File f = null;
-		if(num==-1) {//Prompt for file location
-			Export.getFile("Load rules");
-		}
+	private void loadRules(File f) throws IOException, RecognitionException {
+		Rules r = new Rules(f);
 		
-		if(f==null) return;
+		Competition.getInstance().loadRules(r);
+		r.storeDefaultValues();
 		
-		Rules rules = new Rules(f);
+		cgui = new CompetitionGUI();
+		add(cgui);
 		
-		//rules.loadData();
+		buildComp.setEnabled(true); //Allow user to try and build the competition when ready
+		
 	}
 	
-	private void loadDrawRules(int num) throws Exception {
-		File f = null;
-		if(num==-1) {//Prompt for file location
-			Export.getFile("Load rules");
-		}
+	private void loadDrawRules(File f) throws Exception {
+		DrawFile df = new DrawFile(f);
 		
-		if(f==null) return;
-		
-		//DrawFile rules = new DrawFile(f);
-		//TODO DISS make work
-		//rules.loadData();
+		Competition.getInstance().setDrawFile(df);
 	}
 	
 	private void createTeam() {
@@ -369,6 +438,11 @@ public class MainGUI extends JFrame implements ActionListener {
 	 */
 	private void build() {
 		if(Settings.getInstance().setupComplete()) {
+			Competition c = Competition.getInstance();
+			c.loadDependantRules(c.getSettingsRules());
+			
+			c.init();
+			
 			cgui.competitionSetup();
 			
 			save.setEnabled(true);

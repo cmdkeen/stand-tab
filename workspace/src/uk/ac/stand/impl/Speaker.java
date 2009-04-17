@@ -39,6 +39,11 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 
 	public void addScore(int round, int score) {
 		Flag f = flags.getFlagFromSimilar(new MultFlag("Result",round, Integer.class));
+		try {
+			setFlagValue(f, score);
+		} catch (StoreException e) {
+			e.printStackTrace();
+		}
 		if(f!=null) {
 			scores.put(round, score);
 		}
@@ -97,6 +102,10 @@ public class Speaker extends FlagUser implements ISpeaker, Serializable {
 		int r = 0;
 		for(Integer i : scores.values()) r += i;
 		return r;
+	}
+	
+	public boolean isValid(String name, Object value) {
+		return Competition.getInstance().getSettingsRules().validateSpeakerField(name, this, value);
 	}
 	
 

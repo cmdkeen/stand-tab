@@ -142,5 +142,14 @@ public interface IFlagUser {
 	 * @throws StoreException
 	 */
 	public void setFlagValue(String flagName, Integer index, Object data) throws StoreException;
+	
+	/**
+	 * Allows implementation to define checks on the validity of data before storing. Can be combined with a rules file.
+	 * 
+	 * @param name
+	 * @param value
+	 * @return
+	 */
+	public boolean isValid(String name, Object value);
 
 }
