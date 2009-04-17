@@ -1,0 +1,60 @@
+language STAB
+
+function teamScore(t) {
+a = createArray(t.size())
+for(x:range(0,t.size()-1)) a[x] = t[x].field(TotalScore)
+return a
+}
+
+language ESSENCE' 1.b.a
+
+<stab>
+param(weight, 2)
+param(tpr, teamsPerSide * 2)
+param(rounds, round)
+param(size, numTeams)
+param(rooms, numTeams/tpr)
+
+ts = teamScore(teams)
+
+max = 0
+for(x : ts) if(x>max) max = x
+
+param(pmax, max)
+
+fa = frequencyArray(pastPositions(), range(0,tpr-1))
+
+</stab>
+
+letting TEAMS be domain int(0..size-1)
+letting TPR be domain int(0..tpr-1)
+letting POOLS be domain int(0..pmax)
+letting ROUNDS be domain int(1..rounds)
+letting ROOMS be domain int(0..size/tpr-1)
+letting PAST be domain int(0..rounds-1)
+
+<stab>
+//given ppc: matrix indexed by [TEAMS, TPR] of PAST
+paramMatrix(ppc, fa, fa.indicies(), range(round-1))
+
+//given pools: matrix indexed by [TEAMS] of POOLS
+paramMatrix(pools, ts, ts.indicies(), range(max))
+</stab>
+
+find alloc: matrix indexed by [ROOMS, TPR] of TEAMS,
+pp: matrix indexed by [TEAMS, TPR] of PAST,
+po : matrix indexed by [TEAMS] of POOLS
+
+minimising sum r : ROOMS . sum t : TPR . alloc[r,t] * pp[alloc[r,t],t] * weight
+
+such that
+
+alldifferent(alloc),
+
+forall t : TEAMS . forall p : TPR . pp[t,p] = ppc [t,p],
+
+forall t : TEAMS . po[t] = pools[t],
+
+forall r : int(0..rooms-2) . forall p : TPR . forall op : TPR . po[alloc[r,p]] >= po[alloc[r+1,op]]
+
+

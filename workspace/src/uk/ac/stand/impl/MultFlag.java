@@ -17,7 +17,6 @@ public class MultFlag extends Flag implements Serializable {
 		return index;
 	}
 
-	
 	public int compareTo(Flag o) {
 		if(o.isMultiple() && name.equals(o.getName())) {
 			return index - o.getIndex();

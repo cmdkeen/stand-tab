@@ -33,7 +33,6 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 			return runFunction(flag, (Object[]) null);
 		}
 		if(flag.isMultiple()) {
-			//return multStore.get(flag.getName());
 			return getSubObject(flag);
 		} else {
 			return indvStore.get(flag.getName());
@@ -93,7 +92,6 @@ public abstract class FlagUser implements IFlagUser, Serializable {
 	
 	public void setFlagValue(String flagName, Integer index, Object data) throws StoreException {
 		setFlagValue(getFlags().getFlagFromString(flagName, index), data);
-		
 	}
 
 	public void setFlagValue(Flag flag, Object data) throws StoreException {

@@ -1,0 +1,20 @@
+package uk.ac.stand.antlr;
+
+import java.io.File;
+
+import uk.ac.stand.impl.Draw;
+
+public class DrawFunction {
+	
+	private File draw_file;
+	
+	public DrawFunction(File f) {
+		this.draw_file = f;
+	}
+	
+	public Draw doDraw(int round) throws Exception {
+		//see FakeDraw for saving
+		return null;
+	}
+
+}

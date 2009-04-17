@@ -1,0 +1,18 @@
+language STAB
+language ESSENCE' 1.b.a
+
+<stab>
+param(teams, numTeams)
+param(tpr, teamsPerSide*2)
+</stab>
+
+letting TEAMS be domain int(1..teams)
+letting TPR be domain int(1..tpr)
+letting ROOMS be domain int(1..teams/tpr)
+
+find
+alloc : matrix indexed by [ROOMS, TPR] of TEAMS
+
+such that
+
+alldifferent(alloc)

@@ -16,8 +16,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import uk.ac.stand.antlr.DrawFunction;
-import uk.ac.stand.antlr.FakeDraw;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.impl.Draw;
 import uk.ac.stand.impl.Position;
@@ -50,8 +48,9 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 		generateRound.addActionListener(this);
 		generateRound.setEnabled(false);
 		
-		methods = new JList(FakeDraw.draws);
-		methods.addListSelectionListener(this);
+		//TODO DISS replace
+		//methods = new JList(FakeDraw.draws);
+		//methods.addListSelectionListener(this);
 		
 		enterResults = new JButton("Enter Results");
 		enterResults.setActionCommand("enterResults");
@@ -81,8 +80,9 @@ public class DrawTabEnter extends JPanel implements ActionListener, ListSelectio
 			
 			//FakeDraw fd = new FakeDraw(FakeDraw.draws[mrow]);
 			try{
-				DrawFunction fd = Competition.getInstance().getDrawFunction((String) methods.getSelectedValue());
-				Competition.getInstance().addDraw(row, fd.doDraw(row));
+				//DrawFunction fd = Competition.getInstance().getDrawFunction((String) methods.getSelectedValue());
+				//TODO DISS fill in here
+				//Competition.getInstance().addDraw(row, fd.doDraw(row));
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(this,
 					    "Error:\n" + ex.getMessage(),

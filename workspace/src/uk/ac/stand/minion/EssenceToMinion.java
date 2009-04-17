@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.ArrayList;
+
+import uk.ac.stand.scalafiles.Language;
+import uk.ac.stand.scalafiles.ScalaInterface;
+import uk.ac.stand.scalafiles.Language.*;
 
 public class EssenceToMinion {
 
@@ -23,6 +28,9 @@ public class EssenceToMinion {
 	private BufferedReader in = null;
 	private LinkedList<String> lastResult = null;
 	
+	private List<String> varNames = null;
+	private List<Integer> varBounds = null;
+	
 	public EssenceToMinion(String essenceIn, String essenceParam) {
 		this.essenceIn = essenceIn;
 		this.essenceParam = essenceParam;
@@ -34,6 +42,14 @@ public class EssenceToMinion {
 		return run.getMinionInput();
 	}
 	
+	public String translate() {
+		run = new Runner(essenceIn, essenceParam);
+		
+		run.toMinion();
+		
+		return run.getMinionInput();
+	}
+	
 	public boolean isRunning() {
 		if(minion==null) return false;
 		try {
@@ -42,21 +58,6 @@ public class EssenceToMinion {
 			return true;
 		}
 		return false;
-	}
-	
-	public void runMinionInteractive() {
-		run = new Runner(essenceIn, essenceParam);
-		
-		run.toMinion("");
-		
-		minion = run.runMinionInteractive();
-		
-		System.out.println("Running");
-		
-		in = new BufferedReader(new InputStreamReader(minion.getInputStream()));
-		
-		System.out.println("Stream fetched");
-		
 	}
 	
 	public void killMinion() {
@@ -103,6 +104,22 @@ public class EssenceToMinion {
 		return solutions;
 	}
 	
+	public void runMinionInteractive() {
+		if(run==null) {
+			run = new Runner(essenceIn, essenceParam);
+			run.toMinion();
+		}
+
+		minion = run.runMinionInteractive();
+		
+		System.out.println("Running");
+		
+		in = new BufferedReader(new InputStreamReader(minion.getInputStream()));
+		
+		System.out.println("Stream fetched");
+		
+	}
+	
 	/**
 	 * Run minion and return the best (ie. final solution found)
 	 * Unless a minimising or maximising objective function in the essence code then will just return the first result minion finds.
@@ -110,9 +127,11 @@ public class EssenceToMinion {
 	 * @return the ordered list of results or null if no solution found
 	 */
 	public LinkedList<String> runMinion() {
-		run = new Runner(essenceIn, essenceParam);
+		if(run==null) {
+			run = new Runner(essenceIn, essenceParam);
+			run.toMinion();
+		}
 		
-		run.toMinion("");
 		minionOut = run.runMinion();
 			
 		BufferedReader br = new BufferedReader(new StringReader(minionOut));
@@ -154,18 +173,6 @@ public class EssenceToMinion {
 		
 		Scanner sc = null;
 		
-		boolean notFound = true;
-		while(notFound) {
-			if(!li.hasPrevious()) return null; //Never found value therefore no solution
-			sc = new Scanner(li.previous());
-			sc.useDelimiter(":");
-			if(sc.hasNext() && sc.next().equals("Solution found with Value")) {
-				objectiveValue = Integer.parseInt(sc.next().trim());
-				notFound = false;
-			}
-			sc.close();
-		}
-		
 		LinkedList<String> sols = new LinkedList<String>();
 		boolean done = false;
 		boolean foundSol = false;
@@ -174,13 +181,21 @@ public class EssenceToMinion {
 				if(foundSol) break; //Found all the solutions
 				return null; //Found no solutions so fail
 			}
+
 			sc = new Scanner(li.previous());
 			sc.useDelimiter(":");
 			
-			if(sc.hasNext() && sc.next().equals("Sol")) {
-				foundSol = true;
-				sols.add(sc.next());
-				sc.close();
+			if(sc.hasNext()) {
+				String s = sc.next();
+				
+				if(s.equals("Solution found with Value")) {
+					objectiveValue = Integer.parseInt(sc.next().trim());
+				}
+				if(s.equals("Sol")) {
+					foundSol = true;
+					sols.add(sc.next());
+					sc.close();
+				}
 			} else {
 				if(foundSol) done = true;
 			}
@@ -190,30 +205,7 @@ public class EssenceToMinion {
 		
 		return sols;
 	}
-	
-	/**
-	 * Run Minion when expecting only one result
-	 * 
-	 * @return the best result - an empty linked list if none found
-	 */
-	/*public LinkedList<String> runMinionFind() {
-		//TODO implement properly
-		run = new Runner(essenceIn, essenceParam);
 		
-		run.toMinion("");
-		minionOut = run.runMinion();
-		
-		//System.out.println(minionOut);
-		
-		BufferedReader br = new BufferedReader(new StringReader(minionOut));
-		
-		LinkedList<String> sols = new LinkedList<String>();
-		
-		return extractValueSol(lines);
-		
-		return sols;
-	}*/
-	
 	public static Integer[][] getIntValues2D(List<String> sols) {
 		if(sols==null) return null;
 		
@@ -308,4 +300,54 @@ public class EssenceToMinion {
 		return objectiveValue;
 	}
 	
+	private void outputSizes() throws IOException {
+		if(run==null || run.getMinionInput()==null) return;
+		
+		varNames = new LinkedList<String>();
+		varBounds = new LinkedList<Integer>();
+		
+		String min = run.getMinionInput();
+		int start = min.indexOf("**VARIABLES**");
+		int end = min.indexOf("#", start);
+		
+		BufferedReader br = new BufferedReader(new StringReader(min.substring(start, end)));
+		
+		String l = br.readLine();
+		while(l!=null) {		
+			String[] parts = l.split(" ");
+			if(parts.length==3 && parts[0].equals("DISCRETE")) {
+				//Is a matrix so create buffer
+				varNames.add(parts[1].substring(0, parts[1].indexOf('[')));
+				
+				String[] d = parts[1].substring(parts[1].indexOf('[')+1, parts[1].indexOf("]")).split(",");
+				
+				int[] dimensions = new int[d.length];
+				for(int i = 0; i < d.length; i++) dimensions[i] = Integer.parseInt(d[i]);		
+				
+				varBounds.add(dimensions[0]);
+			}
+			
+			l = br.readLine();
+		}
+	}
+	
+	public List<String> getVariableNames() {
+		if(varNames==null)
+			try {
+				outputSizes();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return varNames;
+	}
+	
+	public List<Integer> getVariableBounds() {
+		if(varBounds==null)
+			try {
+				outputSizes();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return varBounds;
+	}
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import uk.ac.stand.antlr.DrawFunction;
 import uk.ac.stand.antlr.Rules;
 import uk.ac.stand.interfaces.ISpeaker;
 import uk.ac.stand.interfaces.ITeam;
@@ -41,7 +40,6 @@ public class Competition implements Serializable {
 	private ArrayList<ITeam> teams = null;
 	private ArrayList<ISpeaker> speakers = null;
 	private Map<Integer,Draw> rounds = null;
-	private Map<String, DrawFunction> drawFunctions = null;
 	
 	private Flags teamFlags, speakerFlags, settingsFlags = null; 
 	
@@ -58,22 +56,12 @@ public class Competition implements Serializable {
 	}
 
 	public void loadRules(Rules r) {
-		//TODO implement
-		//Clever thing to do with speakers and other multiple value things, create as Speaker, Speaker - then in SpeakerNumber have the associated value
-		//For now:
-		
 		settingsFlags = r.createSettingsFlags();
-		teamFlags = r.createTeamFlags();
-		speakerFlags = r.createSpeakerFlags();
-		
-		r.loadData();
-		
-		drawFunctions = r.loadDrawRules();
-		
 	}
 	
-	public DrawFunction getDrawFunction(String name) {
-		return drawFunctions.get(name);
+	public void loadDependantRules(Rules r) {
+		teamFlags = r.createTeamFlags();
+		speakerFlags = r.createSpeakerFlags();
 	}
 
 	public ArrayList<ITeam> getTeams() {
@@ -104,6 +92,9 @@ public class Competition implements Serializable {
 		speaker.getTeam().addSpeaker(speaker); //Add the speaker to the specified team - i.e. we can't have unassigned speakers
 	}
 
+	/**
+	 * @return whether the compeition is ready to run or still needs settings to be entered
+	 */
 	public boolean isSetupComplete() {
 		return setupComplete;
 	}
@@ -117,12 +108,16 @@ public class Competition implements Serializable {
 		return rounds.get(round);
 	}
 	
-	public boolean setup(Rules rules) {
+	/**
+	 * If all the settings have been entered then initialises the fields and marks the competition (via isSetupComplete) as being ready to run.
+	 * Moves the state of the application from one of entering settings to entering competitor data.
+	 * 
+	 * @return whether has initialised
+	 */
+	public boolean init() {
 		Settings settings = Settings.getInstance();
 		
 		if(!settings.setupComplete()) return false;
-		
-		loadRules(rules);
 			
 		teams = new ArrayList<ITeam>();
 		speakers = new ArrayList<ISpeaker>();

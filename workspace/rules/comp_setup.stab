@@ -1,0 +1,7 @@
+language STAB
+
+createSetting(testSetting, Int, 3)
+
+function validateSetting(testSetting, Value) {
+	true
+}

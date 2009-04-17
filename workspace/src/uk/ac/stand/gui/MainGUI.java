@@ -19,7 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.table.TableModel;
 
-import uk.ac.stand.antlr.InterpretedRules;
+import org.antlr.runtime.RecognitionException;
+
+import uk.ac.stand.antlr.DrawFile;
+import uk.ac.stand.antlr.Rules;
 import uk.ac.stand.export.CSVExport;
 import uk.ac.stand.export.Export;
 import uk.ac.stand.export.Import;
@@ -43,22 +46,10 @@ public class MainGUI extends JFrame implements ActionListener {
     String[] exportPossibilities = {"CSV - Headers", "CSV - No Header"};
     int[] exportKeyEvents = {KeyEvent.VK_H, KeyEvent.VK_W};
     
-    private class CompetitionFilter implements FileFilter {
-
-		public boolean accept(File pathname) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-    	
-    }
-    
-    private class DrawFilter implements FileFilter {
-
-		public boolean accept(File pathname) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-    	
+    class StabFileFilter implements FileFilter {
+        public boolean accept(File f) {
+            return f.getName().toLowerCase().endsWith(".stab");
+        }
     }
 
 	public MainGUI(String title) {
@@ -87,9 +78,13 @@ public class MainGUI extends JFrame implements ActionListener {
 			subrule.getAccessibleContext().setAccessibleDescription("Loads from a user specified file");
 			rulesCompetition.add(subrule);
 			
-			for(File f : d.listFiles(new DrawFilter())) {
+			for(File f : d.listFiles(new StabFileFilter())) {
 				subrule = new JMenuItem(f.getName());
-				
+				//TODO DISS add in what happen when click
+				subrule.addActionListener(this); 
+				subrule.setActionCommand("rulesCompetition"); //TODO DISS how does action command distinguish between comp and draw rule - pre?
+				subrule.getAccessibleContext().setAccessibleDescription("Loads this file from the rules folder");
+				rulesCompetition.add(subrule);
 			}
 			
 			//rulesDraw = new JMenuItem("Set Draw Rules");
@@ -104,8 +99,13 @@ public class MainGUI extends JFrame implements ActionListener {
 			subrule.getAccessibleContext().setAccessibleDescription("Loads from a user specified file");
 			rulesDraw.add(subrule);
 			
-			for(File f : d.listFiles(new DrawFilter())) {
-				
+			for(File f : d.listFiles(new StabFileFilter())) {
+				subrule = new JMenuItem(f.getName());
+				//TODO DISS add in what happen when click
+				subrule.addActionListener(this); 
+				subrule.setActionCommand("rulesDraw"); //TODO DISS how does action command distinguish between comp and draw rule - pre?
+				subrule.getAccessibleContext().setAccessibleDescription("Loads this file from the rules folder");
+				rulesDraw.add(subrule);
 			}
 			menubar.add(mRules);
 		
@@ -254,8 +254,21 @@ public class MainGUI extends JFrame implements ActionListener {
 			//Add in others as needed
 		}
 		System.out.println("here");
-		if(e.getActionCommand().equals("rulesDraw")) {loadDrawRules(-1); return;}
-		if(e.getActionCommand().equals("rulesCompetition")) {loadRules(-1); return;}
+		if(e.getActionCommand().equals("rulesDraw")) {try {
+			loadDrawRules(-1);
+		} catch (Exception e1) {
+			// TODO DISS user alert
+			e1.printStackTrace();
+		} return;}
+		if(e.getActionCommand().equals("rulesCompetition")) {try {
+			loadRules(-1);
+		} catch (IOException e1) {
+			//TODO DISS user alert
+			e1.printStackTrace();
+		} catch (RecognitionException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} return;}
 		
 		//Known rules in folder are put into the menus - identified by a number after the underscore
 		if(e.getActionCommand().contains("rulesDraw_")) {
@@ -270,7 +283,7 @@ public class MainGUI extends JFrame implements ActionListener {
 		
 	}
 	
-	private void loadRules(int num) {
+	private void loadRules(int num) throws IOException, RecognitionException {
 		File f = null;
 		if(num==-1) {//Prompt for file location
 			Export.getFile("Load rules");
@@ -278,12 +291,12 @@ public class MainGUI extends JFrame implements ActionListener {
 		
 		if(f==null) return;
 		
-		InterpretedRules rules = new InterpretedRules(f);
+		Rules rules = new Rules(f);
 		
-		rules.loadData();
+		//rules.loadData();
 	}
 	
-	private void loadDrawRules(int num) {
+	private void loadDrawRules(int num) throws Exception {
 		File f = null;
 		if(num==-1) {//Prompt for file location
 			Export.getFile("Load rules");
@@ -291,9 +304,9 @@ public class MainGUI extends JFrame implements ActionListener {
 		
 		if(f==null) return;
 		
-		InterpretedRules rules = new InterpretedRules(f);
-		
-		rules.loadData();
+		//DrawFile rules = new DrawFile(f);
+		//TODO DISS make work
+		//rules.loadData();
 	}
 	
 	private void createTeam() {

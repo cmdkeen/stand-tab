@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g 2009-04-09 22:10:47
+// $ANTLR 3.1.2 /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g 2009-04-17 02:30:30
 
 	package uk.ac.stand.antlr.gen;
 
@@ -19,64 +19,66 @@ import java.util.Map;
 import java.util.HashMap;
 public class stabParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "NEWLINE", "SBEGIN", "SEND", "LCURLY", "RCURLY", "SEMI", "NAME", "LBRACK", "RBRACK", "OR", "AND", "NOT", "LESS", "GREATER", "EQUALS", "GREATEREQUAL", "LESSEQUAL", "NOTEQUAL", "PLUS", "MINUS", "MULT", "DIV", "MOD", "POW", "LPAREN", "RPAREN", "DOT", "INT", "BOOL", "COMMA", "COLON", "STAB", "ESSENCE", "PLUSEQUAL", "MINUSEQUAL", "MULTEQUAL", "DIVEQUAL", "MODEQUAL", "ASSIGN", "ENDESSENCE", "DEF", "WS", "USCORE", "ECOMMENT", "QUOTE", "LQUOTE", "STRING", "'break'", "'continue'", "'return'", "'if'", "'else'", "'while'", "'for'", "'function'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "NEWLINE", "COMMENT", "SBEGIN", "SEND", "LCURLY", "RCURLY", "SEMI", "NAME", "LBRACK", "RBRACK", "OR", "AND", "NOT", "LESS", "GREATER", "EQUALS", "GREATEREQUAL", "LESSEQUAL", "NOTEQUAL", "PLUS", "MINUS", "MULT", "DIV", "MOD", "POW", "LPAREN", "RPAREN", "DOT", "INT", "BOOL", "EPRIMEBLOCK", "COMMA", "COLON", "STAB", "ESSENCE", "PLUSEQUAL", "MINUSEQUAL", "MULTEQUAL", "DIVEQUAL", "MODEQUAL", "ASSIGN", "ENDESSENCE", "DEF", "WS", "USCORE", "ECOMMENT", "QUOTE", "LQUOTE", "ESC", "'break'", "'continue'", "'return'", "'if'", "'else'", "'while'", "'for'", "'function'"
     };
-    public static final int LBRACK=11;
-    public static final int DEF=44;
-    public static final int MOD=26;
-    public static final int MULTEQUAL=39;
-    public static final int GREATEREQUAL=19;
-    public static final int ESSENCE=36;
-    public static final int EQUALS=18;
-    public static final int STAB=35;
-    public static final int NOT=15;
-    public static final int AND=14;
+    public static final int LBRACK=12;
+    public static final int DEF=46;
+    public static final int MOD=27;
+    public static final int ESC=52;
+    public static final int MULTEQUAL=41;
+    public static final int GREATEREQUAL=20;
+    public static final int ESSENCE=38;
+    public static final int EQUALS=19;
+    public static final int STAB=37;
+    public static final int NOT=16;
+    public static final int AND=15;
+    public static final int T__60=60;
     public static final int EOF=-1;
-    public static final int DIVEQUAL=40;
-    public static final int LPAREN=28;
-    public static final int PLUSEQUAL=37;
-    public static final int NOTEQUAL=21;
+    public static final int DIVEQUAL=42;
+    public static final int LPAREN=29;
+    public static final int PLUSEQUAL=39;
+    public static final int NOTEQUAL=22;
     public static final int T__55=55;
-    public static final int MINUSEQUAL=38;
+    public static final int MINUSEQUAL=40;
     public static final int T__56=56;
-    public static final int QUOTE=48;
+    public static final int QUOTE=50;
     public static final int T__57=57;
-    public static final int RPAREN=29;
-    public static final int NAME=10;
+    public static final int RPAREN=30;
+    public static final int NAME=11;
     public static final int T__58=58;
-    public static final int T__51=51;
-    public static final int GREATER=17;
-    public static final int MODEQUAL=41;
-    public static final int T__52=52;
-    public static final int POW=27;
+    public static final int GREATER=18;
+    public static final int MODEQUAL=43;
+    public static final int POW=28;
     public static final int T__53=53;
     public static final int T__54=54;
-    public static final int COMMA=33;
-    public static final int LESS=16;
-    public static final int SEND=6;
-    public static final int PLUS=22;
-    public static final int DOT=30;
-    public static final int SBEGIN=5;
-    public static final int RBRACK=12;
-    public static final int LQUOTE=49;
-    public static final int BOOL=32;
-    public static final int LCURLY=7;
-    public static final int INT=31;
-    public static final int MINUS=23;
-    public static final int MULT=24;
-    public static final int SEMI=9;
-    public static final int COLON=34;
-    public static final int WS=45;
+    public static final int COMMA=35;
+    public static final int T__59=59;
+    public static final int LESS=17;
+    public static final int SEND=7;
+    public static final int PLUS=23;
+    public static final int COMMENT=5;
+    public static final int DOT=31;
+    public static final int SBEGIN=6;
+    public static final int RBRACK=13;
+    public static final int LQUOTE=51;
+    public static final int BOOL=33;
+    public static final int LCURLY=8;
+    public static final int INT=32;
+    public static final int MINUS=24;
+    public static final int MULT=25;
+    public static final int SEMI=10;
+    public static final int EPRIMEBLOCK=34;
+    public static final int COLON=36;
+    public static final int WS=47;
     public static final int NEWLINE=4;
-    public static final int ECOMMENT=47;
-    public static final int ENDESSENCE=43;
-    public static final int USCORE=46;
-    public static final int RCURLY=8;
-    public static final int OR=13;
-    public static final int ASSIGN=42;
-    public static final int DIV=25;
-    public static final int LESSEQUAL=20;
-    public static final int STRING=50;
+    public static final int ECOMMENT=49;
+    public static final int ENDESSENCE=45;
+    public static final int USCORE=48;
+    public static final int RCURLY=9;
+    public static final int OR=14;
+    public static final int ASSIGN=44;
+    public static final int DIV=26;
+    public static final int LESSEQUAL=21;
 
     // delegates
     // delegators
@@ -142,7 +144,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "rules"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:36:1: rules returns [List<Stats> ret] : ( stab s= statements e= essence | e= essence );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:36:1: rules returns [List<Stats> ret] : ( stab s= statements (e= essence )? | e= essence );
     public final List<Stats> rules() throws RecognitionException {
         List<Stats> ret = null;
 
@@ -152,26 +154,26 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:37:2: ( stab s= statements e= essence | e= essence )
-            int alt1=2;
-            int LA1_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:37:2: ( stab s= statements (e= essence )? | e= essence )
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
-            if ( (LA1_0==STAB) ) {
-                alt1=1;
+            if ( (LA2_0==STAB) ) {
+                alt2=1;
             }
-            else if ( (LA1_0==ESSENCE) ) {
-                alt1=2;
+            else if ( (LA2_0==ESSENCE) ) {
+                alt2=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 1, 0, input);
+                    new NoViableAltException("", 2, 0, input);
 
                 throw nvae;
             }
-            switch (alt1) {
+            switch (alt2) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:37:4: stab s= statements e= essence
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:37:4: stab s= statements (e= essence )?
                     {
                     pushFollow(FOLLOW_stab_in_rules60);
                     stab();
@@ -183,16 +185,33 @@ public class stabParser extends Parser {
 
                     state._fsp--;
                     if (state.failed) return ret;
-                    pushFollow(FOLLOW_essence_in_rules68);
-                    e=essence();
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:37:23: (e= essence )?
+                    int alt1=2;
+                    int LA1_0 = input.LA(1);
 
-                    state._fsp--;
-                    if (state.failed) return ret;
+                    if ( (LA1_0==ESSENCE) ) {
+                        alt1=1;
+                    }
+                    switch (alt1) {
+                        case 1 :
+                            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:37:23: e= essence
+                            {
+                            pushFollow(FOLLOW_essence_in_rules68);
+                            e=essence();
+
+                            state._fsp--;
+                            if (state.failed) return ret;
+
+                            }
+                            break;
+
+                    }
+
                     if ( state.backtracking==0 ) {
 
                       			List<Stats> l = new LinkedList<Stats>();
-                      			l.add(new Stats(s));
-                      			l.addAll(e);
+                      			if(s!=null) l.add(new Stats(s));
+                      			if(e!=null) l.addAll(e);
                       			ret = l;
                       		
                     }
@@ -202,7 +221,7 @@ public class stabParser extends Parser {
                 case 2 :
                     // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:44:4: e= essence
                     {
-                    pushFollow(FOLLOW_essence_in_rules79);
+                    pushFollow(FOLLOW_essence_in_rules80);
                     e=essence();
 
                     state._fsp--;
@@ -228,7 +247,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "essence"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:50:1: essence returns [List<Stats> ret] : d= essencedef e= estatements ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:49:1: essence returns [List<Stats> ret] : d= essencedef e= estatements ;
     public final List<Stats> essence() throws RecognitionException {
         List<Stats> ret = null;
 
@@ -238,8 +257,8 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:51:2: (d= essencedef e= estatements )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:51:4: d= essencedef e= estatements
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:50:2: (d= essencedef e= estatements )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:50:4: d= essencedef e= estatements
             {
             pushFollow(FOLLOW_essencedef_in_essence102);
             d=essencedef();
@@ -277,7 +296,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "estatements"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:62:1: estatements returns [List<Stats> ret] : (s= estatement )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:61:1: estatements returns [List<Stats> ret] : (s= estatement )* ;
     public final List<Stats> estatements() throws RecognitionException {
         List<Stats> ret = null;
 
@@ -288,23 +307,23 @@ public class stabParser extends Parser {
         	List<Stats> l = new LinkedList<Stats>();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:69:2: ( (s= estatement )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:69:4: (s= estatement )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:68:2: ( (s= estatement )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:68:4: (s= estatement )*
             {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:69:4: (s= estatement )*
-            loop2:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:68:4: (s= estatement )*
+            loop3:
             do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+                int alt3=2;
+                int LA3_0 = input.LA(1);
 
-                if ( ((LA2_0>=NEWLINE && LA2_0<=58)) ) {
-                    alt2=1;
+                if ( (LA3_0==NEWLINE||(LA3_0>=SBEGIN && LA3_0<=60)) ) {
+                    alt3=1;
                 }
 
 
-                switch (alt2) {
+                switch (alt3) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:69:5: s= estatement
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:68:5: s= estatement
             	    {
             	    pushFollow(FOLLOW_estatement_in_estatements139);
             	    s=estatement();
@@ -319,7 +338,7 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop2;
+            	    break loop3;
                 }
             } while (true);
 
@@ -344,7 +363,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "estatement"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:74:1: estatement returns [Stats ret] : ( ( stabblock )=>s= stabblock | ec= essencecode );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:73:1: estatement returns [Stats ret] : ( ( stabblock )=>s= stabblock | ec= essencecode );
     public final Stats estatement() throws RecognitionException {
         Stats ret = null;
 
@@ -354,40 +373,40 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:75:2: ( ( stabblock )=>s= stabblock | ec= essencecode )
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:74:2: ( ( stabblock )=>s= stabblock | ec= essencecode )
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0==SBEGIN) ) {
-                int LA3_1 = input.LA(2);
+            if ( (LA4_0==SBEGIN) ) {
+                int LA4_1 = input.LA(2);
 
                 if ( (synpred1_stab()) ) {
-                    alt3=1;
+                    alt4=1;
                 }
                 else if ( (true) ) {
-                    alt3=2;
+                    alt4=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ret;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 3, 1, input);
+                        new NoViableAltException("", 4, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA3_0==NEWLINE||(LA3_0>=SEND && LA3_0<=58)) ) {
-                alt3=2;
+            else if ( (LA4_0==NEWLINE||(LA4_0>=SEND && LA4_0<=60)) ) {
+                alt4=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 3, 0, input);
+                    new NoViableAltException("", 4, 0, input);
 
                 throw nvae;
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:75:4: ( stabblock )=>s= stabblock
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:74:4: ( stabblock )=>s= stabblock
                     {
                     pushFollow(FOLLOW_stabblock_in_estatement173);
                     s=stabblock();
@@ -401,7 +420,7 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:76:4: ec= essencecode
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:75:4: ec= essencecode
                     {
                     pushFollow(FOLLOW_essencecode_in_estatement182);
                     ec=essencecode();
@@ -433,7 +452,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "essencecode"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:83:1: essencecode returns [String ret] : something ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:82:1: essencecode returns [String ret] : something ;
     public final String essencecode() throws RecognitionException {
         String ret = null;
 
@@ -441,8 +460,8 @@ public class stabParser extends Parser {
         	eblock++;
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:90:2: ( something )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:90:4: something
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:89:2: ( something )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:89:4: something
             {
             pushFollow(FOLLOW_something_in_essencecode209);
             something();
@@ -470,7 +489,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "something"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:93:1: something : ( options {greedy=false; } : t=~ ( NEWLINE ) )* NEWLINE ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:92:1: something : ( options {greedy=false; } : t=~ ( NEWLINE | COMMENT ) )* NEWLINE ;
     public final void something() throws RecognitionException {
         Token t=null;
 
@@ -478,29 +497,29 @@ public class stabParser extends Parser {
         	StringBuffer buffer = new StringBuffer();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:100:2: ( ( options {greedy=false; } : t=~ ( NEWLINE ) )* NEWLINE )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:100:4: ( options {greedy=false; } : t=~ ( NEWLINE ) )* NEWLINE
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:99:2: ( ( options {greedy=false; } : t=~ ( NEWLINE | COMMENT ) )* NEWLINE )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:99:4: ( options {greedy=false; } : t=~ ( NEWLINE | COMMENT ) )* NEWLINE
             {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:100:4: ( options {greedy=false; } : t=~ ( NEWLINE ) )*
-            loop4:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:99:4: ( options {greedy=false; } : t=~ ( NEWLINE | COMMENT ) )*
+            loop5:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt5=2;
+                int LA5_0 = input.LA(1);
 
-                if ( ((LA4_0>=SBEGIN && LA4_0<=58)) ) {
-                    alt4=1;
+                if ( ((LA5_0>=SBEGIN && LA5_0<=60)) ) {
+                    alt5=1;
                 }
-                else if ( (LA4_0==NEWLINE) ) {
-                    alt4=2;
+                else if ( (LA5_0==NEWLINE) ) {
+                    alt5=2;
                 }
 
 
-                switch (alt4) {
+                switch (alt5) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:100:30: t=~ ( NEWLINE )
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:99:30: t=~ ( NEWLINE | COMMENT )
             	    {
             	    t=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=SBEGIN && input.LA(1)<=58) ) {
+            	    if ( (input.LA(1)>=SBEGIN && input.LA(1)<=60) ) {
             	        input.consume();
             	        state.errorRecovery=false;state.failed=false;
             	    }
@@ -528,11 +547,11 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop5;
                 }
             } while (true);
 
-            match(input,NEWLINE,FOLLOW_NEWLINE_in_something252); if (state.failed) return ;
+            match(input,NEWLINE,FOLLOW_NEWLINE_in_something254); if (state.failed) return ;
 
             }
 
@@ -554,7 +573,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "stabblock"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:113:1: stabblock returns [Stats ret] : SBEGIN s= statements SEND ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:112:1: stabblock returns [Stats ret] : SBEGIN s= statements SEND ;
     public final Stats stabblock() throws RecognitionException {
         Stats ret = null;
 
@@ -562,16 +581,16 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:117:2: ( SBEGIN s= statements SEND )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:117:4: SBEGIN s= statements SEND
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:116:2: ( SBEGIN s= statements SEND )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:116:4: SBEGIN s= statements SEND
             {
-            match(input,SBEGIN,FOLLOW_SBEGIN_in_stabblock273); if (state.failed) return ret;
-            pushFollow(FOLLOW_statements_in_stabblock277);
+            match(input,SBEGIN,FOLLOW_SBEGIN_in_stabblock275); if (state.failed) return ret;
+            pushFollow(FOLLOW_statements_in_stabblock279);
             s=statements();
 
             state._fsp--;
             if (state.failed) return ret;
-            match(input,SEND,FOLLOW_SEND_in_stabblock279); if (state.failed) return ret;
+            match(input,SEND,FOLLOW_SEND_in_stabblock281); if (state.failed) return ret;
 
             }
 
@@ -593,7 +612,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "statements"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:120:1: statements returns [List<Term> ret] : (s= statement )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:119:1: statements returns [List<Term> ret] : (s= statement )* ;
     public final List<Term> statements() throws RecognitionException {
         List<Term> ret = null;
 
@@ -604,25 +623,25 @@ public class stabParser extends Parser {
         	List<Term> l = new LinkedList<Term>();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:127:2: ( (s= statement )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:127:4: (s= statement )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:126:2: ( (s= statement )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:126:4: (s= statement )*
             {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:127:4: (s= statement )*
-            loop5:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:126:4: (s= statement )*
+            loop6:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( (LA5_0==NEWLINE||LA5_0==LCURLY||LA5_0==NAME||LA5_0==NOT||LA5_0==MINUS||LA5_0==LPAREN||(LA5_0>=INT && LA5_0<=BOOL)||(LA5_0>=51 && LA5_0<=54)||(LA5_0>=56 && LA5_0<=58)) ) {
-                    alt5=1;
+                if ( (LA6_0==NEWLINE||LA6_0==LCURLY||LA6_0==NAME||LA6_0==NOT||LA6_0==MINUS||LA6_0==LPAREN||(LA6_0>=INT && LA6_0<=EPRIMEBLOCK)||(LA6_0>=53 && LA6_0<=56)||(LA6_0>=58 && LA6_0<=60)) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:127:5: s= statement
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:126:5: s= statement
             	    {
-            	    pushFollow(FOLLOW_statement_in_statements308);
+            	    pushFollow(FOLLOW_statement_in_statements310);
             	    s=statement();
 
             	    state._fsp--;
@@ -635,7 +654,7 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop5;
+            	    break loop6;
                 }
             } while (true);
 
@@ -660,7 +679,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "statement"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:130:1: statement returns [List<Term> ret] : ( LCURLY ls= statements RCURLY | ss= simple_stmt | s= compound_stmt | NEWLINE );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:129:1: statement returns [List<Term> ret] : ( LCURLY ls= statements RCURLY | ss= simple_stmt | s= compound_stmt | NEWLINE );
     public final List<Term> statement() throws RecognitionException {
         List<Term> ret = null;
 
@@ -672,12 +691,12 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:131:2: ( LCURLY ls= statements RCURLY | ss= simple_stmt | s= compound_stmt | NEWLINE )
-            int alt6=4;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:130:2: ( LCURLY ls= statements RCURLY | ss= simple_stmt | s= compound_stmt | NEWLINE )
+            int alt7=4;
             switch ( input.LA(1) ) {
             case LCURLY:
                 {
-                alt6=1;
+                alt7=1;
                 }
                 break;
             case NAME:
@@ -686,45 +705,46 @@ public class stabParser extends Parser {
             case LPAREN:
             case INT:
             case BOOL:
-            case 51:
-            case 52:
+            case EPRIMEBLOCK:
             case 53:
+            case 54:
+            case 55:
                 {
-                alt6=2;
+                alt7=2;
                 }
                 break;
-            case 54:
             case 56:
-            case 57:
             case 58:
+            case 59:
+            case 60:
                 {
-                alt6=3;
+                alt7=3;
                 }
                 break;
             case NEWLINE:
                 {
-                alt6=4;
+                alt7=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 6, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:131:4: LCURLY ls= statements RCURLY
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:130:4: LCURLY ls= statements RCURLY
                     {
-                    match(input,LCURLY,FOLLOW_LCURLY_in_statement327); if (state.failed) return ret;
-                    pushFollow(FOLLOW_statements_in_statement331);
+                    match(input,LCURLY,FOLLOW_LCURLY_in_statement329); if (state.failed) return ret;
+                    pushFollow(FOLLOW_statements_in_statement333);
                     ls=statements();
 
                     state._fsp--;
                     if (state.failed) return ret;
-                    match(input,RCURLY,FOLLOW_RCURLY_in_statement333); if (state.failed) return ret;
+                    match(input,RCURLY,FOLLOW_RCURLY_in_statement335); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
                       ret = ls;
                     }
@@ -732,9 +752,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:133:4: ss= simple_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:132:4: ss= simple_stmt
                     {
-                    pushFollow(FOLLOW_simple_stmt_in_statement345);
+                    pushFollow(FOLLOW_simple_stmt_in_statement347);
                     ss=simple_stmt();
 
                     state._fsp--;
@@ -746,9 +766,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:135:4: s= compound_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:134:4: s= compound_stmt
                     {
-                    pushFollow(FOLLOW_compound_stmt_in_statement357);
+                    pushFollow(FOLLOW_compound_stmt_in_statement359);
                     s=compound_stmt();
 
                     state._fsp--;
@@ -760,9 +780,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:137:4: NEWLINE
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:136:4: NEWLINE
                     {
-                    match(input,NEWLINE,FOLLOW_NEWLINE_in_statement367); if (state.failed) return ret;
+                    match(input,NEWLINE,FOLLOW_NEWLINE_in_statement369); if (state.failed) return ret;
 
                     }
                     break;
@@ -781,7 +801,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "simple_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:140:1: simple_stmt returns [List<Term> ret] : s= small_stmt ( options {greedy=true; } : SEMI s= small_stmt )* ( SEMI )? NEWLINE ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:139:1: simple_stmt returns [List<Term> ret] : s= small_stmt ( options {greedy=true; } : SEMI s= small_stmt )* ( SEMI )? NEWLINE ;
     public final List<Term> simple_stmt() throws RecognitionException {
         List<Term> ret = null;
 
@@ -792,10 +812,10 @@ public class stabParser extends Parser {
         	List<Term> l = new LinkedList<Term>();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:147:6: (s= small_stmt ( options {greedy=true; } : SEMI s= small_stmt )* ( SEMI )? NEWLINE )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:147:11: s= small_stmt ( options {greedy=true; } : SEMI s= small_stmt )* ( SEMI )? NEWLINE
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:146:6: (s= small_stmt ( options {greedy=true; } : SEMI s= small_stmt )* ( SEMI )? NEWLINE )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:146:11: s= small_stmt ( options {greedy=true; } : SEMI s= small_stmt )* ( SEMI )? NEWLINE
             {
-            pushFollow(FOLLOW_small_stmt_in_simple_stmt402);
+            pushFollow(FOLLOW_small_stmt_in_simple_stmt404);
             s=small_stmt();
 
             state._fsp--;
@@ -803,29 +823,29 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               l.add(s);
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:147:41: ( options {greedy=true; } : SEMI s= small_stmt )*
-            loop7:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:146:41: ( options {greedy=true; } : SEMI s= small_stmt )*
+            loop8:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( (LA7_0==SEMI) ) {
-                    int LA7_1 = input.LA(2);
+                if ( (LA8_0==SEMI) ) {
+                    int LA8_1 = input.LA(2);
 
-                    if ( (LA7_1==NAME||LA7_1==NOT||LA7_1==MINUS||LA7_1==LPAREN||(LA7_1>=INT && LA7_1<=BOOL)||(LA7_1>=51 && LA7_1<=53)) ) {
-                        alt7=1;
+                    if ( (LA8_1==NAME||LA8_1==NOT||LA8_1==MINUS||LA8_1==LPAREN||(LA8_1>=INT && LA8_1<=EPRIMEBLOCK)||(LA8_1>=53 && LA8_1<=55)) ) {
+                        alt8=1;
                     }
 
 
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:147:65: SEMI s= small_stmt
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:146:65: SEMI s= small_stmt
             	    {
-            	    match(input,SEMI,FOLLOW_SEMI_in_simple_stmt414); if (state.failed) return ret;
-            	    pushFollow(FOLLOW_small_stmt_in_simple_stmt418);
+            	    match(input,SEMI,FOLLOW_SEMI_in_simple_stmt416); if (state.failed) return ret;
+            	    pushFollow(FOLLOW_small_stmt_in_simple_stmt420);
             	    s=small_stmt();
 
             	    state._fsp--;
@@ -838,29 +858,29 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop7;
+            	    break loop8;
                 }
             } while (true);
 
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:147:102: ( SEMI )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:146:102: ( SEMI )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-            if ( (LA8_0==SEMI) ) {
-                alt8=1;
+            if ( (LA9_0==SEMI) ) {
+                alt9=1;
             }
-            switch (alt8) {
+            switch (alt9) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:147:103: SEMI
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:146:103: SEMI
                     {
-                    match(input,SEMI,FOLLOW_SEMI_in_simple_stmt425); if (state.failed) return ret;
+                    match(input,SEMI,FOLLOW_SEMI_in_simple_stmt427); if (state.failed) return ret;
 
                     }
                     break;
 
             }
 
-            match(input,NEWLINE,FOLLOW_NEWLINE_in_simple_stmt429); if (state.failed) return ret;
+            match(input,NEWLINE,FOLLOW_NEWLINE_in_simple_stmt431); if (state.failed) return ret;
 
             }
 
@@ -882,7 +902,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "small_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:150:1: small_stmt returns [Term ret] : (r= expr_stmt | r= flow_stmt );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:149:1: small_stmt returns [Term ret] : (r= expr_stmt | r= flow_stmt );
     public final Term small_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -890,28 +910,28 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:154:2: (r= expr_stmt | r= flow_stmt )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:153:2: (r= expr_stmt | r= flow_stmt )
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA9_0==NAME||LA9_0==NOT||LA9_0==MINUS||LA9_0==LPAREN||(LA9_0>=INT && LA9_0<=BOOL)) ) {
-                alt9=1;
+            if ( (LA10_0==NAME||LA10_0==NOT||LA10_0==MINUS||LA10_0==LPAREN||(LA10_0>=INT && LA10_0<=EPRIMEBLOCK)) ) {
+                alt10=1;
             }
-            else if ( ((LA9_0>=51 && LA9_0<=53)) ) {
-                alt9=2;
+            else if ( ((LA10_0>=53 && LA10_0<=55)) ) {
+                alt10=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
+                    new NoViableAltException("", 10, 0, input);
 
                 throw nvae;
             }
-            switch (alt9) {
+            switch (alt10) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:154:5: r= expr_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:153:5: r= expr_stmt
                     {
-                    pushFollow(FOLLOW_expr_stmt_in_small_stmt453);
+                    pushFollow(FOLLOW_expr_stmt_in_small_stmt455);
                     r=expr_stmt();
 
                     state._fsp--;
@@ -920,9 +940,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:155:5: r= flow_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:154:5: r= flow_stmt
                     {
-                    pushFollow(FOLLOW_flow_stmt_in_small_stmt462);
+                    pushFollow(FOLLOW_flow_stmt_in_small_stmt464);
                     r=flow_stmt();
 
                     state._fsp--;
@@ -950,7 +970,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "expr_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:158:1: expr_stmt returns [Term ret] : ( ( NAME augassign test )=>v= NAME o= augassign r= test | ( NAME LBRACK test RBRACK augassign test )=> NAME LBRACK t= test RBRACK augassign test | t= test );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:157:1: expr_stmt returns [Term ret] : ( ( NAME augassign test )=>v= NAME o= augassign r= test | ( NAME LBRACK test RBRACK augassign test )=>v= NAME LBRACK t= test RBRACK o= augassign r= test | t= test );
     public final Term expr_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -963,51 +983,20 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:2: ( ( NAME augassign test )=>v= NAME o= augassign r= test | ( NAME LBRACK test RBRACK augassign test )=> NAME LBRACK t= test RBRACK augassign test | t= test )
-            int alt10=3;
-            int LA10_0 = input.LA(1);
-
-            if ( (LA10_0==NAME) ) {
-                int LA10_1 = input.LA(2);
-
-                if ( (synpred2_stab()) ) {
-                    alt10=1;
-                }
-                else if ( (synpred3_stab()) ) {
-                    alt10=2;
-                }
-                else if ( (true) ) {
-                    alt10=3;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return ret;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 10, 1, input);
-
-                    throw nvae;
-                }
-            }
-            else if ( (LA10_0==NOT||LA10_0==MINUS||LA10_0==LPAREN||(LA10_0>=INT && LA10_0<=BOOL)) ) {
-                alt10=3;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return ret;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 10, 0, input);
-
-                throw nvae;
-            }
-            switch (alt10) {
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:158:2: ( ( NAME augassign test )=>v= NAME o= augassign r= test | ( NAME LBRACK test RBRACK augassign test )=>v= NAME LBRACK t= test RBRACK o= augassign r= test | t= test )
+            int alt11=3;
+            alt11 = dfa11.predict(input);
+            switch (alt11) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:4: ( NAME augassign test )=>v= NAME o= augassign r= test
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:158:4: ( NAME augassign test )=>v= NAME o= augassign r= test
                     {
-                    v=(Token)match(input,NAME,FOLLOW_NAME_in_expr_stmt490); if (state.failed) return ret;
-                    pushFollow(FOLLOW_augassign_in_expr_stmt494);
+                    v=(Token)match(input,NAME,FOLLOW_NAME_in_expr_stmt492); if (state.failed) return ret;
+                    pushFollow(FOLLOW_augassign_in_expr_stmt496);
                     o=augassign();
 
                     state._fsp--;
                     if (state.failed) return ret;
-                    pushFollow(FOLLOW_test_in_expr_stmt498);
+                    pushFollow(FOLLOW_test_in_expr_stmt500);
                     r=test();
 
                     state._fsp--;
@@ -1019,23 +1008,23 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:160:4: ( NAME LBRACK test RBRACK augassign test )=> NAME LBRACK t= test RBRACK augassign test
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:4: ( NAME LBRACK test RBRACK augassign test )=>v= NAME LBRACK t= test RBRACK o= augassign r= test
                     {
-                    match(input,NAME,FOLLOW_NAME_in_expr_stmt521); if (state.failed) return ret;
-                    match(input,LBRACK,FOLLOW_LBRACK_in_expr_stmt523); if (state.failed) return ret;
-                    pushFollow(FOLLOW_test_in_expr_stmt527);
+                    v=(Token)match(input,NAME,FOLLOW_NAME_in_expr_stmt525); if (state.failed) return ret;
+                    match(input,LBRACK,FOLLOW_LBRACK_in_expr_stmt527); if (state.failed) return ret;
+                    pushFollow(FOLLOW_test_in_expr_stmt531);
                     t=test();
 
                     state._fsp--;
                     if (state.failed) return ret;
-                    match(input,RBRACK,FOLLOW_RBRACK_in_expr_stmt529); if (state.failed) return ret;
-                    pushFollow(FOLLOW_augassign_in_expr_stmt531);
-                    augassign();
+                    match(input,RBRACK,FOLLOW_RBRACK_in_expr_stmt533); if (state.failed) return ret;
+                    pushFollow(FOLLOW_augassign_in_expr_stmt537);
+                    o=augassign();
 
                     state._fsp--;
                     if (state.failed) return ret;
-                    pushFollow(FOLLOW_test_in_expr_stmt533);
-                    test();
+                    pushFollow(FOLLOW_test_in_expr_stmt541);
+                    r=test();
 
                     state._fsp--;
                     if (state.failed) return ret;
@@ -1046,9 +1035,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:161:4: t= test
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:160:4: t= test
                     {
-                    pushFollow(FOLLOW_test_in_expr_stmt542);
+                    pushFollow(FOLLOW_test_in_expr_stmt550);
                     t=test();
 
                     state._fsp--;
@@ -1074,7 +1063,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "test"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:164:1: test returns [Exp ret] : l= and_test ( OR r= and_test )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:163:1: test returns [Exp ret] : l= and_test ( OR r= and_test )* ;
     public final Exp test() throws RecognitionException {
         Exp ret = null;
 
@@ -1085,10 +1074,10 @@ public class stabParser extends Parser {
 
         Exp left = null;
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:169:2: (l= and_test ( OR r= and_test )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:169:5: l= and_test ( OR r= and_test )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:168:2: (l= and_test ( OR r= and_test )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:168:5: l= and_test ( OR r= and_test )*
             {
-            pushFollow(FOLLOW_and_test_in_test577);
+            pushFollow(FOLLOW_and_test_in_test585);
             l=and_test();
 
             state._fsp--;
@@ -1096,105 +1085,29 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               left = l;
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:169:33: ( OR r= and_test )*
-            loop11:
-            do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
-
-                if ( (LA11_0==OR) ) {
-                    alt11=1;
-                }
-
-
-                switch (alt11) {
-            	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:169:34: OR r= and_test
-            	    {
-            	    match(input,OR,FOLLOW_OR_in_test582); if (state.failed) return ret;
-            	    pushFollow(FOLLOW_and_test_in_test586);
-            	    r=and_test();
-
-            	    state._fsp--;
-            	    if (state.failed) return ret;
-            	    if ( state.backtracking==0 ) {
-            	      left = new EOp("or", left, r);
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop11;
-                }
-            } while (true);
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	ret = left;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return ret;
-    }
-    // $ANTLR end "test"
-
-
-    // $ANTLR start "and_test"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:172:1: and_test returns [Exp ret] : l= not_test ( AND r= not_test )* ;
-    public final Exp and_test() throws RecognitionException {
-        Exp ret = null;
-
-        Exp l = null;
-
-        Exp r = null;
-
-
-        Exp left = null;
-        try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:177:2: (l= not_test ( AND r= not_test )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:177:5: l= not_test ( AND r= not_test )*
-            {
-            pushFollow(FOLLOW_not_test_in_and_test617);
-            l=not_test();
-
-            state._fsp--;
-            if (state.failed) return ret;
-            if ( state.backtracking==0 ) {
-              left = l;
-            }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:177:33: ( AND r= not_test )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:168:33: ( OR r= and_test )*
             loop12:
             do {
                 int alt12=2;
                 int LA12_0 = input.LA(1);
 
-                if ( (LA12_0==AND) ) {
+                if ( (LA12_0==OR) ) {
                     alt12=1;
                 }
 
 
                 switch (alt12) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:177:34: AND r= not_test
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:168:34: OR r= and_test
             	    {
-            	    match(input,AND,FOLLOW_AND_in_and_test622); if (state.failed) return ret;
-            	    pushFollow(FOLLOW_not_test_in_and_test626);
-            	    r=not_test();
+            	    match(input,OR,FOLLOW_OR_in_test590); if (state.failed) return ret;
+            	    pushFollow(FOLLOW_and_test_in_test594);
+            	    r=and_test();
 
             	    state._fsp--;
             	    if (state.failed) return ret;
             	    if ( state.backtracking==0 ) {
-            	      left = new EOp("and", left, r);
+            	      left = new EOp("or", left, r);
             	    }
 
             	    }
@@ -1222,11 +1135,87 @@ public class stabParser extends Parser {
         }
         return ret;
     }
+    // $ANTLR end "test"
+
+
+    // $ANTLR start "and_test"
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:171:1: and_test returns [Exp ret] : l= not_test ( AND r= not_test )* ;
+    public final Exp and_test() throws RecognitionException {
+        Exp ret = null;
+
+        Exp l = null;
+
+        Exp r = null;
+
+
+        Exp left = null;
+        try {
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:176:2: (l= not_test ( AND r= not_test )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:176:5: l= not_test ( AND r= not_test )*
+            {
+            pushFollow(FOLLOW_not_test_in_and_test625);
+            l=not_test();
+
+            state._fsp--;
+            if (state.failed) return ret;
+            if ( state.backtracking==0 ) {
+              left = l;
+            }
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:176:33: ( AND r= not_test )*
+            loop13:
+            do {
+                int alt13=2;
+                int LA13_0 = input.LA(1);
+
+                if ( (LA13_0==AND) ) {
+                    alt13=1;
+                }
+
+
+                switch (alt13) {
+            	case 1 :
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:176:34: AND r= not_test
+            	    {
+            	    match(input,AND,FOLLOW_AND_in_and_test630); if (state.failed) return ret;
+            	    pushFollow(FOLLOW_not_test_in_and_test634);
+            	    r=not_test();
+
+            	    state._fsp--;
+            	    if (state.failed) return ret;
+            	    if ( state.backtracking==0 ) {
+            	      left = new EOp("and", left, r);
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop13;
+                }
+            } while (true);
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	ret = left;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ret;
+    }
     // $ANTLR end "and_test"
 
 
     // $ANTLR start "not_test"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:180:1: not_test returns [Exp ret] : ( NOT t= not_test | c= comparison );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:179:1: not_test returns [Exp ret] : ( NOT t= not_test | c= comparison );
     public final Exp not_test() throws RecognitionException {
         Exp ret = null;
 
@@ -1236,29 +1225,29 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:181:2: ( NOT t= not_test | c= comparison )
-            int alt13=2;
-            int LA13_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:180:2: ( NOT t= not_test | c= comparison )
+            int alt14=2;
+            int LA14_0 = input.LA(1);
 
-            if ( (LA13_0==NOT) ) {
-                alt13=1;
+            if ( (LA14_0==NOT) ) {
+                alt14=1;
             }
-            else if ( (LA13_0==NAME||LA13_0==MINUS||LA13_0==LPAREN||(LA13_0>=INT && LA13_0<=BOOL)) ) {
-                alt13=2;
+            else if ( (LA14_0==NAME||LA14_0==MINUS||LA14_0==LPAREN||(LA14_0>=INT && LA14_0<=EPRIMEBLOCK)) ) {
+                alt14=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
-            switch (alt13) {
+            switch (alt14) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:181:5: NOT t= not_test
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:180:5: NOT t= not_test
                     {
-                    match(input,NOT,FOLLOW_NOT_in_not_test646); if (state.failed) return ret;
-                    pushFollow(FOLLOW_not_test_in_not_test650);
+                    match(input,NOT,FOLLOW_NOT_in_not_test654); if (state.failed) return ret;
+                    pushFollow(FOLLOW_not_test_in_not_test658);
                     t=not_test();
 
                     state._fsp--;
@@ -1270,9 +1259,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:182:5: c= comparison
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:181:5: c= comparison
                     {
-                    pushFollow(FOLLOW_comparison_in_not_test660);
+                    pushFollow(FOLLOW_comparison_in_not_test668);
                     c=comparison();
 
                     state._fsp--;
@@ -1298,7 +1287,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "comparison"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:185:1: comparison returns [Exp ret] : l= arith_expr (o= comp_op r= arith_expr )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:184:1: comparison returns [Exp ret] : l= arith_expr (o= comp_op r= arith_expr )* ;
     public final Exp comparison() throws RecognitionException {
         Exp ret = null;
 
@@ -1311,10 +1300,10 @@ public class stabParser extends Parser {
 
         Exp left = null;
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:190:2: (l= arith_expr (o= comp_op r= arith_expr )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:190:5: l= arith_expr (o= comp_op r= arith_expr )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:189:2: (l= arith_expr (o= comp_op r= arith_expr )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:189:5: l= arith_expr (o= comp_op r= arith_expr )*
             {
-            pushFollow(FOLLOW_arith_expr_in_comparison689);
+            pushFollow(FOLLOW_arith_expr_in_comparison697);
             l=arith_expr();
 
             state._fsp--;
@@ -1322,27 +1311,27 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               left = l;
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:190:35: (o= comp_op r= arith_expr )*
-            loop14:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:189:35: (o= comp_op r= arith_expr )*
+            loop15:
             do {
-                int alt14=2;
-                int LA14_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( ((LA14_0>=LESS && LA14_0<=NOTEQUAL)) ) {
-                    alt14=1;
+                if ( ((LA15_0>=LESS && LA15_0<=NOTEQUAL)) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt14) {
+                switch (alt15) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:190:36: o= comp_op r= arith_expr
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:189:36: o= comp_op r= arith_expr
             	    {
-            	    pushFollow(FOLLOW_comp_op_in_comparison696);
+            	    pushFollow(FOLLOW_comp_op_in_comparison704);
             	    o=comp_op();
 
             	    state._fsp--;
             	    if (state.failed) return ret;
-            	    pushFollow(FOLLOW_arith_expr_in_comparison700);
+            	    pushFollow(FOLLOW_arith_expr_in_comparison708);
             	    r=arith_expr();
 
             	    state._fsp--;
@@ -1355,7 +1344,7 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop14;
+            	    break loop15;
                 }
             } while (true);
 
@@ -1383,58 +1372,58 @@ public class stabParser extends Parser {
     };
 
     // $ANTLR start "comp_op"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:193:1: comp_op returns [String s] : ( LESS | GREATER | EQUALS | GREATEREQUAL | LESSEQUAL | NOTEQUAL );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:192:1: comp_op returns [String s] : ( LESS | GREATER | EQUALS | GREATEREQUAL | LESSEQUAL | NOTEQUAL );
     public final stabParser.comp_op_return comp_op() throws RecognitionException {
         stabParser.comp_op_return retval = new stabParser.comp_op_return();
         retval.start = input.LT(1);
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:194:2: ( LESS | GREATER | EQUALS | GREATEREQUAL | LESSEQUAL | NOTEQUAL )
-            int alt15=6;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:193:2: ( LESS | GREATER | EQUALS | GREATEREQUAL | LESSEQUAL | NOTEQUAL )
+            int alt16=6;
             switch ( input.LA(1) ) {
             case LESS:
                 {
-                alt15=1;
+                alt16=1;
                 }
                 break;
             case GREATER:
                 {
-                alt15=2;
+                alt16=2;
                 }
                 break;
             case EQUALS:
                 {
-                alt15=3;
+                alt16=3;
                 }
                 break;
             case GREATEREQUAL:
                 {
-                alt15=4;
+                alt16=4;
                 }
                 break;
             case LESSEQUAL:
                 {
-                alt15=5;
+                alt16=5;
                 }
                 break;
             case NOTEQUAL:
                 {
-                alt15=6;
+                alt16=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
+                    new NoViableAltException("", 16, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt15) {
+            switch (alt16) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:194:5: LESS
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:193:5: LESS
                     {
-                    match(input,LESS,FOLLOW_LESS_in_comp_op720); if (state.failed) return retval;
+                    match(input,LESS,FOLLOW_LESS_in_comp_op728); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.s = "<";
                     }
@@ -1442,9 +1431,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:195:4: GREATER
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:194:4: GREATER
                     {
-                    match(input,GREATER,FOLLOW_GREATER_in_comp_op727); if (state.failed) return retval;
+                    match(input,GREATER,FOLLOW_GREATER_in_comp_op735); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.s = ">";
                     }
@@ -1452,9 +1441,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:196:4: EQUALS
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:195:4: EQUALS
                     {
-                    match(input,EQUALS,FOLLOW_EQUALS_in_comp_op734); if (state.failed) return retval;
+                    match(input,EQUALS,FOLLOW_EQUALS_in_comp_op742); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.s = "==";
                     }
@@ -1462,9 +1451,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:197:4: GREATEREQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:196:4: GREATEREQUAL
                     {
-                    match(input,GREATEREQUAL,FOLLOW_GREATEREQUAL_in_comp_op741); if (state.failed) return retval;
+                    match(input,GREATEREQUAL,FOLLOW_GREATEREQUAL_in_comp_op749); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.s = ">=";
                     }
@@ -1472,9 +1461,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:198:4: LESSEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:197:4: LESSEQUAL
                     {
-                    match(input,LESSEQUAL,FOLLOW_LESSEQUAL_in_comp_op748); if (state.failed) return retval;
+                    match(input,LESSEQUAL,FOLLOW_LESSEQUAL_in_comp_op756); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.s = "<=";
                     }
@@ -1482,9 +1471,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:199:4: NOTEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:198:4: NOTEQUAL
                     {
-                    match(input,NOTEQUAL,FOLLOW_NOTEQUAL_in_comp_op755); if (state.failed) return retval;
+                    match(input,NOTEQUAL,FOLLOW_NOTEQUAL_in_comp_op763); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.s = "!=";
                     }
@@ -1508,7 +1497,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "arith_expr"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:202:1: arith_expr returns [Exp ret] : l= term (o= ( PLUS | MINUS ) r= term )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:201:1: arith_expr returns [Exp ret] : l= term (o= ( PLUS | MINUS ) r= term )* ;
     public final Exp arith_expr() throws RecognitionException {
         Exp ret = null;
 
@@ -1520,10 +1509,10 @@ public class stabParser extends Parser {
 
         Exp left = null;
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:207:2: (l= term (o= ( PLUS | MINUS ) r= term )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:207:5: l= term (o= ( PLUS | MINUS ) r= term )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:206:2: (l= term (o= ( PLUS | MINUS ) r= term )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:206:5: l= term (o= ( PLUS | MINUS ) r= term )*
             {
-            pushFollow(FOLLOW_term_in_arith_expr784);
+            pushFollow(FOLLOW_term_in_arith_expr792);
             l=term();
 
             state._fsp--;
@@ -1531,20 +1520,20 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               left = l;
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:207:29: (o= ( PLUS | MINUS ) r= term )*
-            loop16:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:206:29: (o= ( PLUS | MINUS ) r= term )*
+            loop17:
             do {
-                int alt16=2;
-                int LA16_0 = input.LA(1);
+                int alt17=2;
+                int LA17_0 = input.LA(1);
 
-                if ( ((LA16_0>=PLUS && LA16_0<=MINUS)) ) {
-                    alt16=1;
+                if ( ((LA17_0>=PLUS && LA17_0<=MINUS)) ) {
+                    alt17=1;
                 }
 
 
-                switch (alt16) {
+                switch (alt17) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:207:30: o= ( PLUS | MINUS ) r= term
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:206:30: o= ( PLUS | MINUS ) r= term
             	    {
             	    o=(Token)input.LT(1);
             	    if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -1557,95 +1546,8 @@ public class stabParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_term_in_arith_expr799);
+            	    pushFollow(FOLLOW_term_in_arith_expr807);
             	    r=term();
-
-            	    state._fsp--;
-            	    if (state.failed) return ret;
-            	    if ( state.backtracking==0 ) {
-            	      left = new EOp((o!=null?o.getText():null), left, r);
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop16;
-                }
-            } while (true);
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	ret = left;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return ret;
-    }
-    // $ANTLR end "arith_expr"
-
-
-    // $ANTLR start "term"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:210:1: term returns [Exp ret] : l= factor (o= ( MULT | DIV | MOD ) r= factor )* ;
-    public final Exp term() throws RecognitionException {
-        Exp ret = null;
-
-        Token o=null;
-        Exp l = null;
-
-        Exp r = null;
-
-
-        Exp left = null;
-        try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:215:2: (l= factor (o= ( MULT | DIV | MOD ) r= factor )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:215:4: l= factor (o= ( MULT | DIV | MOD ) r= factor )*
-            {
-            pushFollow(FOLLOW_factor_in_term829);
-            l=factor();
-
-            state._fsp--;
-            if (state.failed) return ret;
-            if ( state.backtracking==0 ) {
-              left = l;
-            }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:215:30: (o= ( MULT | DIV | MOD ) r= factor )*
-            loop17:
-            do {
-                int alt17=2;
-                int LA17_0 = input.LA(1);
-
-                if ( ((LA17_0>=MULT && LA17_0<=MOD)) ) {
-                    alt17=1;
-                }
-
-
-                switch (alt17) {
-            	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:215:31: o= ( MULT | DIV | MOD ) r= factor
-            	    {
-            	    o=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=MULT && input.LA(1)<=MOD) ) {
-            	        input.consume();
-            	        state.errorRecovery=false;state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return ret;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-            	    pushFollow(FOLLOW_factor_in_term851);
-            	    r=factor();
 
             	    state._fsp--;
             	    if (state.failed) return ret;
@@ -1678,11 +1580,98 @@ public class stabParser extends Parser {
         }
         return ret;
     }
+    // $ANTLR end "arith_expr"
+
+
+    // $ANTLR start "term"
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:209:1: term returns [Exp ret] : l= factor (o= ( MULT | DIV | MOD ) r= factor )* ;
+    public final Exp term() throws RecognitionException {
+        Exp ret = null;
+
+        Token o=null;
+        Exp l = null;
+
+        Exp r = null;
+
+
+        Exp left = null;
+        try {
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:214:2: (l= factor (o= ( MULT | DIV | MOD ) r= factor )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:214:4: l= factor (o= ( MULT | DIV | MOD ) r= factor )*
+            {
+            pushFollow(FOLLOW_factor_in_term837);
+            l=factor();
+
+            state._fsp--;
+            if (state.failed) return ret;
+            if ( state.backtracking==0 ) {
+              left = l;
+            }
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:214:30: (o= ( MULT | DIV | MOD ) r= factor )*
+            loop18:
+            do {
+                int alt18=2;
+                int LA18_0 = input.LA(1);
+
+                if ( ((LA18_0>=MULT && LA18_0<=MOD)) ) {
+                    alt18=1;
+                }
+
+
+                switch (alt18) {
+            	case 1 :
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:214:31: o= ( MULT | DIV | MOD ) r= factor
+            	    {
+            	    o=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=MULT && input.LA(1)<=MOD) ) {
+            	        input.consume();
+            	        state.errorRecovery=false;state.failed=false;
+            	    }
+            	    else {
+            	        if (state.backtracking>0) {state.failed=true; return ret;}
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_factor_in_term859);
+            	    r=factor();
+
+            	    state._fsp--;
+            	    if (state.failed) return ret;
+            	    if ( state.backtracking==0 ) {
+            	      left = new EOp((o!=null?o.getText():null), left, r);
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop18;
+                }
+            } while (true);
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	ret = left;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ret;
+    }
     // $ANTLR end "term"
 
 
     // $ANTLR start "factor"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:218:1: factor returns [Exp ret] : l= atom ( POW r= factor )? ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:217:1: factor returns [Exp ret] : l= atom ( POW r= factor )? ;
     public final Exp factor() throws RecognitionException {
         Exp ret = null;
 
@@ -1692,10 +1681,10 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:219:2: (l= atom ( POW r= factor )? )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:219:5: l= atom ( POW r= factor )?
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:218:2: (l= atom ( POW r= factor )? )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:218:5: l= atom ( POW r= factor )?
             {
-            pushFollow(FOLLOW_atom_in_factor873);
+            pushFollow(FOLLOW_atom_in_factor881);
             l=atom();
 
             state._fsp--;
@@ -1703,19 +1692,19 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               ret = l;
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:219:29: ( POW r= factor )?
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:218:29: ( POW r= factor )?
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA18_0==POW) ) {
-                alt18=1;
+            if ( (LA19_0==POW) ) {
+                alt19=1;
             }
-            switch (alt18) {
+            switch (alt19) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:219:30: POW r= factor
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:218:30: POW r= factor
                     {
-                    match(input,POW,FOLLOW_POW_in_factor878); if (state.failed) return ret;
-                    pushFollow(FOLLOW_factor_in_factor882);
+                    match(input,POW,FOLLOW_POW_in_factor886); if (state.failed) return ret;
+                    pushFollow(FOLLOW_factor_in_factor890);
                     r=factor();
 
                     state._fsp--;
@@ -1745,15 +1734,16 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "atom"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:222:1: atom returns [Exp ret] : ( LPAREN (t= test )? RPAREN | n= NAME LPAREN a= args RPAREN | o= NAME DOT m= NAME LPAREN a= args RPAREN | MINUS i= INT | v= value | v= var );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:221:1: atom returns [Exp ret] : ( LPAREN (t= test )? RPAREN | ( var DOT NAME LPAREN ( args )? RPAREN )=>o= var DOT m= NAME LPAREN (a= args )? RPAREN | ( NAME LPAREN ( args )? RPAREN )=>n= NAME LPAREN (a= args )? RPAREN | MINUS i= INT | v= value | v= var );
     public final Exp atom() throws RecognitionException {
         Exp ret = null;
 
-        Token n=null;
-        Token o=null;
         Token m=null;
+        Token n=null;
         Token i=null;
         Exp t = null;
+
+        Exp o = null;
 
         List<Exp> a = null;
 
@@ -1761,98 +1751,26 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:2: ( LPAREN (t= test )? RPAREN | n= NAME LPAREN a= args RPAREN | o= NAME DOT m= NAME LPAREN a= args RPAREN | MINUS i= INT | v= value | v= var )
-            int alt20=6;
-            switch ( input.LA(1) ) {
-            case LPAREN:
-                {
-                alt20=1;
-                }
-                break;
-            case NAME:
-                {
-                switch ( input.LA(2) ) {
-                case LPAREN:
-                    {
-                    alt20=2;
-                    }
-                    break;
-                case DOT:
-                    {
-                    alt20=3;
-                    }
-                    break;
-                case EOF:
-                case NEWLINE:
-                case SEMI:
-                case LBRACK:
-                case RBRACK:
-                case OR:
-                case AND:
-                case LESS:
-                case GREATER:
-                case EQUALS:
-                case GREATEREQUAL:
-                case LESSEQUAL:
-                case NOTEQUAL:
-                case PLUS:
-                case MINUS:
-                case MULT:
-                case DIV:
-                case MOD:
-                case POW:
-                case RPAREN:
-                case COMMA:
-                    {
-                    alt20=6;
-                    }
-                    break;
-                default:
-                    if (state.backtracking>0) {state.failed=true; return ret;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 20, 2, input);
-
-                    throw nvae;
-                }
-
-                }
-                break;
-            case MINUS:
-                {
-                alt20=4;
-                }
-                break;
-            case INT:
-            case BOOL:
-                {
-                alt20=5;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return ret;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 20, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt20) {
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:222:2: ( LPAREN (t= test )? RPAREN | ( var DOT NAME LPAREN ( args )? RPAREN )=>o= var DOT m= NAME LPAREN (a= args )? RPAREN | ( NAME LPAREN ( args )? RPAREN )=>n= NAME LPAREN (a= args )? RPAREN | MINUS i= INT | v= value | v= var )
+            int alt23=6;
+            alt23 = dfa23.predict(input);
+            switch (alt23) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:5: LPAREN (t= test )? RPAREN
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:222:5: LPAREN (t= test )? RPAREN
                     {
-                    match(input,LPAREN,FOLLOW_LPAREN_in_atom902); if (state.failed) return ret;
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:12: (t= test )?
-                    int alt19=2;
-                    int LA19_0 = input.LA(1);
+                    match(input,LPAREN,FOLLOW_LPAREN_in_atom910); if (state.failed) return ret;
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:222:12: (t= test )?
+                    int alt20=2;
+                    int LA20_0 = input.LA(1);
 
-                    if ( (LA19_0==NAME||LA19_0==NOT||LA19_0==MINUS||LA19_0==LPAREN||(LA19_0>=INT && LA19_0<=BOOL)) ) {
-                        alt19=1;
+                    if ( (LA20_0==NAME||LA20_0==NOT||LA20_0==MINUS||LA20_0==LPAREN||(LA20_0>=INT && LA20_0<=EPRIMEBLOCK)) ) {
+                        alt20=1;
                     }
-                    switch (alt19) {
+                    switch (alt20) {
                         case 1 :
-                            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:13: t= test
+                            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:222:13: t= test
                             {
-                            pushFollow(FOLLOW_test_in_atom907);
+                            pushFollow(FOLLOW_test_in_atom915);
                             t=test();
 
                             state._fsp--;
@@ -1863,7 +1781,7 @@ public class stabParser extends Parser {
 
                     }
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_atom911); if (state.failed) return ret;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_atom919); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
                       ret = t;
                     }
@@ -1871,46 +1789,84 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:224:4: n= NAME LPAREN a= args RPAREN
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:4: ( var DOT NAME LPAREN ( args )? RPAREN )=>o= var DOT m= NAME LPAREN (a= args )? RPAREN
                     {
-                    n=(Token)match(input,NAME,FOLLOW_NAME_in_atom920); if (state.failed) return ret;
-                    match(input,LPAREN,FOLLOW_LPAREN_in_atom922); if (state.failed) return ret;
-                    pushFollow(FOLLOW_args_in_atom926);
-                    a=args();
+                    pushFollow(FOLLOW_var_in_atom944);
+                    o=var();
 
                     state._fsp--;
                     if (state.failed) return ret;
-                    match(input,RPAREN,FOLLOW_RPAREN_in_atom928); if (state.failed) return ret;
+                    match(input,DOT,FOLLOW_DOT_in_atom946); if (state.failed) return ret;
+                    m=(Token)match(input,NAME,FOLLOW_NAME_in_atom950); if (state.failed) return ret;
+                    match(input,LPAREN,FOLLOW_LPAREN_in_atom952); if (state.failed) return ret;
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:66: (a= args )?
+                    int alt21=2;
+                    int LA21_0 = input.LA(1);
+
+                    if ( (LA21_0==NAME||LA21_0==NOT||LA21_0==MINUS||LA21_0==LPAREN||(LA21_0>=INT && LA21_0<=EPRIMEBLOCK)) ) {
+                        alt21=1;
+                    }
+                    switch (alt21) {
+                        case 1 :
+                            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:66: a= args
+                            {
+                            pushFollow(FOLLOW_args_in_atom956);
+                            a=args();
+
+                            state._fsp--;
+                            if (state.failed) return ret;
+
+                            }
+                            break;
+
+                    }
+
+                    match(input,RPAREN,FOLLOW_RPAREN_in_atom959); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
-                      ret = new Call((n!=null?n.getText():null), a);
+                      ret = (a==null) ? new Method(o, (m!=null?m.getText():null), new LinkedList<Exp>()) : new Method(o, (m!=null?m.getText():null), a);
                     }
 
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:226:4: o= NAME DOT m= NAME LPAREN a= args RPAREN
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:4: ( NAME LPAREN ( args )? RPAREN )=>n= NAME LPAREN (a= args )? RPAREN
                     {
-                    o=(Token)match(input,NAME,FOLLOW_NAME_in_atom941); if (state.failed) return ret;
-                    match(input,DOT,FOLLOW_DOT_in_atom943); if (state.failed) return ret;
-                    m=(Token)match(input,NAME,FOLLOW_NAME_in_atom947); if (state.failed) return ret;
-                    match(input,LPAREN,FOLLOW_LPAREN_in_atom949); if (state.failed) return ret;
-                    pushFollow(FOLLOW_args_in_atom953);
-                    a=args();
+                    n=(Token)match(input,NAME,FOLLOW_NAME_in_atom984); if (state.failed) return ret;
+                    match(input,LPAREN,FOLLOW_LPAREN_in_atom986); if (state.failed) return ret;
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:48: (a= args )?
+                    int alt22=2;
+                    int LA22_0 = input.LA(1);
 
-                    state._fsp--;
-                    if (state.failed) return ret;
-                    match(input,RPAREN,FOLLOW_RPAREN_in_atom955); if (state.failed) return ret;
+                    if ( (LA22_0==NAME||LA22_0==NOT||LA22_0==MINUS||LA22_0==LPAREN||(LA22_0>=INT && LA22_0<=EPRIMEBLOCK)) ) {
+                        alt22=1;
+                    }
+                    switch (alt22) {
+                        case 1 :
+                            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:48: a= args
+                            {
+                            pushFollow(FOLLOW_args_in_atom990);
+                            a=args();
+
+                            state._fsp--;
+                            if (state.failed) return ret;
+
+                            }
+                            break;
+
+                    }
+
+                    match(input,RPAREN,FOLLOW_RPAREN_in_atom993); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
-                      ret = new Method((n!=null?n.getText():null), (m!=null?m.getText():null), a);
+                      ret = (a==null) ? new Call((n!=null?n.getText():null), new LinkedList<Exp>()) : new Call((n!=null?n.getText():null), a);
                     }
 
                     }
                     break;
                 case 4 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:228:4: MINUS i= INT
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:227:4: MINUS i= INT
                     {
-                    match(input,MINUS,FOLLOW_MINUS_in_atom966); if (state.failed) return ret;
-                    i=(Token)match(input,INT,FOLLOW_INT_in_atom970); if (state.failed) return ret;
+                    match(input,MINUS,FOLLOW_MINUS_in_atom1004); if (state.failed) return ret;
+                    i=(Token)match(input,INT,FOLLOW_INT_in_atom1008); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
                       ret = new EOp1("-",new EInt(Integer.parseInt((i!=null?i.getText():null))));
                     }
@@ -1918,9 +1874,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:229:4: v= value
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:228:4: v= value
                     {
-                    pushFollow(FOLLOW_value_in_atom979);
+                    pushFollow(FOLLOW_value_in_atom1017);
                     v=value();
 
                     state._fsp--;
@@ -1932,9 +1888,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:230:4: v= var
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:229:4: v= var
                     {
-                    pushFollow(FOLLOW_var_in_atom988);
+                    pushFollow(FOLLOW_var_in_atom1026);
                     v=var();
 
                     state._fsp--;
@@ -1960,35 +1916,46 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "value"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:233:1: value returns [Value ret] : (i= INT | BOOL );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:232:1: value returns [Value ret] : (i= INT | b= BOOL | s= EPRIMEBLOCK );
     public final Value value() throws RecognitionException {
         Value ret = null;
 
         Token i=null;
+        Token b=null;
+        Token s=null;
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:234:2: (i= INT | BOOL )
-            int alt21=2;
-            int LA21_0 = input.LA(1);
-
-            if ( (LA21_0==INT) ) {
-                alt21=1;
-            }
-            else if ( (LA21_0==BOOL) ) {
-                alt21=2;
-            }
-            else {
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:233:2: (i= INT | b= BOOL | s= EPRIMEBLOCK )
+            int alt24=3;
+            switch ( input.LA(1) ) {
+            case INT:
+                {
+                alt24=1;
+                }
+                break;
+            case BOOL:
+                {
+                alt24=2;
+                }
+                break;
+            case EPRIMEBLOCK:
+                {
+                alt24=3;
+                }
+                break;
+            default:
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 24, 0, input);
 
                 throw nvae;
             }
-            switch (alt21) {
+
+            switch (alt24) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:234:4: i= INT
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:233:4: i= INT
                     {
-                    i=(Token)match(input,INT,FOLLOW_INT_in_value1008); if (state.failed) return ret;
+                    i=(Token)match(input,INT,FOLLOW_INT_in_value1046); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
                       ret = new EInt(Integer.parseInt((i!=null?i.getText():null)));
                     }
@@ -1996,11 +1963,21 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:235:4: BOOL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:234:4: b= BOOL
                     {
-                    match(input,BOOL,FOLLOW_BOOL_in_value1015); if (state.failed) return ret;
+                    b=(Token)match(input,BOOL,FOLLOW_BOOL_in_value1055); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
-                      ret = new EBool(Boolean.parseBoolean((i!=null?i.getText():null)));
+                      ret = new EBool(Boolean.parseBoolean((b!=null?b.getText():null)));
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:237:4: s= EPRIMEBLOCK
+                    {
+                    s=(Token)match(input,EPRIMEBLOCK,FOLLOW_EPRIMEBLOCK_in_value1068); if (state.failed) return ret;
+                    if ( state.backtracking==0 ) {
+                      String es = (s!=null?s.getText():null); es.substring(9,es.length()-9); ret = new EString(es);
                     }
 
                     }
@@ -2020,7 +1997,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "var"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:238:1: var returns [Exp ret] : (n= NAME | n= NAME LBRACK t= test RBRACK );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:240:1: var returns [Exp ret] : (n= NAME | n= NAME ( LBRACK t= test RBRACK )+ );
     public final Exp var() throws RecognitionException {
         Exp ret = null;
 
@@ -2028,24 +2005,27 @@ public class stabParser extends Parser {
         Exp t = null;
 
 
+
+        	List<Exp> l = new LinkedList<Exp>();
+
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:239:2: (n= NAME | n= NAME LBRACK t= test RBRACK )
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:244:2: (n= NAME | n= NAME ( LBRACK t= test RBRACK )+ )
+            int alt26=2;
+            int LA26_0 = input.LA(1);
 
-            if ( (LA22_0==NAME) ) {
-                int LA22_1 = input.LA(2);
+            if ( (LA26_0==NAME) ) {
+                int LA26_1 = input.LA(2);
 
-                if ( (LA22_1==LBRACK) ) {
-                    alt22=2;
+                if ( (LA26_1==LBRACK) ) {
+                    alt26=2;
                 }
-                else if ( (LA22_1==EOF||LA22_1==NEWLINE||LA22_1==SEMI||(LA22_1>=RBRACK && LA22_1<=AND)||(LA22_1>=LESS && LA22_1<=POW)||LA22_1==RPAREN||LA22_1==COMMA) ) {
-                    alt22=1;
+                else if ( (LA26_1==EOF||LA26_1==NEWLINE||LA26_1==SEMI||(LA26_1>=RBRACK && LA26_1<=AND)||(LA26_1>=LESS && LA26_1<=POW)||(LA26_1>=RPAREN && LA26_1<=DOT)||LA26_1==COMMA) ) {
+                    alt26=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ret;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 22, 1, input);
+                        new NoViableAltException("", 26, 1, input);
 
                     throw nvae;
                 }
@@ -2053,15 +2033,15 @@ public class stabParser extends Parser {
             else {
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 26, 0, input);
 
                 throw nvae;
             }
-            switch (alt22) {
+            switch (alt26) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:239:4: n= NAME
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:244:4: n= NAME
                     {
-                    n=(Token)match(input,NAME,FOLLOW_NAME_in_var1035); if (state.failed) return ret;
+                    n=(Token)match(input,NAME,FOLLOW_NAME_in_var1094); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
                       ret = new Var((n!=null?n.getText():null));
                     }
@@ -2069,18 +2049,51 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:240:4: n= NAME LBRACK t= test RBRACK
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:245:4: n= NAME ( LBRACK t= test RBRACK )+
                     {
-                    n=(Token)match(input,NAME,FOLLOW_NAME_in_var1044); if (state.failed) return ret;
-                    match(input,LBRACK,FOLLOW_LBRACK_in_var1046); if (state.failed) return ret;
-                    pushFollow(FOLLOW_test_in_var1050);
-                    t=test();
+                    n=(Token)match(input,NAME,FOLLOW_NAME_in_var1103); if (state.failed) return ret;
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:245:11: ( LBRACK t= test RBRACK )+
+                    int cnt25=0;
+                    loop25:
+                    do {
+                        int alt25=2;
+                        int LA25_0 = input.LA(1);
 
-                    state._fsp--;
-                    if (state.failed) return ret;
-                    match(input,RBRACK,FOLLOW_RBRACK_in_var1052); if (state.failed) return ret;
+                        if ( (LA25_0==LBRACK) ) {
+                            alt25=1;
+                        }
+
+
+                        switch (alt25) {
+                    	case 1 :
+                    	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:245:12: LBRACK t= test RBRACK
+                    	    {
+                    	    match(input,LBRACK,FOLLOW_LBRACK_in_var1106); if (state.failed) return ret;
+                    	    pushFollow(FOLLOW_test_in_var1110);
+                    	    t=test();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return ret;
+                    	    match(input,RBRACK,FOLLOW_RBRACK_in_var1112); if (state.failed) return ret;
+                    	    if ( state.backtracking==0 ) {
+                    	      l.add(t);
+                    	    }
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt25 >= 1 ) break loop25;
+                    	    if (state.backtracking>0) {state.failed=true; return ret;}
+                                EarlyExitException eee =
+                                    new EarlyExitException(25, input);
+                                throw eee;
+                        }
+                        cnt25++;
+                    } while (true);
+
                     if ( state.backtracking==0 ) {
-                      ret = new ArrayEl((n!=null?n.getText():null), t);
+                      ret = new ArrayEl((n!=null?n.getText():null), l);
                     }
 
                     }
@@ -2100,7 +2113,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "args"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:243:1: args returns [List<Exp> ret] : a= test ( COMMA a= test )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:248:1: args returns [List<Exp> ret] : a= test ( COMMA a= test )* ;
     public final List<Exp> args() throws RecognitionException {
         List<Exp> ret = null;
 
@@ -2111,10 +2124,10 @@ public class stabParser extends Parser {
         	List<Exp> l = new LinkedList<Exp>();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:250:2: (a= test ( COMMA a= test )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:250:4: a= test ( COMMA a= test )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:255:2: (a= test ( COMMA a= test )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:255:4: a= test ( COMMA a= test )*
             {
-            pushFollow(FOLLOW_test_in_args1082);
+            pushFollow(FOLLOW_test_in_args1146);
             a=test();
 
             state._fsp--;
@@ -2122,23 +2135,23 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               l.add(a);
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:250:28: ( COMMA a= test )*
-            loop23:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:255:28: ( COMMA a= test )*
+            loop27:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt27=2;
+                int LA27_0 = input.LA(1);
 
-                if ( (LA23_0==COMMA) ) {
-                    alt23=1;
+                if ( (LA27_0==COMMA) ) {
+                    alt27=1;
                 }
 
 
-                switch (alt23) {
+                switch (alt27) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:250:29: COMMA a= test
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:255:29: COMMA a= test
             	    {
-            	    match(input,COMMA,FOLLOW_COMMA_in_args1087); if (state.failed) return ret;
-            	    pushFollow(FOLLOW_test_in_args1091);
+            	    match(input,COMMA,FOLLOW_COMMA_in_args1151); if (state.failed) return ret;
+            	    pushFollow(FOLLOW_test_in_args1155);
             	    a=test();
 
             	    state._fsp--;
@@ -2151,7 +2164,7 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop23;
+            	    break loop27;
                 }
             } while (true);
 
@@ -2176,7 +2189,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "flow_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:253:1: flow_stmt returns [Term ret] : (s= break_stmt | s= continue_stmt | s= return_stmt );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:258:1: flow_stmt returns [Term ret] : (s= break_stmt | s= continue_stmt | s= return_stmt );
     public final Term flow_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -2184,37 +2197,37 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:257:2: (s= break_stmt | s= continue_stmt | s= return_stmt )
-            int alt24=3;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:262:2: (s= break_stmt | s= continue_stmt | s= return_stmt )
+            int alt28=3;
             switch ( input.LA(1) ) {
-            case 51:
-                {
-                alt24=1;
-                }
-                break;
-            case 52:
-                {
-                alt24=2;
-                }
-                break;
             case 53:
                 {
-                alt24=3;
+                alt28=1;
+                }
+                break;
+            case 54:
+                {
+                alt28=2;
+                }
+                break;
+            case 55:
+                {
+                alt28=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 24, 0, input);
+                    new NoViableAltException("", 28, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt24) {
+            switch (alt28) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:257:5: s= break_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:262:5: s= break_stmt
                     {
-                    pushFollow(FOLLOW_break_stmt_in_flow_stmt1119);
+                    pushFollow(FOLLOW_break_stmt_in_flow_stmt1183);
                     s=break_stmt();
 
                     state._fsp--;
@@ -2223,9 +2236,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:258:5: s= continue_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:263:5: s= continue_stmt
                     {
-                    pushFollow(FOLLOW_continue_stmt_in_flow_stmt1127);
+                    pushFollow(FOLLOW_continue_stmt_in_flow_stmt1191);
                     s=continue_stmt();
 
                     state._fsp--;
@@ -2234,9 +2247,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:259:5: s= return_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:264:5: s= return_stmt
                     {
-                    pushFollow(FOLLOW_return_stmt_in_flow_stmt1135);
+                    pushFollow(FOLLOW_return_stmt_in_flow_stmt1199);
                     s=return_stmt();
 
                     state._fsp--;
@@ -2264,15 +2277,15 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "break_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:262:1: break_stmt returns [Term ret] : 'break' ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:267:1: break_stmt returns [Term ret] : 'break' ;
     public final Term break_stmt() throws RecognitionException {
         Term ret = null;
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:263:2: ( 'break' )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:263:5: 'break'
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:268:2: ( 'break' )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:268:5: 'break'
             {
-            match(input,51,FOLLOW_51_in_break_stmt1151); if (state.failed) return ret;
+            match(input,53,FOLLOW_53_in_break_stmt1215); if (state.failed) return ret;
             if ( state.backtracking==0 ) {
               ret = new Break();
             }
@@ -2292,15 +2305,15 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "continue_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:266:1: continue_stmt returns [Term ret] : 'continue' ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:271:1: continue_stmt returns [Term ret] : 'continue' ;
     public final Term continue_stmt() throws RecognitionException {
         Term ret = null;
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:267:2: ( 'continue' )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:267:5: 'continue'
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:272:2: ( 'continue' )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:272:5: 'continue'
             {
-            match(input,52,FOLLOW_52_in_continue_stmt1169); if (state.failed) return ret;
+            match(input,54,FOLLOW_54_in_continue_stmt1233); if (state.failed) return ret;
             if ( state.backtracking==0 ) {
               ret = new Continue();
             }
@@ -2320,7 +2333,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "return_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:270:1: return_stmt returns [Term ret] : 'return' (t= test )? ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:275:1: return_stmt returns [Term ret] : 'return' (t= test )? ;
     public final Term return_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -2328,22 +2341,22 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:271:2: ( 'return' (t= test )? )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:271:5: 'return' (t= test )?
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:276:2: ( 'return' (t= test )? )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:276:5: 'return' (t= test )?
             {
-            match(input,53,FOLLOW_53_in_return_stmt1187); if (state.failed) return ret;
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:271:14: (t= test )?
-            int alt25=2;
-            int LA25_0 = input.LA(1);
+            match(input,55,FOLLOW_55_in_return_stmt1251); if (state.failed) return ret;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:276:14: (t= test )?
+            int alt29=2;
+            int LA29_0 = input.LA(1);
 
-            if ( (LA25_0==NAME||LA25_0==NOT||LA25_0==MINUS||LA25_0==LPAREN||(LA25_0>=INT && LA25_0<=BOOL)) ) {
-                alt25=1;
+            if ( (LA29_0==NAME||LA29_0==NOT||LA29_0==MINUS||LA29_0==LPAREN||(LA29_0>=INT && LA29_0<=EPRIMEBLOCK)) ) {
+                alt29=1;
             }
-            switch (alt25) {
+            switch (alt29) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:271:15: t= test
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:276:15: t= test
                     {
-                    pushFollow(FOLLOW_test_in_return_stmt1192);
+                    pushFollow(FOLLOW_test_in_return_stmt1256);
                     t=test();
 
                     state._fsp--;
@@ -2376,7 +2389,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "compound_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:274:1: compound_stmt returns [Term ret] : (t= if_stmt | t= while_stmt | t= for_stmt | t= funcdef );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:279:1: compound_stmt returns [Term ret] : (t= if_stmt | t= while_stmt | t= for_stmt | t= funcdef );
     public final Term compound_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -2384,42 +2397,42 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:278:2: (t= if_stmt | t= while_stmt | t= for_stmt | t= funcdef )
-            int alt26=4;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:283:2: (t= if_stmt | t= while_stmt | t= for_stmt | t= funcdef )
+            int alt30=4;
             switch ( input.LA(1) ) {
-            case 54:
-                {
-                alt26=1;
-                }
-                break;
             case 56:
                 {
-                alt26=2;
-                }
-                break;
-            case 57:
-                {
-                alt26=3;
+                alt30=1;
                 }
                 break;
             case 58:
                 {
-                alt26=4;
+                alt30=2;
+                }
+                break;
+            case 59:
+                {
+                alt30=3;
+                }
+                break;
+            case 60:
+                {
+                alt30=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return ret;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 26, 0, input);
+                    new NoViableAltException("", 30, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt26) {
+            switch (alt30) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:278:4: t= if_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:283:4: t= if_stmt
                     {
-                    pushFollow(FOLLOW_if_stmt_in_compound_stmt1222);
+                    pushFollow(FOLLOW_if_stmt_in_compound_stmt1286);
                     t=if_stmt();
 
                     state._fsp--;
@@ -2428,9 +2441,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:279:5: t= while_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:284:5: t= while_stmt
                     {
-                    pushFollow(FOLLOW_while_stmt_in_compound_stmt1230);
+                    pushFollow(FOLLOW_while_stmt_in_compound_stmt1294);
                     t=while_stmt();
 
                     state._fsp--;
@@ -2439,9 +2452,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:280:5: t= for_stmt
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:285:5: t= for_stmt
                     {
-                    pushFollow(FOLLOW_for_stmt_in_compound_stmt1238);
+                    pushFollow(FOLLOW_for_stmt_in_compound_stmt1302);
                     t=for_stmt();
 
                     state._fsp--;
@@ -2450,9 +2463,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:281:5: t= funcdef
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:286:5: t= funcdef
                     {
-                    pushFollow(FOLLOW_funcdef_in_compound_stmt1246);
+                    pushFollow(FOLLOW_funcdef_in_compound_stmt1310);
                     t=funcdef();
 
                     state._fsp--;
@@ -2480,7 +2493,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "if_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:284:1: if_stmt returns [Term ret] : 'if' LPAREN t= test RPAREN s= statement ( 'else' e= statement )? ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:289:1: if_stmt returns [Term ret] : 'if' LPAREN t= test RPAREN s= statement ( 'else' e= statement )? ;
     public final Term if_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -2492,35 +2505,35 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:285:2: ( 'if' LPAREN t= test RPAREN s= statement ( 'else' e= statement )? )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:285:4: 'if' LPAREN t= test RPAREN s= statement ( 'else' e= statement )?
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:290:2: ( 'if' LPAREN t= test RPAREN s= statement ( 'else' e= statement )? )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:290:4: 'if' LPAREN t= test RPAREN s= statement ( 'else' e= statement )?
             {
-            match(input,54,FOLLOW_54_in_if_stmt1262); if (state.failed) return ret;
-            match(input,LPAREN,FOLLOW_LPAREN_in_if_stmt1264); if (state.failed) return ret;
-            pushFollow(FOLLOW_test_in_if_stmt1268);
+            match(input,56,FOLLOW_56_in_if_stmt1326); if (state.failed) return ret;
+            match(input,LPAREN,FOLLOW_LPAREN_in_if_stmt1328); if (state.failed) return ret;
+            pushFollow(FOLLOW_test_in_if_stmt1332);
             t=test();
 
             state._fsp--;
             if (state.failed) return ret;
-            match(input,RPAREN,FOLLOW_RPAREN_in_if_stmt1270); if (state.failed) return ret;
-            pushFollow(FOLLOW_statement_in_if_stmt1274);
+            match(input,RPAREN,FOLLOW_RPAREN_in_if_stmt1334); if (state.failed) return ret;
+            pushFollow(FOLLOW_statement_in_if_stmt1338);
             s=statement();
 
             state._fsp--;
             if (state.failed) return ret;
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:285:42: ( 'else' e= statement )?
-            int alt27=2;
-            int LA27_0 = input.LA(1);
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:290:42: ( 'else' e= statement )?
+            int alt31=2;
+            int LA31_0 = input.LA(1);
 
-            if ( (LA27_0==55) ) {
-                alt27=1;
+            if ( (LA31_0==57) ) {
+                alt31=1;
             }
-            switch (alt27) {
+            switch (alt31) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:285:43: 'else' e= statement
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:290:43: 'else' e= statement
                     {
-                    match(input,55,FOLLOW_55_in_if_stmt1277); if (state.failed) return ret;
-                    pushFollow(FOLLOW_statement_in_if_stmt1281);
+                    match(input,57,FOLLOW_57_in_if_stmt1341); if (state.failed) return ret;
+                    pushFollow(FOLLOW_statement_in_if_stmt1345);
                     e=statement();
 
                     state._fsp--;
@@ -2553,7 +2566,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "while_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:289:1: while_stmt returns [Term ret] : 'while' LPAREN t= test RPAREN s= statement ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:294:1: while_stmt returns [Term ret] : 'while' LPAREN t= test RPAREN s= statement ;
     public final Term while_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -2563,18 +2576,18 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:290:2: ( 'while' LPAREN t= test RPAREN s= statement )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:290:4: 'while' LPAREN t= test RPAREN s= statement
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:295:2: ( 'while' LPAREN t= test RPAREN s= statement )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:295:4: 'while' LPAREN t= test RPAREN s= statement
             {
-            match(input,56,FOLLOW_56_in_while_stmt1307); if (state.failed) return ret;
-            match(input,LPAREN,FOLLOW_LPAREN_in_while_stmt1309); if (state.failed) return ret;
-            pushFollow(FOLLOW_test_in_while_stmt1313);
+            match(input,58,FOLLOW_58_in_while_stmt1371); if (state.failed) return ret;
+            match(input,LPAREN,FOLLOW_LPAREN_in_while_stmt1373); if (state.failed) return ret;
+            pushFollow(FOLLOW_test_in_while_stmt1377);
             t=test();
 
             state._fsp--;
             if (state.failed) return ret;
-            match(input,RPAREN,FOLLOW_RPAREN_in_while_stmt1315); if (state.failed) return ret;
-            pushFollow(FOLLOW_statement_in_while_stmt1319);
+            match(input,RPAREN,FOLLOW_RPAREN_in_while_stmt1379); if (state.failed) return ret;
+            pushFollow(FOLLOW_statement_in_while_stmt1383);
             s=statement();
 
             state._fsp--;
@@ -2598,7 +2611,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "for_stmt"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:293:1: for_stmt returns [Term ret] : 'for' LPAREN v= NAME COLON c= var RPAREN s= statement ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:298:1: for_stmt returns [Term ret] : 'for' LPAREN v= NAME COLON c= atom RPAREN s= statement ;
     public final Term for_stmt() throws RecognitionException {
         Term ret = null;
 
@@ -2609,20 +2622,20 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:294:2: ( 'for' LPAREN v= NAME COLON c= var RPAREN s= statement )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:294:4: 'for' LPAREN v= NAME COLON c= var RPAREN s= statement
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:299:2: ( 'for' LPAREN v= NAME COLON c= atom RPAREN s= statement )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:299:4: 'for' LPAREN v= NAME COLON c= atom RPAREN s= statement
             {
-            match(input,57,FOLLOW_57_in_for_stmt1337); if (state.failed) return ret;
-            match(input,LPAREN,FOLLOW_LPAREN_in_for_stmt1339); if (state.failed) return ret;
-            v=(Token)match(input,NAME,FOLLOW_NAME_in_for_stmt1343); if (state.failed) return ret;
-            match(input,COLON,FOLLOW_COLON_in_for_stmt1345); if (state.failed) return ret;
-            pushFollow(FOLLOW_var_in_for_stmt1349);
-            c=var();
+            match(input,59,FOLLOW_59_in_for_stmt1401); if (state.failed) return ret;
+            match(input,LPAREN,FOLLOW_LPAREN_in_for_stmt1403); if (state.failed) return ret;
+            v=(Token)match(input,NAME,FOLLOW_NAME_in_for_stmt1407); if (state.failed) return ret;
+            match(input,COLON,FOLLOW_COLON_in_for_stmt1409); if (state.failed) return ret;
+            pushFollow(FOLLOW_atom_in_for_stmt1413);
+            c=atom();
 
             state._fsp--;
             if (state.failed) return ret;
-            match(input,RPAREN,FOLLOW_RPAREN_in_for_stmt1351); if (state.failed) return ret;
-            pushFollow(FOLLOW_statement_in_for_stmt1355);
+            match(input,RPAREN,FOLLOW_RPAREN_in_for_stmt1415); if (state.failed) return ret;
+            pushFollow(FOLLOW_statement_in_for_stmt1419);
             s=statement();
 
             state._fsp--;
@@ -2646,7 +2659,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "funcdef"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:297:1: funcdef returns [Term ret] : 'function' name= NAME LPAREN (a= NAME ( COMMA a= NAME )* )? RPAREN LCURLY s= statements RCURLY ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:302:1: funcdef returns [Term ret] : 'function' name= NAME LPAREN (a= NAME ( COMMA a= NAME )* )? RPAREN LCURLY s= statements RCURLY ;
     public final Term funcdef() throws RecognitionException {
         Term ret = null;
 
@@ -2659,44 +2672,44 @@ public class stabParser extends Parser {
         	List<String> args = new LinkedList<String>();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:306:2: ( 'function' name= NAME LPAREN (a= NAME ( COMMA a= NAME )* )? RPAREN LCURLY s= statements RCURLY )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:306:4: 'function' name= NAME LPAREN (a= NAME ( COMMA a= NAME )* )? RPAREN LCURLY s= statements RCURLY
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:2: ( 'function' name= NAME LPAREN (a= NAME ( COMMA a= NAME )* )? RPAREN LCURLY s= statements RCURLY )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:4: 'function' name= NAME LPAREN (a= NAME ( COMMA a= NAME )* )? RPAREN LCURLY s= statements RCURLY
             {
-            match(input,58,FOLLOW_58_in_funcdef1383); if (state.failed) return ret;
-            name=(Token)match(input,NAME,FOLLOW_NAME_in_funcdef1387); if (state.failed) return ret;
-            match(input,LPAREN,FOLLOW_LPAREN_in_funcdef1389); if (state.failed) return ret;
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:306:32: (a= NAME ( COMMA a= NAME )* )?
-            int alt29=2;
-            int LA29_0 = input.LA(1);
+            match(input,60,FOLLOW_60_in_funcdef1447); if (state.failed) return ret;
+            name=(Token)match(input,NAME,FOLLOW_NAME_in_funcdef1451); if (state.failed) return ret;
+            match(input,LPAREN,FOLLOW_LPAREN_in_funcdef1453); if (state.failed) return ret;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:32: (a= NAME ( COMMA a= NAME )* )?
+            int alt33=2;
+            int LA33_0 = input.LA(1);
 
-            if ( (LA29_0==NAME) ) {
-                alt29=1;
+            if ( (LA33_0==NAME) ) {
+                alt33=1;
             }
-            switch (alt29) {
+            switch (alt33) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:306:33: a= NAME ( COMMA a= NAME )*
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:33: a= NAME ( COMMA a= NAME )*
                     {
-                    a=(Token)match(input,NAME,FOLLOW_NAME_in_funcdef1394); if (state.failed) return ret;
+                    a=(Token)match(input,NAME,FOLLOW_NAME_in_funcdef1458); if (state.failed) return ret;
                     if ( state.backtracking==0 ) {
                       args.add((a!=null?a.getText():null));
                     }
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:306:61: ( COMMA a= NAME )*
-                    loop28:
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:61: ( COMMA a= NAME )*
+                    loop32:
                     do {
-                        int alt28=2;
-                        int LA28_0 = input.LA(1);
+                        int alt32=2;
+                        int LA32_0 = input.LA(1);
 
-                        if ( (LA28_0==COMMA) ) {
-                            alt28=1;
+                        if ( (LA32_0==COMMA) ) {
+                            alt32=1;
                         }
 
 
-                        switch (alt28) {
+                        switch (alt32) {
                     	case 1 :
-                    	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:306:62: COMMA a= NAME
+                    	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:62: COMMA a= NAME
                     	    {
-                    	    match(input,COMMA,FOLLOW_COMMA_in_funcdef1399); if (state.failed) return ret;
-                    	    a=(Token)match(input,NAME,FOLLOW_NAME_in_funcdef1403); if (state.failed) return ret;
+                    	    match(input,COMMA,FOLLOW_COMMA_in_funcdef1463); if (state.failed) return ret;
+                    	    a=(Token)match(input,NAME,FOLLOW_NAME_in_funcdef1467); if (state.failed) return ret;
                     	    if ( state.backtracking==0 ) {
                     	      args.add((a!=null?a.getText():null));
                     	    }
@@ -2705,7 +2718,7 @@ public class stabParser extends Parser {
                     	    break;
 
                     	default :
-                    	    break loop28;
+                    	    break loop32;
                         }
                     } while (true);
 
@@ -2715,14 +2728,14 @@ public class stabParser extends Parser {
 
             }
 
-            match(input,RPAREN,FOLLOW_RPAREN_in_funcdef1411); if (state.failed) return ret;
-            match(input,LCURLY,FOLLOW_LCURLY_in_funcdef1413); if (state.failed) return ret;
-            pushFollow(FOLLOW_statements_in_funcdef1417);
+            match(input,RPAREN,FOLLOW_RPAREN_in_funcdef1475); if (state.failed) return ret;
+            match(input,LCURLY,FOLLOW_LCURLY_in_funcdef1477); if (state.failed) return ret;
+            pushFollow(FOLLOW_statements_in_funcdef1481);
             s=statements();
 
             state._fsp--;
             if (state.failed) return ret;
-            match(input,RCURLY,FOLLOW_RCURLY_in_funcdef1419); if (state.failed) return ret;
+            match(input,RCURLY,FOLLOW_RCURLY_in_funcdef1483); if (state.failed) return ret;
 
             }
 
@@ -2746,14 +2759,14 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "stab"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:309:1: stab : STAB NEWLINE ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:314:1: stab : STAB NEWLINE ;
     public final void stab() throws RecognitionException {
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:309:6: ( STAB NEWLINE )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:309:8: STAB NEWLINE
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:314:6: ( STAB NEWLINE )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:314:8: STAB NEWLINE
             {
-            match(input,STAB,FOLLOW_STAB_in_stab1429); if (state.failed) return ;
-            match(input,NEWLINE,FOLLOW_NEWLINE_in_stab1431); if (state.failed) return ;
+            match(input,STAB,FOLLOW_STAB_in_stab1493); if (state.failed) return ;
+            match(input,NEWLINE,FOLLOW_NEWLINE_in_stab1495); if (state.failed) return ;
 
             }
 
@@ -2770,7 +2783,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "essencedef"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:311:1: essencedef returns [String v] : ESSENCE ver= version NEWLINE ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:316:1: essencedef returns [String v] : ESSENCE ver= version NEWLINE ;
     public final String essencedef() throws RecognitionException {
         String v = null;
 
@@ -2778,16 +2791,16 @@ public class stabParser extends Parser {
 
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:312:2: ( ESSENCE ver= version NEWLINE )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:312:4: ESSENCE ver= version NEWLINE
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:317:2: ( ESSENCE ver= version NEWLINE )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:317:4: ESSENCE ver= version NEWLINE
             {
-            match(input,ESSENCE,FOLLOW_ESSENCE_in_essencedef1444); if (state.failed) return v;
-            pushFollow(FOLLOW_version_in_essencedef1448);
+            match(input,ESSENCE,FOLLOW_ESSENCE_in_essencedef1508); if (state.failed) return v;
+            pushFollow(FOLLOW_version_in_essencedef1512);
             ver=version();
 
             state._fsp--;
             if (state.failed) return v;
-            match(input,NEWLINE,FOLLOW_NEWLINE_in_essencedef1450); if (state.failed) return v;
+            match(input,NEWLINE,FOLLOW_NEWLINE_in_essencedef1514); if (state.failed) return v;
             if ( state.backtracking==0 ) {
               v = "language ESSENCE\' " + ver;
             }
@@ -2810,58 +2823,58 @@ public class stabParser extends Parser {
     };
 
     // $ANTLR start "augassign"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:315:1: augassign returns [String op] : ( PLUSEQUAL | MINUSEQUAL | MULTEQUAL | DIVEQUAL | MODEQUAL | ASSIGN );
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:320:1: augassign returns [String op] : ( PLUSEQUAL | MINUSEQUAL | MULTEQUAL | DIVEQUAL | MODEQUAL | ASSIGN );
     public final stabParser.augassign_return augassign() throws RecognitionException {
         stabParser.augassign_return retval = new stabParser.augassign_return();
         retval.start = input.LT(1);
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:316:2: ( PLUSEQUAL | MINUSEQUAL | MULTEQUAL | DIVEQUAL | MODEQUAL | ASSIGN )
-            int alt30=6;
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:321:2: ( PLUSEQUAL | MINUSEQUAL | MULTEQUAL | DIVEQUAL | MODEQUAL | ASSIGN )
+            int alt34=6;
             switch ( input.LA(1) ) {
             case PLUSEQUAL:
                 {
-                alt30=1;
+                alt34=1;
                 }
                 break;
             case MINUSEQUAL:
                 {
-                alt30=2;
+                alt34=2;
                 }
                 break;
             case MULTEQUAL:
                 {
-                alt30=3;
+                alt34=3;
                 }
                 break;
             case DIVEQUAL:
                 {
-                alt30=4;
+                alt34=4;
                 }
                 break;
             case MODEQUAL:
                 {
-                alt30=5;
+                alt34=5;
                 }
                 break;
             case ASSIGN:
                 {
-                alt30=6;
+                alt34=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 30, 0, input);
+                    new NoViableAltException("", 34, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt30) {
+            switch (alt34) {
                 case 1 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:316:4: PLUSEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:321:4: PLUSEQUAL
                     {
-                    match(input,PLUSEQUAL,FOLLOW_PLUSEQUAL_in_augassign1467); if (state.failed) return retval;
+                    match(input,PLUSEQUAL,FOLLOW_PLUSEQUAL_in_augassign1531); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.op = "+=";
                     }
@@ -2869,9 +2882,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:317:5: MINUSEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:322:5: MINUSEQUAL
                     {
-                    match(input,MINUSEQUAL,FOLLOW_MINUSEQUAL_in_augassign1476); if (state.failed) return retval;
+                    match(input,MINUSEQUAL,FOLLOW_MINUSEQUAL_in_augassign1540); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.op = "-=";
                     }
@@ -2879,9 +2892,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:318:5: MULTEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:323:5: MULTEQUAL
                     {
-                    match(input,MULTEQUAL,FOLLOW_MULTEQUAL_in_augassign1485); if (state.failed) return retval;
+                    match(input,MULTEQUAL,FOLLOW_MULTEQUAL_in_augassign1549); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.op = "*=";
                     }
@@ -2889,9 +2902,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:319:5: DIVEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:324:5: DIVEQUAL
                     {
-                    match(input,DIVEQUAL,FOLLOW_DIVEQUAL_in_augassign1494); if (state.failed) return retval;
+                    match(input,DIVEQUAL,FOLLOW_DIVEQUAL_in_augassign1558); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.op = "/=";
                     }
@@ -2899,9 +2912,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:320:5: MODEQUAL
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:325:5: MODEQUAL
                     {
-                    match(input,MODEQUAL,FOLLOW_MODEQUAL_in_augassign1503); if (state.failed) return retval;
+                    match(input,MODEQUAL,FOLLOW_MODEQUAL_in_augassign1567); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.op = "%=";
                     }
@@ -2909,9 +2922,9 @@ public class stabParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:321:5: ASSIGN
+                    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:326:5: ASSIGN
                     {
-                    match(input,ASSIGN,FOLLOW_ASSIGN_in_augassign1512); if (state.failed) return retval;
+                    match(input,ASSIGN,FOLLOW_ASSIGN_in_augassign1576); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                       retval.op = "=";
                     }
@@ -2935,7 +2948,7 @@ public class stabParser extends Parser {
 
 
     // $ANTLR start "version"
-    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:324:1: version returns [String ret] : s= ( INT | NAME ) (s= DOT s= ( INT | NAME ) )* ;
+    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:329:1: version returns [String ret] : s= ( INT | NAME ) (s= DOT s= ( INT | NAME ) )* ;
     public final String version() throws RecognitionException {
         String ret = null;
 
@@ -2945,8 +2958,8 @@ public class stabParser extends Parser {
         	StringBuffer sb = new StringBuffer();
 
         try {
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:331:2: (s= ( INT | NAME ) (s= DOT s= ( INT | NAME ) )* )
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:331:4: s= ( INT | NAME ) (s= DOT s= ( INT | NAME ) )*
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:336:2: (s= ( INT | NAME ) (s= DOT s= ( INT | NAME ) )* )
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:336:4: s= ( INT | NAME ) (s= DOT s= ( INT | NAME ) )*
             {
             s=(Token)input.LT(1);
             if ( input.LA(1)==NAME||input.LA(1)==INT ) {
@@ -2962,22 +2975,22 @@ public class stabParser extends Parser {
             if ( state.backtracking==0 ) {
               sb.append((s!=null?s.getText():null));
             }
-            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:331:39: (s= DOT s= ( INT | NAME ) )*
-            loop31:
+            // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:336:39: (s= DOT s= ( INT | NAME ) )*
+            loop35:
             do {
-                int alt31=2;
-                int LA31_0 = input.LA(1);
+                int alt35=2;
+                int LA35_0 = input.LA(1);
 
-                if ( (LA31_0==DOT) ) {
-                    alt31=1;
+                if ( (LA35_0==DOT) ) {
+                    alt35=1;
                 }
 
 
-                switch (alt31) {
+                switch (alt35) {
             	case 1 :
-            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:331:40: s= DOT s= ( INT | NAME )
+            	    // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:336:40: s= DOT s= ( INT | NAME )
             	    {
-            	    s=(Token)match(input,DOT,FOLLOW_DOT_in_version1553); if (state.failed) return ret;
+            	    s=(Token)match(input,DOT,FOLLOW_DOT_in_version1617); if (state.failed) return ret;
             	    if ( state.backtracking==0 ) {
             	      sb.append((s!=null?s.getText():null));
             	    }
@@ -3000,7 +3013,7 @@ public class stabParser extends Parser {
             	    break;
 
             	default :
-            	    break loop31;
+            	    break loop35;
                 }
             } while (true);
 
@@ -3025,8 +3038,8 @@ public class stabParser extends Parser {
 
     // $ANTLR start synpred1_stab
     public final void synpred1_stab_fragment() throws RecognitionException {   
-        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:75:4: ( stabblock )
-        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:75:5: stabblock
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:74:4: ( stabblock )
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:74:5: stabblock
         {
         pushFollow(FOLLOW_stabblock_in_synpred1_stab166);
         stabblock();
@@ -3040,16 +3053,16 @@ public class stabParser extends Parser {
 
     // $ANTLR start synpred2_stab
     public final void synpred2_stab_fragment() throws RecognitionException {   
-        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:4: ( NAME augassign test )
-        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:5: NAME augassign test
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:158:4: ( NAME augassign test )
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:158:5: NAME augassign test
         {
-        match(input,NAME,FOLLOW_NAME_in_synpred2_stab479); if (state.failed) return ;
-        pushFollow(FOLLOW_augassign_in_synpred2_stab481);
+        match(input,NAME,FOLLOW_NAME_in_synpred2_stab481); if (state.failed) return ;
+        pushFollow(FOLLOW_augassign_in_synpred2_stab483);
         augassign();
 
         state._fsp--;
         if (state.failed) return ;
-        pushFollow(FOLLOW_test_in_synpred2_stab483);
+        pushFollow(FOLLOW_test_in_synpred2_stab485);
         test();
 
         state._fsp--;
@@ -3061,23 +3074,23 @@ public class stabParser extends Parser {
 
     // $ANTLR start synpred3_stab
     public final void synpred3_stab_fragment() throws RecognitionException {   
-        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:160:4: ( NAME LBRACK test RBRACK augassign test )
-        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:160:5: NAME LBRACK test RBRACK augassign test
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:4: ( NAME LBRACK test RBRACK augassign test )
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:159:5: NAME LBRACK test RBRACK augassign test
         {
-        match(input,NAME,FOLLOW_NAME_in_synpred3_stab506); if (state.failed) return ;
-        match(input,LBRACK,FOLLOW_LBRACK_in_synpred3_stab508); if (state.failed) return ;
-        pushFollow(FOLLOW_test_in_synpred3_stab510);
+        match(input,NAME,FOLLOW_NAME_in_synpred3_stab508); if (state.failed) return ;
+        match(input,LBRACK,FOLLOW_LBRACK_in_synpred3_stab510); if (state.failed) return ;
+        pushFollow(FOLLOW_test_in_synpred3_stab512);
         test();
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,RBRACK,FOLLOW_RBRACK_in_synpred3_stab512); if (state.failed) return ;
-        pushFollow(FOLLOW_augassign_in_synpred3_stab514);
+        match(input,RBRACK,FOLLOW_RBRACK_in_synpred3_stab514); if (state.failed) return ;
+        pushFollow(FOLLOW_augassign_in_synpred3_stab516);
         augassign();
 
         state._fsp--;
         if (state.failed) return ;
-        pushFollow(FOLLOW_test_in_synpred3_stab516);
+        pushFollow(FOLLOW_test_in_synpred3_stab518);
         test();
 
         state._fsp--;
@@ -3087,6 +3100,82 @@ public class stabParser extends Parser {
     }
     // $ANTLR end synpred3_stab
 
+    // $ANTLR start synpred4_stab
+    public final void synpred4_stab_fragment() throws RecognitionException {   
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:4: ( var DOT NAME LPAREN ( args )? RPAREN )
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:5: var DOT NAME LPAREN ( args )? RPAREN
+        {
+        pushFollow(FOLLOW_var_in_synpred4_stab927);
+        var();
+
+        state._fsp--;
+        if (state.failed) return ;
+        match(input,DOT,FOLLOW_DOT_in_synpred4_stab929); if (state.failed) return ;
+        match(input,NAME,FOLLOW_NAME_in_synpred4_stab931); if (state.failed) return ;
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred4_stab933); if (state.failed) return ;
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:25: ( args )?
+        int alt36=2;
+        int LA36_0 = input.LA(1);
+
+        if ( (LA36_0==NAME||LA36_0==NOT||LA36_0==MINUS||LA36_0==LPAREN||(LA36_0>=INT && LA36_0<=EPRIMEBLOCK)) ) {
+            alt36=1;
+        }
+        switch (alt36) {
+            case 1 :
+                // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:223:25: args
+                {
+                pushFollow(FOLLOW_args_in_synpred4_stab935);
+                args();
+
+                state._fsp--;
+                if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred4_stab938); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred4_stab
+
+    // $ANTLR start synpred5_stab
+    public final void synpred5_stab_fragment() throws RecognitionException {   
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:4: ( NAME LPAREN ( args )? RPAREN )
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:5: NAME LPAREN ( args )? RPAREN
+        {
+        match(input,NAME,FOLLOW_NAME_in_synpred5_stab971); if (state.failed) return ;
+        match(input,LPAREN,FOLLOW_LPAREN_in_synpred5_stab973); if (state.failed) return ;
+        // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:17: ( args )?
+        int alt37=2;
+        int LA37_0 = input.LA(1);
+
+        if ( (LA37_0==NAME||LA37_0==NOT||LA37_0==MINUS||LA37_0==LPAREN||(LA37_0>=INT && LA37_0<=EPRIMEBLOCK)) ) {
+            alt37=1;
+        }
+        switch (alt37) {
+            case 1 :
+                // /Users/chris/Documents/Computer Science/SH Project/code/antlr/stab.g:225:17: args
+                {
+                pushFollow(FOLLOW_args_in_synpred5_stab975);
+                args();
+
+                state._fsp--;
+                if (state.failed) return ;
+
+                }
+                break;
+
+        }
+
+        match(input,RPAREN,FOLLOW_RPAREN_in_synpred5_stab978); if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred5_stab
+
     // Delegated rules
 
     public final boolean synpred2_stab() {
@@ -3094,6 +3183,34 @@ public class stabParser extends Parser {
         int start = input.mark();
         try {
             synpred2_stab_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred4_stab() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred4_stab_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred5_stab() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred5_stab_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -3133,165 +3250,350 @@ public class stabParser extends Parser {
     }
 
 
+    protected DFA11 dfa11 = new DFA11(this);
+    protected DFA23 dfa23 = new DFA23(this);
+    static final String DFA11_eotS =
+        "\12\uffff";
+    static final String DFA11_eofS =
+        "\12\uffff";
+    static final String DFA11_minS =
+        "\1\13\1\0\10\uffff";
+    static final String DFA11_maxS =
+        "\1\42\1\0\10\uffff";
+    static final String DFA11_acceptS =
+        "\2\uffff\1\3\5\uffff\1\1\1\2";
+    static final String DFA11_specialS =
+        "\1\uffff\1\0\10\uffff}>";
+    static final String[] DFA11_transitionS = {
+            "\1\1\4\uffff\1\2\7\uffff\1\2\4\uffff\1\2\2\uffff\3\2",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
+    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
+    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
+    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
+    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
+    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
+    static final short[][] DFA11_transition;
+
+    static {
+        int numStates = DFA11_transitionS.length;
+        DFA11_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
+        }
+    }
+
+    class DFA11 extends DFA {
+
+        public DFA11(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 11;
+            this.eot = DFA11_eot;
+            this.eof = DFA11_eof;
+            this.min = DFA11_min;
+            this.max = DFA11_max;
+            this.accept = DFA11_accept;
+            this.special = DFA11_special;
+            this.transition = DFA11_transition;
+        }
+        public String getDescription() {
+            return "157:1: expr_stmt returns [Term ret] : ( ( NAME augassign test )=>v= NAME o= augassign r= test | ( NAME LBRACK test RBRACK augassign test )=>v= NAME LBRACK t= test RBRACK o= augassign r= test | t= test );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA11_1 = input.LA(1);
+
+                         
+                        int index11_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred2_stab()) ) {s = 8;}
+
+                        else if ( (synpred3_stab()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index11_1);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 11, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
+    static final String DFA23_eotS =
+        "\12\uffff";
+    static final String DFA23_eofS =
+        "\12\uffff";
+    static final String DFA23_minS =
+        "\1\13\1\uffff\1\0\7\uffff";
+    static final String DFA23_maxS =
+        "\1\42\1\uffff\1\0\7\uffff";
+    static final String DFA23_acceptS =
+        "\1\uffff\1\1\1\uffff\1\4\1\5\2\uffff\1\2\1\3\1\6";
+    static final String DFA23_specialS =
+        "\2\uffff\1\0\7\uffff}>";
+    static final String[] DFA23_transitionS = {
+            "\1\2\14\uffff\1\3\4\uffff\1\1\2\uffff\3\4",
+            "",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA23_eot = DFA.unpackEncodedString(DFA23_eotS);
+    static final short[] DFA23_eof = DFA.unpackEncodedString(DFA23_eofS);
+    static final char[] DFA23_min = DFA.unpackEncodedStringToUnsignedChars(DFA23_minS);
+    static final char[] DFA23_max = DFA.unpackEncodedStringToUnsignedChars(DFA23_maxS);
+    static final short[] DFA23_accept = DFA.unpackEncodedString(DFA23_acceptS);
+    static final short[] DFA23_special = DFA.unpackEncodedString(DFA23_specialS);
+    static final short[][] DFA23_transition;
+
+    static {
+        int numStates = DFA23_transitionS.length;
+        DFA23_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA23_transition[i] = DFA.unpackEncodedString(DFA23_transitionS[i]);
+        }
+    }
+
+    class DFA23 extends DFA {
+
+        public DFA23(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 23;
+            this.eot = DFA23_eot;
+            this.eof = DFA23_eof;
+            this.min = DFA23_min;
+            this.max = DFA23_max;
+            this.accept = DFA23_accept;
+            this.special = DFA23_special;
+            this.transition = DFA23_transition;
+        }
+        public String getDescription() {
+            return "221:1: atom returns [Exp ret] : ( LPAREN (t= test )? RPAREN | ( var DOT NAME LPAREN ( args )? RPAREN )=>o= var DOT m= NAME LPAREN (a= args )? RPAREN | ( NAME LPAREN ( args )? RPAREN )=>n= NAME LPAREN (a= args )? RPAREN | MINUS i= INT | v= value | v= var );";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA23_2 = input.LA(1);
+
+                         
+                        int index23_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred4_stab()) ) {s = 7;}
+
+                        else if ( (synpred5_stab()) ) {s = 8;}
+
+                        else if ( (true) ) {s = 9;}
+
+                         
+                        input.seek(index23_2);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 23, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
  
 
     public static final BitSet FOLLOW_rules_in_program44 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_stab_in_rules60 = new BitSet(new long[]{0x0778001190808490L});
-    public static final BitSet FOLLOW_statements_in_rules64 = new BitSet(new long[]{0x0778001190808490L});
+    public static final BitSet FOLLOW_stab_in_rules60 = new BitSet(new long[]{0x1DE0004721010910L});
+    public static final BitSet FOLLOW_statements_in_rules64 = new BitSet(new long[]{0x0000004000000002L});
     public static final BitSet FOLLOW_essence_in_rules68 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_essence_in_rules79 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_essencedef_in_essence102 = new BitSet(new long[]{0x07FFFFFFFFFFFFF0L});
+    public static final BitSet FOLLOW_essence_in_rules80 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_essencedef_in_essence102 = new BitSet(new long[]{0x1FFFFFFFFFFFFFD0L});
     public static final BitSet FOLLOW_estatements_in_essence106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_estatement_in_estatements139 = new BitSet(new long[]{0x07FFFFFFFFFFFFF2L});
+    public static final BitSet FOLLOW_estatement_in_estatements139 = new BitSet(new long[]{0x1FFFFFFFFFFFFFD2L});
     public static final BitSet FOLLOW_stabblock_in_estatement173 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_essencecode_in_estatement182 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_something_in_essencecode209 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_something242 = new BitSet(new long[]{0x07FFFFFFFFFFFFF0L});
-    public static final BitSet FOLLOW_NEWLINE_in_something252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SBEGIN_in_stabblock273 = new BitSet(new long[]{0x07780001908084D0L});
-    public static final BitSet FOLLOW_statements_in_stabblock277 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_SEND_in_stabblock279 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_statement_in_statements308 = new BitSet(new long[]{0x0778000190808492L});
-    public static final BitSet FOLLOW_LCURLY_in_statement327 = new BitSet(new long[]{0x0778000190808590L});
-    public static final BitSet FOLLOW_statements_in_statement331 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RCURLY_in_statement333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_simple_stmt_in_statement345 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_compound_stmt_in_statement357 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_statement367 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_small_stmt_in_simple_stmt402 = new BitSet(new long[]{0x0000000000000210L});
-    public static final BitSet FOLLOW_SEMI_in_simple_stmt414 = new BitSet(new long[]{0x0038000190808400L});
-    public static final BitSet FOLLOW_small_stmt_in_simple_stmt418 = new BitSet(new long[]{0x0000000000000210L});
-    public static final BitSet FOLLOW_SEMI_in_simple_stmt425 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_NEWLINE_in_simple_stmt429 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expr_stmt_in_small_stmt453 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_flow_stmt_in_small_stmt462 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_expr_stmt490 = new BitSet(new long[]{0x000007E000000000L});
-    public static final BitSet FOLLOW_augassign_in_expr_stmt494 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_expr_stmt498 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_expr_stmt521 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_LBRACK_in_expr_stmt523 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_expr_stmt527 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_RBRACK_in_expr_stmt529 = new BitSet(new long[]{0x000007E000000000L});
-    public static final BitSet FOLLOW_augassign_in_expr_stmt531 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_expr_stmt533 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_test_in_expr_stmt542 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_and_test_in_test577 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_OR_in_test582 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_and_test_in_test586 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_not_test_in_and_test617 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_AND_in_and_test622 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_not_test_in_and_test626 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_NOT_in_not_test646 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_not_test_in_not_test650 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_comparison_in_not_test660 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_arith_expr_in_comparison689 = new BitSet(new long[]{0x00000000003F0002L});
-    public static final BitSet FOLLOW_comp_op_in_comparison696 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_arith_expr_in_comparison700 = new BitSet(new long[]{0x00000000003F0002L});
-    public static final BitSet FOLLOW_LESS_in_comp_op720 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GREATER_in_comp_op727 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUALS_in_comp_op734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GREATEREQUAL_in_comp_op741 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LESSEQUAL_in_comp_op748 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTEQUAL_in_comp_op755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_term_in_arith_expr784 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_set_in_arith_expr791 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_term_in_arith_expr799 = new BitSet(new long[]{0x0000000000C00002L});
-    public static final BitSet FOLLOW_factor_in_term829 = new BitSet(new long[]{0x0000000007000002L});
-    public static final BitSet FOLLOW_set_in_term836 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_factor_in_term851 = new BitSet(new long[]{0x0000000007000002L});
-    public static final BitSet FOLLOW_atom_in_factor873 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_POW_in_factor878 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_factor_in_factor882 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_atom902 = new BitSet(new long[]{0x00000001B0808400L});
-    public static final BitSet FOLLOW_test_in_atom907 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RPAREN_in_atom911 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_atom920 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_LPAREN_in_atom922 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_args_in_atom926 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RPAREN_in_atom928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_atom941 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_DOT_in_atom943 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_NAME_in_atom947 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_LPAREN_in_atom949 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_args_in_atom953 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RPAREN_in_atom955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_atom966 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_INT_in_atom970 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_value_in_atom979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_var_in_atom988 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_value1008 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOL_in_value1015 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_var1035 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_var1044 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_LBRACK_in_var1046 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_var1050 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_RBRACK_in_var1052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_test_in_args1082 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_COMMA_in_args1087 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_args1091 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_break_stmt_in_flow_stmt1119 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_continue_stmt_in_flow_stmt1127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_return_stmt_in_flow_stmt1135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_break_stmt1151 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_continue_stmt1169 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_return_stmt1187 = new BitSet(new long[]{0x0000000190808402L});
-    public static final BitSet FOLLOW_test_in_return_stmt1192 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_if_stmt_in_compound_stmt1222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_while_stmt_in_compound_stmt1230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_for_stmt_in_compound_stmt1238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_funcdef_in_compound_stmt1246 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_if_stmt1262 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_LPAREN_in_if_stmt1264 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_if_stmt1268 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RPAREN_in_if_stmt1270 = new BitSet(new long[]{0x0778000190808490L});
-    public static final BitSet FOLLOW_statement_in_if_stmt1274 = new BitSet(new long[]{0x0080000000000002L});
-    public static final BitSet FOLLOW_55_in_if_stmt1277 = new BitSet(new long[]{0x0778000190808490L});
-    public static final BitSet FOLLOW_statement_in_if_stmt1281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_while_stmt1307 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_LPAREN_in_while_stmt1309 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_while_stmt1313 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RPAREN_in_while_stmt1315 = new BitSet(new long[]{0x0778000190808490L});
-    public static final BitSet FOLLOW_statement_in_while_stmt1319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_57_in_for_stmt1337 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_LPAREN_in_for_stmt1339 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_NAME_in_for_stmt1343 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_COLON_in_for_stmt1345 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_var_in_for_stmt1349 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_RPAREN_in_for_stmt1351 = new BitSet(new long[]{0x0778000190808490L});
-    public static final BitSet FOLLOW_statement_in_for_stmt1355 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_funcdef1383 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_NAME_in_funcdef1387 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_LPAREN_in_funcdef1389 = new BitSet(new long[]{0x0000000020000400L});
-    public static final BitSet FOLLOW_NAME_in_funcdef1394 = new BitSet(new long[]{0x0000000220000000L});
-    public static final BitSet FOLLOW_COMMA_in_funcdef1399 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_NAME_in_funcdef1403 = new BitSet(new long[]{0x0000000220000000L});
-    public static final BitSet FOLLOW_RPAREN_in_funcdef1411 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_LCURLY_in_funcdef1413 = new BitSet(new long[]{0x0778000190808590L});
-    public static final BitSet FOLLOW_statements_in_funcdef1417 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_RCURLY_in_funcdef1419 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STAB_in_stab1429 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_NEWLINE_in_stab1431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ESSENCE_in_essencedef1444 = new BitSet(new long[]{0x0000000080000400L});
-    public static final BitSet FOLLOW_version_in_essencedef1448 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_NEWLINE_in_essencedef1450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLUSEQUAL_in_augassign1467 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUSEQUAL_in_augassign1476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MULTEQUAL_in_augassign1485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DIVEQUAL_in_augassign1494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MODEQUAL_in_augassign1503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ASSIGN_in_augassign1512 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_version1542 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_DOT_in_version1553 = new BitSet(new long[]{0x0000000080000400L});
-    public static final BitSet FOLLOW_set_in_version1559 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_set_in_something242 = new BitSet(new long[]{0x1FFFFFFFFFFFFFD0L});
+    public static final BitSet FOLLOW_NEWLINE_in_something254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SBEGIN_in_stabblock275 = new BitSet(new long[]{0x1DE0000721010990L});
+    public static final BitSet FOLLOW_statements_in_stabblock279 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_SEND_in_stabblock281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_statement_in_statements310 = new BitSet(new long[]{0x1DE0000721010912L});
+    public static final BitSet FOLLOW_LCURLY_in_statement329 = new BitSet(new long[]{0x1DE0000721010B10L});
+    public static final BitSet FOLLOW_statements_in_statement333 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_RCURLY_in_statement335 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_simple_stmt_in_statement347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compound_stmt_in_statement359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_statement369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_small_stmt_in_simple_stmt404 = new BitSet(new long[]{0x0000000000000410L});
+    public static final BitSet FOLLOW_SEMI_in_simple_stmt416 = new BitSet(new long[]{0x00E0000721010800L});
+    public static final BitSet FOLLOW_small_stmt_in_simple_stmt420 = new BitSet(new long[]{0x0000000000000410L});
+    public static final BitSet FOLLOW_SEMI_in_simple_stmt427 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_NEWLINE_in_simple_stmt431 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expr_stmt_in_small_stmt455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_flow_stmt_in_small_stmt464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_expr_stmt492 = new BitSet(new long[]{0x00001F8000000000L});
+    public static final BitSet FOLLOW_augassign_in_expr_stmt496 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_expr_stmt500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_expr_stmt525 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_LBRACK_in_expr_stmt527 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_expr_stmt531 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_RBRACK_in_expr_stmt533 = new BitSet(new long[]{0x00001F8000000000L});
+    public static final BitSet FOLLOW_augassign_in_expr_stmt537 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_expr_stmt541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_test_in_expr_stmt550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_and_test_in_test585 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_OR_in_test590 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_and_test_in_test594 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_not_test_in_and_test625 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_AND_in_and_test630 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_not_test_in_and_test634 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_NOT_in_not_test654 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_not_test_in_not_test658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_comparison_in_not_test668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_arith_expr_in_comparison697 = new BitSet(new long[]{0x00000000007E0002L});
+    public static final BitSet FOLLOW_comp_op_in_comparison704 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_arith_expr_in_comparison708 = new BitSet(new long[]{0x00000000007E0002L});
+    public static final BitSet FOLLOW_LESS_in_comp_op728 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GREATER_in_comp_op735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUALS_in_comp_op742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GREATEREQUAL_in_comp_op749 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LESSEQUAL_in_comp_op756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTEQUAL_in_comp_op763 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_term_in_arith_expr792 = new BitSet(new long[]{0x0000000001800002L});
+    public static final BitSet FOLLOW_set_in_arith_expr799 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_term_in_arith_expr807 = new BitSet(new long[]{0x0000000001800002L});
+    public static final BitSet FOLLOW_factor_in_term837 = new BitSet(new long[]{0x000000000E000002L});
+    public static final BitSet FOLLOW_set_in_term844 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_factor_in_term859 = new BitSet(new long[]{0x000000000E000002L});
+    public static final BitSet FOLLOW_atom_in_factor881 = new BitSet(new long[]{0x0000000010000002L});
+    public static final BitSet FOLLOW_POW_in_factor886 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_factor_in_factor890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_atom910 = new BitSet(new long[]{0x0000000761010800L});
+    public static final BitSet FOLLOW_test_in_atom915 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_atom919 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_var_in_atom944 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_DOT_in_atom946 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_NAME_in_atom950 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_atom952 = new BitSet(new long[]{0x0000000761010800L});
+    public static final BitSet FOLLOW_args_in_atom956 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_atom959 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_atom984 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_atom986 = new BitSet(new long[]{0x0000000761010800L});
+    public static final BitSet FOLLOW_args_in_atom990 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_atom993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_atom1004 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_INT_in_atom1008 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_value_in_atom1017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_var_in_atom1026 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_value1046 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOL_in_value1055 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EPRIMEBLOCK_in_value1068 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_var1094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_var1103 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_LBRACK_in_var1106 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_var1110 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_RBRACK_in_var1112 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_test_in_args1146 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_COMMA_in_args1151 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_args1155 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_break_stmt_in_flow_stmt1183 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_continue_stmt_in_flow_stmt1191 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_return_stmt_in_flow_stmt1199 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_break_stmt1215 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_continue_stmt1233 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_return_stmt1251 = new BitSet(new long[]{0x0000000721010802L});
+    public static final BitSet FOLLOW_test_in_return_stmt1256 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_if_stmt_in_compound_stmt1286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_while_stmt_in_compound_stmt1294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_for_stmt_in_compound_stmt1302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_funcdef_in_compound_stmt1310 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_if_stmt1326 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_if_stmt1328 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_if_stmt1332 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_if_stmt1334 = new BitSet(new long[]{0x1DE0000721010910L});
+    public static final BitSet FOLLOW_statement_in_if_stmt1338 = new BitSet(new long[]{0x0200000000000002L});
+    public static final BitSet FOLLOW_57_in_if_stmt1341 = new BitSet(new long[]{0x1DE0000721010910L});
+    public static final BitSet FOLLOW_statement_in_if_stmt1345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_58_in_while_stmt1371 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_while_stmt1373 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_while_stmt1377 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_while_stmt1379 = new BitSet(new long[]{0x1DE0000721010910L});
+    public static final BitSet FOLLOW_statement_in_while_stmt1383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_59_in_for_stmt1401 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_for_stmt1403 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_NAME_in_for_stmt1407 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_COLON_in_for_stmt1409 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_atom_in_for_stmt1413 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_for_stmt1415 = new BitSet(new long[]{0x1DE0000721010910L});
+    public static final BitSet FOLLOW_statement_in_for_stmt1419 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_funcdef1447 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_NAME_in_funcdef1451 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_funcdef1453 = new BitSet(new long[]{0x0000000040000800L});
+    public static final BitSet FOLLOW_NAME_in_funcdef1458 = new BitSet(new long[]{0x0000000840000000L});
+    public static final BitSet FOLLOW_COMMA_in_funcdef1463 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_NAME_in_funcdef1467 = new BitSet(new long[]{0x0000000840000000L});
+    public static final BitSet FOLLOW_RPAREN_in_funcdef1475 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_LCURLY_in_funcdef1477 = new BitSet(new long[]{0x1DE0000721010B10L});
+    public static final BitSet FOLLOW_statements_in_funcdef1481 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_RCURLY_in_funcdef1483 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STAB_in_stab1493 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_NEWLINE_in_stab1495 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ESSENCE_in_essencedef1508 = new BitSet(new long[]{0x0000000100000800L});
+    public static final BitSet FOLLOW_version_in_essencedef1512 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_NEWLINE_in_essencedef1514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLUSEQUAL_in_augassign1531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUSEQUAL_in_augassign1540 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MULTEQUAL_in_augassign1549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DIVEQUAL_in_augassign1558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MODEQUAL_in_augassign1567 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ASSIGN_in_augassign1576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_version1606 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_DOT_in_version1617 = new BitSet(new long[]{0x0000000100000800L});
+    public static final BitSet FOLLOW_set_in_version1623 = new BitSet(new long[]{0x0000000080000002L});
     public static final BitSet FOLLOW_stabblock_in_synpred1_stab166 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_synpred2_stab479 = new BitSet(new long[]{0x000007E000000000L});
-    public static final BitSet FOLLOW_augassign_in_synpred2_stab481 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_synpred2_stab483 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_synpred3_stab506 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_LBRACK_in_synpred3_stab508 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_synpred3_stab510 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_RBRACK_in_synpred3_stab512 = new BitSet(new long[]{0x000007E000000000L});
-    public static final BitSet FOLLOW_augassign_in_synpred3_stab514 = new BitSet(new long[]{0x0000000190808400L});
-    public static final BitSet FOLLOW_test_in_synpred3_stab516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_synpred2_stab481 = new BitSet(new long[]{0x00001F8000000000L});
+    public static final BitSet FOLLOW_augassign_in_synpred2_stab483 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_synpred2_stab485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_synpred3_stab508 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_LBRACK_in_synpred3_stab510 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_synpred3_stab512 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_RBRACK_in_synpred3_stab514 = new BitSet(new long[]{0x00001F8000000000L});
+    public static final BitSet FOLLOW_augassign_in_synpred3_stab516 = new BitSet(new long[]{0x0000000721010800L});
+    public static final BitSet FOLLOW_test_in_synpred3_stab518 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_var_in_synpred4_stab927 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_DOT_in_synpred4_stab929 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_NAME_in_synpred4_stab931 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred4_stab933 = new BitSet(new long[]{0x0000000761010800L});
+    public static final BitSet FOLLOW_args_in_synpred4_stab935 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred4_stab938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_synpred5_stab971 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_LPAREN_in_synpred5_stab973 = new BitSet(new long[]{0x0000000761010800L});
+    public static final BitSet FOLLOW_args_in_synpred5_stab975 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_RPAREN_in_synpred5_stab978 = new BitSet(new long[]{0x0000000000000002L});
 
 }

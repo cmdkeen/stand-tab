@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import uk.ac.stand.antlr.DrawFunction;
-import uk.ac.stand.antlr.FakeDraw;
 import uk.ac.stand.impl.Competition;
 import uk.ac.stand.testing.Simulation;
 
@@ -38,8 +36,9 @@ public class DrawTabGen extends JPanel implements ActionListener, ListSelectionL
 		generateRound.addActionListener(this);
 		generateRound.setEnabled(false);
 		
-		methods = new JList(FakeDraw.draws);
-		methods.addListSelectionListener(this);
+		//TODO DISS replace
+		//methods = new JList(FakeDraw.draws);
+		//methods.addListSelectionListener(this);
 		
 		generateResults = new JButton("Generate Results");
 		generateResults.setActionCommand("genResults");
@@ -65,8 +64,9 @@ public class DrawTabGen extends JPanel implements ActionListener, ListSelectionL
 			row++; //Row 0 is for round 1
 			
 			try{
-				DrawFunction fd = Competition.getInstance().getDrawFunction((String) methods.getSelectedValue());
-				Competition.getInstance().addDraw(row, fd.doDraw(row));
+				//TODO DISS fill in
+				//DrawFunction fd = Competition.getInstance().getDrawFunction((String) methods.getSelectedValue());
+				//Competition.getInstance().addDraw(row, fd.doDraw(row));
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(this,
 					    "Error:\n" + ex.getMessage(),

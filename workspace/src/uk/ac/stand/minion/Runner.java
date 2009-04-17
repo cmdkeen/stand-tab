@@ -13,7 +13,7 @@ import translator.solver.Minion;
 // Initial code from Andrea Rendl
 public class Runner {
 
-	private String minionOutputFileName = "out.chris";
+	private String minionOutputFileName = "StAnd.minion";
 
 	private String minionExecPath = System.getProperty("user.dir") + File.separator +"minion";
 
@@ -109,7 +109,7 @@ public class Runner {
 		return true;
 	}
 
-	protected boolean toMinion(String s) {
+	protected boolean toMinion() {
 
 		this.solver = new Minion();
 
